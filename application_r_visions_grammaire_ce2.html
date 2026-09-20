@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entraînement Grammaire CE2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-blue-50 min-h-screen font-sans text-gray-800">
+
+    <div class="max-w-3xl mx-auto p-4 md:p-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-600 mb-2">Défi Grammaire CE2</h1>
+            <p class="text-gray-600">La ponctuation, les types et les formes de phrases</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="flex justify-center space-x-4 mb-8">
+            <button onclick="showTab('revisions')" id="btn-revisions" class="px-6 py-2 rounded-full font-semibold transition-colors bg-blue-600 text-white shadow-md">
+                📖 Espace Révisions
+            </button>
+            <button onclick="showTab('entrainement')" id="btn-entrainement" class="px-6 py-2 rounded-full font-semibold transition-colors bg-white text-blue-600 shadow-md hover:bg-blue-50">
+                🎯 Entraînement
+            </button>
+        </nav>
+
+        <!-- Section Révisions -->
+        <div id="revisions" class="fade-in space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-yellow-400 hover:shadow-md transition">
+                <h2 class="text-2xl font-bold text-gray-700 mb-3">G1 - La ponctuation</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Le point (.)</strong> : termine une phrase qui donne une information.</li>
+                    <li><strong>Le point d'interrogation (?)</strong> : termine une phrase qui pose une question.</li>
+                    <li><strong>Le point d'exclamation (!)</strong> : termine une phrase qui donne un ordre, exprime la surprise, la joie, la colère.</li>
+                    <li>À l'intérieur : la <strong>virgule (,)</strong> sépare des mots, les <strong>guillemets (« »)</strong> et <strong>tirets (-)</strong> font parler quelqu'un.</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-400 hover:shadow-md transition">
+                <h2 class="text-2xl font-bold text-gray-700 mb-3">G2 - Les types de phrases</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Phrase déclarative</strong> : Donne une information (ex: <em>Le maître explique.</em>)</li>
+                    <li><strong>Phrase interrogative</strong> : Pose une question (ex: <em>Est-ce que tu as compris ?</em>)</li>
+                    <li><strong>Phrase impérative</strong> : Donne un ordre ou un conseil (ex: <em>Va au coin !</em>)</li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-400 hover:shadow-md transition">
+                <h2 class="text-2xl font-bold text-gray-700 mb-3">G3 - Les formes de phrases</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Forme négative</strong> : Ajout de lunettes de négation autour du verbe : <em>ne... pas, n'... jamais, ne... plus</em>. (ex: <em>Mia ne joue pas.</em>)</li>
+                    <li><strong>Forme exclamative</strong> : Exprime une émotion. Souvent avec un point d'exclamation, et des mots comme <em>Que</em> ou <em>Comme</em> au début. (ex: <em>Comme tu as grandi !</em>)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section Entraînement -->
+        <div id="entrainement" class="hidden fade-in">
+            <!-- Choix du niveau -->
+            <div id="level-selection" class="text-center space-y-4">
+                <h2 class="text-xl font-semibold mb-4">Choisis ton niveau :</h2>
+                <div id="level-buttons" class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <!-- Les boutons seront générés par JavaScript -->
+                </div>
+            </div>
+
+            <!-- Zone de Quiz -->
+            <div id="quiz-area" class="hidden bg-white p-8 rounded-xl shadow-lg">
+                <div class="flex justify-between items-center mb-6 text-sm font-semibold text-gray-500">
+                    <span id="question-counter">Question 1/5</span>
+                    <span id="score-display" class="text-blue-600 bg-blue-100 px-3 py-1 rounded-full">Score : 0</span>
+                </div>
+                
+                <h3 id="question-text" class="text-2xl font-medium text-center mb-8 text-gray-800"></h3>
+                
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                </div>
+                
+                <div id="feedback-area" class="hidden mt-6 p-4 rounded-lg text-lg text-center fade-in"></div>
+                
+                <div class="text-center mt-8">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Question suivante ➡️
+                    </button>
+                </div>
+            </div>
+
+            <div id="end-screen" class="hidden bg-white p-8 rounded-xl shadow-lg text-center fade-in">
+                <h2 class="text-3xl font-bold text-blue-600 mb-6">Fin de l'entraînement !</h2>
+                <div id="final-score" class="text-xl mb-8"></div>
+                <button onclick="resetApp()" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    Rejouer une partie
+                </button>
+            </div>
+        </div>
+
+        <script>
+        /* =========================================
+           BANQUE DE DONNÉES
+           ========================================= */
+        const questionBank = [
+            // --- NIVEAU 1 : Débutant ---
+            { text: "Il faut lancer le bâton pour faire tomber les quilles ___", type: "G1", level: 1, options: [".", "?", "!"], answer: ".", feedback: "C'est une phrase qui donne une information simple (déclarative)." },
+            { text: "Où as-tu rangé tes billes ___", type: "G1", level: 1, options: [".", "?", "!"], answer: "?", feedback: "On demande une information, c'est une question." },
+            { text: "Le chien aboie dans le jardin ___", type: "G1", level: 1, options: [".", "?", "!"], answer: ".", feedback: "C'est une phrase qui raconte quelque chose, elle se termine par un point." },
+            { text: "Nous allons à la ludothèque cet après-midi.", type: "G2", level: 1, options: ["Déclarative", "Interrogative", "Impérative"], answer: "Déclarative", feedback: "Cette phrase donne une information." },
+            { text: "Combien de points as-tu marqués ?", type: "G2", level: 1, options: ["Déclarative", "Interrogative", "Impérative"], answer: "Interrogative", feedback: "Cette phrase pose une question." },
+            { text: "Le chat dort sur le canapé.", type: "G2", level: 1, options: ["Déclarative", "Interrogative", "Impérative"], answer: "Déclarative", feedback: "C'est une information toute simple." },
+            { text: "Mia ne trouve plus son pion.", type: "G3", level: 1, options: ["Forme affirmative", "Forme négative", "Forme exclamative"], answer: "Forme négative", feedback: "On voit les mots de négation 'ne' et 'plus'." },
+            { text: "Lucas adore les mathématiques.", type: "G3", level: 1, options: ["Phrase affirmative", "Phrase négative"], answer: "Phrase affirmative", feedback: "Il n'y a pas de mots de négation." },
+            { text: "Je n'aime pas perdre aux cartes.", type: "G3", level: 1, options: ["Phrase affirmative", "Phrase négative"], answer: "Phrase négative", feedback: "Les mots de négation sont n' et pas." },
+
+            // --- NIVEAU 2 : Intermédiaire ---
+            { text: "Est-ce que c'est à mon tour de jouer ___", type: "G1", level: 2, options: [".", "?", "!"], answer: "?", feedback: "C'est une question, il faut donc un point d'interrogation." },
+            { text: "Quel jeu magnifique ___", type: "G1", level: 2, options: [".", "?", "!"], answer: "!", feedback: "C'est une phrase exclamative (exprime une forte émotion)." },
+            { text: "Fais attention à ne pas dépasser la ligne ___", type: "G1", level: 2, options: [".", "?", "!"], answer: "!", feedback: "C'est un ordre (phrase impérative), on met un point d'exclamation." },
+            { text: "Range ces jeux de société dans le placard !", type: "G2", level: 2, options: ["Déclarative", "Interrogative", "Impérative"], answer: "Impérative", feedback: "Cette phrase donne un ordre." },
+            { text: "Les oiseaux chantent au printemps.", type: "G2", level: 2, options: ["Déclarative", "Interrogative", "Impérative"], answer: "Déclarative", feedback: "C'est une simple déclaration." },
+            { text: "Pourquoi pleures-tu ?", type: "G2", level: 2, options: ["Déclarative", "Interrogative", "Impérative"], answer: "Interrogative", feedback: "Il y a un point d'interrogation à la fin." },
+            { text: "Que cette partie est serrée !", type: "G3", level: 2, options: ["Forme affirmative", "Forme négative", "Forme exclamative"], answer: "Forme exclamative", feedback: "Elle exprime une émotion, commence par 'Que' et finit par '!'." },
+            { text: "Comme tu cours vite !", type: "G3", level: 2, options: ["Forme exclamative", "Forme négative"], answer: "Forme exclamative", feedback: "Elle commence par 'Comme' et exprime la surprise." },
+            { text: "Ne triche jamais en jouant !", type: "G3", level: 2, options: ["Phrase affirmative", "Phrase négative"], answer: "Phrase négative", feedback: "Même si c'est un ordre (impérative) avec un '!', la présence de 'Ne ... jamais' la rend négative." },
+
+            // --- NIVEAU 3 : Expert ---
+            { text: "Le maître demande : ___ Prenez vos cahiers du jour. ___", type: "G1", level: 3, options: ["« »", "- -", ", ,"], answer: "« »", feedback: "On utilise les guillemets quand on fait parler quelqu'un." },
+            { text: "Dans mon sac de sport ___ il y a mes baskets et ma gourde.", type: "G1", level: 3, options: [".", ",", "!"], answer: ",", feedback: "La virgule marque une petite pause et sépare des groupes de mots." },
+            { text: "___ Bonjour, dit Léo.", type: "G1", level: 3, options: ["-", "«", "."], answer: "-", feedback: "Le tiret indique que quelqu'un prend la parole dans un dialogue." },
+            { text: "J'ai acheté des pommes ___ des poires et des bananes.", type: "G1", level: 3, options: [",", ".", "?"], answer: ",", feedback: "La virgule est utilisée ici pour faire une liste de mots." },
+            { text: "Prends une carte dans la pioche.", type: "G2", level: 3, options: ["Déclarative", "Interrogative", "Impérative"], answer: "Impérative", feedback: "Même sans point d'exclamation, c'est un ordre (impérative)." },
+            { text: "As-tu fini tes devoirs ?", type: "G2", level: 3, options: ["Déclarative", "Interrogative", "Impérative"], answer: "Interrogative", feedback: "C'est une question, reconnaissable à l'inversion du sujet (As-tu)." },
+            { text: "Trouve la phrase exclamative :", type: "G3", level: 3, options: ["Comme tu es fort !", "Est-ce que tu es fort ?", "Tu n'es pas fort."], answer: "Comme tu es fort !", feedback: "Elle commence par 'Comme' et exprime une forte émotion." },
+            { text: "Je ne veux rien manger.", type: "G3", level: 3, options: ["Phrase affirmative", "Phrase négative"], answer: "Phrase négative", feedback: "Les lunettes de négation sont 'ne ... rien'." },
+            { text: "Quel est le mot de négation manquant : Je ___ chante pas.", type: "G3", level: 3, options: ["ne", "n'", "rien"], answer: "ne", feedback: "Les lunettes de négation complètes sont 'ne ... pas'." }
+        ];
+
+        /* =========================================
+           LOGIQUE DE L'APPLICATION
+           ========================================= */
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let currentLevel = 1;
+        let maxUnlockedLevel = 1; // Suivi du niveau maximum débloqué
+        const QUESTIONS_PER_SESSION = 5;
+
+        // Fonction pour générer l'affichage des cadenas et niveaux
+        function initLevels() {
+            const container = document.getElementById('level-buttons');
+            container.innerHTML = '';
+            
+            const levels = [
+                { id: 1, name: "Niveau 1 (Débutant)", classes: "bg-green-500 hover:bg-green-600 text-white hover:scale-105" },
+                { id: 2, name: "Niveau 2 (Intermédiaire)", classes: "bg-yellow-500 hover:bg-yellow-600 text-white hover:scale-105" },
+                { id: 3, name: "Niveau 3 (Expert)", classes: "bg-orange-500 hover:bg-orange-600 text-white hover:scale-105" }
+            ];
+
+            levels.forEach(lvl => {
+                const isUnlocked = lvl.id <= maxUnlockedLevel;
+                const btn = document.createElement('button');
+                
+                if (isUnlocked) {
+                    btn.className = `w-full sm:w-auto px-6 py-3 rounded-lg font-bold shadow transition transform ${lvl.classes}`;
+                    btn.innerHTML = lvl.name + " <span class='ml-1'>🔓</span>";
+                    btn.onclick = () => startQuiz(lvl.id);
+                } else {
+                    btn.className = "w-full sm:w-auto px-6 py-3 bg-gray-200 text-gray-400 rounded-lg font-bold shadow cursor-not-allowed border border-gray-300";
+                    btn.innerHTML = lvl.name + " <span class='ml-1'>🔒</span><br><span class='text-xs font-normal'>(Faire 5/5 au niveau précédent)</span>";
+                }
+                container.appendChild(btn);
+            });
+        }
+
+        function showTab(tabId) {
+            document.getElementById('revisions').classList.add('hidden');
+            document.getElementById('entrainement').classList.add('hidden');
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.getElementById('btn-revisions').className = tabId === 'revisions' 
+                ? "px-6 py-2 rounded-full font-semibold transition-colors bg-blue-600 text-white shadow-md" 
+                : "px-6 py-2 rounded-full font-semibold transition-colors bg-white text-blue-600 shadow-md hover:bg-blue-50";
+            
+            document.getElementById('btn-entrainement').className = tabId === 'entrainement' 
+                ? "px-6 py-2 rounded-full font-semibold transition-colors bg-blue-600 text-white shadow-md" 
+                : "px-6 py-2 rounded-full font-semibold transition-colors bg-white text-blue-600 shadow-md hover:bg-blue-50";
+            
+            if(tabId === 'entrainement') {
+                resetApp();
+                initLevels(); // On rafraichit l'affichage des cadenas
+            }
+        }
+
+        function startQuiz(level) {
+            currentLevel = level;
+            // Filtrer les questions selon le niveau exact
+            const filtered = questionBank.filter(q => q.level === level);
+            // Mélanger (shuffle)
+            currentQuestions = filtered.sort(() => 0.5 - Math.random()).slice(0, QUESTIONS_PER_SESSION);
+            
+            currentIndex = 0;
+            score = 0;
+            
+            document.getElementById('level-selection').classList.add('hidden');
+            document.getElementById('quiz-area').classList.remove('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = currentQuestions[currentIndex];
+            document.getElementById('question-counter').innerText = `Question ${currentIndex + 1}/${currentQuestions.length}`;
+            document.getElementById('score-display').innerText = `Score : ${score}`;
+            
+            // Afficher le texte avec un petit tag de la leçon
+            let leconName = "";
+            if (q.type === "G1") leconName = "G1 - Ponctuation";
+            if (q.type === "G2") leconName = "G2 - Types de phrases";
+            if (q.type === "G3") leconName = "G3 - Formes de phrases";
+
+            document.getElementById('question-text').innerHTML = `
+                <span class="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">${leconName}</span>
+                <br>
+                ${q.text}
+            `;
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            document.getElementById('feedback-area').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.className = "p-4 border-2 border-gray-200 rounded-lg text-lg font-semibold hover:border-blue-500 hover:bg-blue-50 transition-all focus:outline-none focus:ring-4 focus:ring-blue-200";
+                btn.onclick = () => handleAnswer(opt, btn, q);
+                container.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selected, btnElement, q) {
+            // Désactiver tous les boutons
+            const buttons = document.getElementById('options-container').querySelectorAll('button');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.remove('hover:border-blue-500', 'hover:bg-blue-50');
+                b.classList.add('cursor-not-allowed');
+            });
+
+            const feedbackArea = document.getElementById('feedback-area');
+            feedbackArea.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            if (selected === q.answer) {
+                score++;
+                btnElement.classList.replace('border-gray-200', 'border-green-500');
+                btnElement.classList.add('bg-green-100', 'text-green-900');
+                feedbackArea.classList.add('bg-green-100', 'text-green-800');
+                feedbackArea.innerHTML = `✅ <strong>Bravo !</strong> ${q.feedback}`;
+            } else {
+                btnElement.classList.replace('border-gray-200', 'border-red-500');
+                btnElement.classList.add('bg-red-100', 'text-red-900');
+                
+                // Mettre en surbrillance la bonne réponse
+                buttons.forEach(b => {
+                    if(b.innerText === q.answer) {
+                        b.classList.replace('border-gray-200', 'border-green-500');
+                        b.classList.add('bg-green-50');
+                    }
+                });
+
+                feedbackArea.classList.add('bg-red-100', 'text-red-800');
+                feedbackArea.innerHTML = `❌ <strong>Oups !</strong> ${q.feedback}`;
+            }
+
+            document.getElementById('score-display').innerText = `Score : ${score}`;
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < currentQuestions.length) {
+                renderQuestion();
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function showEndScreen() {
+            document.getElementById('quiz-area').classList.add('hidden');
+            document.getElementById('end-screen').classList.remove('hidden');
+            
+            const percentage = (score / currentQuestions.length) * 100;
+            let message = "";
+            let emoji = "";
+            let levelUnlockedMsg = "";
+            
+            if(percentage === 100) {
+                message = "Parfait ! Tu maîtrises tes leçons !";
+                emoji = "🏆";
+                
+                // Déblocage du niveau suivant si on a fait un sans-faute
+                if (currentLevel === maxUnlockedLevel && maxUnlockedLevel < 3) {
+                    maxUnlockedLevel++;
+                    levelUnlockedMsg = `
+                    <div class="mt-4 p-4 bg-yellow-100 text-yellow-800 border-2 border-yellow-300 rounded-xl font-bold fade-in">
+                        🎉 Félicitations ! Tu as débloqué le niveau ${maxUnlockedLevel} !
+                    </div>`;
+                }
+            } else if(percentage >= 60) {
+                message = "Très bien ! Encore un petit effort.";
+                emoji = "⭐";
+            } else {
+                message = "Continue de t'entraîner et relis tes leçons !";
+                emoji = "💪";
+            }
+
+            document.getElementById('final-score').innerHTML = `
+                <div class="text-6xl mb-4">${emoji}</div>
+                Tu as obtenu <strong>${score} sur ${currentQuestions.length}</strong>.<br><br>
+                <span class="text-gray-600">${message}</span>
+                ${levelUnlockedMsg}
+            `;
+        }
+
+        function resetApp() {
+            document.getElementById('level-selection').classList.remove('hidden');
+            document.getElementById('quiz-area').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            initLevels(); // Met à jour les cadenas quand on clique sur "Rejouer"
+        }
+    </script>
+</body>
+</html>
