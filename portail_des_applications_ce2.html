@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Espace CE2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utilisation d'une police arrondie et joyeuse adaptée aux enfants -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            /* Fond avec un dégradé doux et joyeux */
+            background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);
+            min-height: 100vh;
+        }
+        .app-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .app-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .category-badge {
+            transition: all 0.2s;
+        }
+        .category-badge.active {
+            background-color: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="text-gray-800 pb-12">
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <!-- Header Profil et Message d'accueil -->
+        <header class="bg-white/80 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-white/50 flex flex-col sm:flex-row items-center justify-between mb-10">
+            <div class="flex items-center gap-4 mb-4 sm:mb-0">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl shadow-inner">
+                    👧🏽 <!-- Émoji avatar, personnalisable -->
+                </div>
+                <div>
+                    <h1 id="greeting" class="text-3xl font-extrabold text-blue-900">Bonjour !</h1>
+                    <p class="text-blue-600 font-medium">Prête pour tes missions de CE2 aujourd'hui ? 🚀</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <div class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-2xl font-bold flex items-center gap-2 shadow-sm">
+                    ⭐ <span id="star-count">0</span> étoiles
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation / Filtres -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <button onclick="filterApps('toutes')" id="btn-toutes" class="category-badge active px-6 py-2 rounded-full font-bold bg-white text-gray-600 hover:bg-gray-50 shadow-sm border border-gray-100">
+                🌈 Toutes
+            </button>
+            <button onclick="filterApps('francais')" id="btn-francais" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-pink-600 hover:bg-pink-50 shadow-sm border border-pink-100">
+                📚 Français
+            </button>
+            <button onclick="filterApps('maths')" id="btn-maths" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-green-600 hover:bg-green-50 shadow-sm border border-green-100">
+                🔢 Maths
+            </button>
+            <button onclick="filterApps('qlm')" id="btn-qlm" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-orange-600 hover:bg-orange-50 shadow-sm border border-orange-100">
+                🌍 Découverte
+            </button>
+        </div>
+
+        <!-- Grille des Applications -->
+        <div id="apps-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- APPLICATION 1 : Grammaire (Celle qu'on a déjà faite) -->
+            <a href="grammaire.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-pink-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-pink-100 text-pink-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">
+                    Français
+                </div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">
+                    📝
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Défi Grammaire</h2>
+                <p class="text-gray-500 mb-4 font-medium">Ponctuation, types et formes de phrases. Débloque tous les niveaux !</p>
+                <div class="flex items-center text-pink-500 font-bold group-hover:text-pink-600">
+                    Lancer l'entraînement <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span>
+                </div>
+            </a>
+
+            <!-- APPLICATION 2 : Conjugaison (A venir) -->
+            <a href="#" class="app-card block app-item francais relative bg-white/60 rounded-3xl p-6 shadow-sm border-2 border-dashed border-gray-300 group">
+                <div class="absolute top-0 right-0 bg-gray-100 text-gray-500 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">
+                    Bientôt
+                </div>
+                <div class="text-6xl mb-4 opacity-50 grayscale">
+                    ⏳
+                </div>
+                <h2 class="text-2xl font-bold text-gray-500 mb-2">Conjugaison</h2>
+                <p class="text-gray-400 mb-4 font-medium">Le présent des verbes du 1er groupe.</p>
+                <div class="flex items-center text-gray-400 font-bold">
+                    En construction 🚧
+                </div>
+            </a>
+
+            <!-- APPLICATION 3 : Maths (Calcul Mental) -->
+            <a href="#" class="app-card block app-item maths relative bg-white/60 rounded-3xl p-6 shadow-sm border-2 border-dashed border-gray-300 group">
+                <div class="absolute top-0 right-0 bg-gray-100 text-gray-500 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">
+                    Bientôt
+                </div>
+                <div class="text-6xl mb-4 opacity-50 grayscale">
+                    ✖️
+                </div>
+                <h2 class="text-2xl font-bold text-gray-500 mb-2">Tables de Multiplications</h2>
+                <p class="text-gray-400 mb-4 font-medium">Deviens un champion du calcul mental !</p>
+                <div class="flex items-center text-gray-400 font-bold">
+                    En construction 🚧
+                </div>
+            </a>
+            
+            <!-- APPLICATION 4 : Maths (Problèmes) -->
+            <a href="#" class="app-card block app-item maths relative bg-white/60 rounded-3xl p-6 shadow-sm border-2 border-dashed border-gray-300 group">
+                <div class="absolute top-0 right-0 bg-gray-100 text-gray-500 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">
+                    Bientôt
+                </div>
+                <div class="text-6xl mb-4 opacity-50 grayscale">
+                    🤔
+                </div>
+                <h2 class="text-2xl font-bold text-gray-500 mb-2">Résolution de problèmes</h2>
+                <p class="text-gray-400 mb-4 font-medium">Mène l'enquête pour trouver la solution.</p>
+                <div class="flex items-center text-gray-400 font-bold">
+                    En construction 🚧
+                </div>
+            </a>
+
+            <!-- APPLICATION 5 : QLM (Questionner le monde) -->
+            <a href="#" class="app-card block app-item qlm relative bg-white/60 rounded-3xl p-6 shadow-sm border-2 border-dashed border-gray-300 group">
+                <div class="absolute top-0 right-0 bg-gray-100 text-gray-500 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">
+                    Bientôt
+                </div>
+                <div class="text-6xl mb-4 opacity-50 grayscale">
+                    🧭
+                </div>
+                <h2 class="text-2xl font-bold text-gray-500 mb-2">Le temps et l'espace</h2>
+                <p class="text-gray-400 mb-4 font-medium">Lecture de l'heure et repérage sur un plan.</p>
+                <div class="flex items-center text-gray-400 font-bold">
+                    En construction 🚧
+                </div>
+            </a>
+
+            <!-- BOUTON AJOUTER -->
+            <div class="app-card flex flex-col justify-center items-center relative bg-white/30 rounded-3xl p-6 shadow-sm border-2 border-dotted border-blue-300 text-center min-h-[250px]">
+                <div class="w-16 h-16 bg-blue-100 text-blue-500 rounded-full flex items-center justify-center text-3xl mb-4">
+                    +
+                </div>
+                <h2 class="text-xl font-bold text-blue-800 mb-2">Nouvelle Application</h2>
+                <p class="text-blue-600 font-medium text-sm">Demande à l'IA de créer ton prochain exercice !</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- Message d'accueil dynamique selon l'heure ---
+        function setGreeting() {
+            const hour = new Date().getHours();
+            const greetingElement = document.getElementById('greeting');
+            
+            if (hour >= 5 && hour < 12) {
+                greetingElement.innerText = "Bonjour ! ☀️";
+            } else if (hour >= 12 && hour < 18) {
+                greetingElement.innerText = "Bon après-midi ! 🌤️";
+            } else {
+                greetingElement.innerText = "Bonsoir ! 🌙";
+            }
+        }
+
+        // --- Système de filtres des catégories ---
+        function filterApps(category) {
+            // 1. Mise à jour du style des boutons
+            const buttons = document.querySelectorAll('.category-badge');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-500', 'text-white');
+                btn.classList.add('bg-white'); // Retour à l'état inactif
+                
+                // Réinitialiser les couleurs spécifiques des textes inactifs
+                if(btn.id === 'btn-toutes') btn.classList.add('text-gray-600');
+                if(btn.id === 'btn-francais') btn.classList.add('text-pink-600');
+                if(btn.id === 'btn-maths') btn.classList.add('text-green-600');
+                if(btn.id === 'btn-qlm') btn.classList.add('text-orange-600');
+            });
+
+            // Bouton cliqué devient actif
+            const activeBtn = document.getElementById('btn-' + category);
+            activeBtn.classList.remove('bg-white', 'text-gray-600', 'text-pink-600', 'text-green-600', 'text-orange-600');
+            
+            // Appliquer une couleur de fond selon la catégorie pour le bouton actif
+            if(category === 'toutes') activeBtn.style.backgroundColor = '#3b82f6'; // Bleu
+            if(category === 'francais') activeBtn.style.backgroundColor = '#ec4899'; // Rose
+            if(category === 'maths') activeBtn.style.backgroundColor = '#22c55e'; // Vert
+            if(category === 'qlm') activeBtn.style.backgroundColor = '#f97316'; // Orange
+            activeBtn.style.color = 'white';
+            activeBtn.classList.add('active'); // Pour garder la trace si besoin
+
+            // 2. Filtrage visuel des cartes
+            const items = document.querySelectorAll('.app-item');
+            items.forEach(item => {
+                if (category === 'toutes') {
+                    item.style.display = 'block';
+                    // Petit effet d'animation
+                    item.style.animation = 'fadeIn 0.4s ease-out forwards';
+                } else {
+                    if (item.classList.contains(category)) {
+                        item.style.display = 'block';
+                        item.style.animation = 'fadeIn 0.4s ease-out forwards';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Initialisation au chargement de la page
+        window.onload = () => {
+            setGreeting();
+            // Initialiser le bouton "toutes" avec sa couleur
+            const btnToutes = document.getElementById('btn-toutes');
+            btnToutes.style.backgroundColor = '#3b82f6';
+            btnToutes.style.color = 'white';
+        };
+
+        // Ajout d'une petite animation CSS dynamique
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: scale(0.95); }
+                to { opacity: 1; transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
