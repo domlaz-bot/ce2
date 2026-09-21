@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Féminin des Noms - CE2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+            min-height: 100vh;
+        }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .locked {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: scale(0.98);
+        }
+        
+        /* Styles spécifiques pour le jeu de correspondance (Niveau 2) */
+        .match-btn {
+            transition: all 0.2s;
+        }
+        .match-btn.selected {
+            ring: 4px;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .match-btn.matched {
+            background-color: #86efac; /* green-300 */
+            color: #166534; /* green-800 */
+            border-color: #22c55e;
+            pointer-events: none;
+            opacity: 0.8;
+            transform: scale(0.95);
+        }
+        .match-btn.error {
+            background-color: #fca5a5;
+            animation: shake 0.4s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="text-gray-800 pb-12">
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <span class="bg-purple-100 text-purple-600 px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase shadow-sm">Orthographe 3</span>
+            <h1 class="text-4xl font-extrabold text-purple-900 mt-4 mb-2">Les Noms Féminins</h1>
+            <p class="text-purple-700 font-medium text-lg">Apprends à transformer les mots du masculin au féminin !</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="flex flex-wrap justify-center gap-4 mb-10">
+            <button onclick="showTab('lecon')" id="btn-lecon" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-purple-600 text-white hover:bg-purple-700 transform hover:-translate-y-1">
+                📖 Synthèse du cours
+            </button>
+            <button onclick="showTab('entrainement')" id="btn-entrainement" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-purple-600 border-2 border-purple-200 hover:bg-purple-50 transform hover:-translate-y-1">
+                🎯 S'entraîner
+            </button>
+        </nav>
+
+        <!-- SECTION : LEÇON -->
+        <div id="lecon" class="fade-in space-y-6">
+            <div class="bg-white p-6 rounded-3xl shadow-md border-t-4 border-purple-400 text-center">
+                <p class="text-lg mb-2">Un nom féminin peut être précédé du déterminant <strong class="text-purple-600 text-2xl font-handwriting">une</strong> ou <strong class="text-purple-600 text-2xl font-handwriting">la</strong>.</p>
+                <p class="text-gray-600"><em>Exemple : les formes ➔ <strong>une</strong> forme (forme est un nom féminin)</em></p>
+            </div>
+
+            <!-- Grille mentale (Reproduction de l'image) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="bg-green-100 p-5 rounded-2xl border-2 border-green-300 text-center shadow-sm">
+                    <h3 class="font-bold text-green-800 text-lg mb-2">Ajout d'un « e »</h3>
+                    <p class="text-green-900">un ami ➔ une ami<strong class="text-xl">e</strong></p>
+                </div>
+                <div class="bg-red-100 p-5 rounded-2xl border-2 border-red-300 text-center shadow-sm">
+                    <h3 class="font-bold text-red-800 text-lg mb-2">er ➔ ère</h3>
+                    <p class="text-red-900">un fermier ➔ une fermi<strong class="text-xl">ère</strong></p>
+                </div>
+                <div class="bg-orange-100 p-5 rounded-2xl border-2 border-orange-300 text-center shadow-sm">
+                    <h3 class="font-bold text-orange-800 text-lg mb-2">eur ➔ euse</h3>
+                    <p class="text-orange-900">un balayeur ➔ une balay<strong class="text-xl">euse</strong></p>
+                </div>
+                <div class="bg-blue-100 p-5 rounded-2xl border-2 border-blue-300 text-center shadow-sm">
+                    <h3 class="font-bold text-blue-800 text-lg mb-2">teur ➔ trice</h3>
+                    <p class="text-blue-900">un directeur ➔ une direc<strong class="text-xl">trice</strong></p>
+                </div>
+                <div class="bg-purple-100 p-5 rounded-2xl border-2 border-purple-300 text-center shadow-sm">
+                    <h3 class="font-bold text-purple-800 text-lg mb-2">Autre mot</h3>
+                    <p class="text-purple-900">un homme ➔ une <strong class="text-xl">femme</strong></p>
+                </div>
+                <div class="bg-yellow-100 p-5 rounded-2xl border-2 border-yellow-400 text-center shadow-sm">
+                    <h3 class="font-bold text-yellow-800 text-lg mb-2">Même mot</h3>
+                    <p class="text-yellow-900">un élève ➔ une <strong class="text-xl">élève</strong></p>
+                </div>
+                <div class="bg-stone-100 p-5 rounded-2xl border-2 border-stone-300 text-center shadow-sm">
+                    <h3 class="font-bold text-stone-800 text-lg mb-2">if ➔ ive</h3>
+                    <p class="text-stone-900">un sportif ➔ une sport<strong class="text-xl">ive</strong></p>
+                </div>
+                <div class="bg-blue-50 p-5 rounded-2xl border-2 border-blue-200 text-center shadow-sm">
+                    <h3 class="font-bold text-blue-800 text-lg mb-2">e ➔ esse</h3>
+                    <p class="text-blue-900">un tigre ➔ une tigr<strong class="text-xl">esse</strong></p>
+                </div>
+                <div class="bg-pink-100 p-5 rounded-2xl border-2 border-pink-300 text-center shadow-sm sm:col-span-2 lg:col-span-1">
+                    <h3 class="font-bold text-pink-800 text-lg mb-2">ien ➔ ienne</h3>
+                    <p class="text-pink-900">un chien ➔ une ch<strong class="text-xl">ienne</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION : ENTRAÎNEMENT -->
+        <div id="entrainement" class="hidden fade-in">
+            
+            <!-- Menu Choix du niveau -->
+            <div id="levels-menu" class="space-y-6 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-center text-purple-900 mb-6">Choisis ta mission :</h2>
+                
+                <!-- Niveau 1 -->
+                <button onclick="startLevel(1)" class="w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-green-500 hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🕵️</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 1 : Le Détective</h3>
+                            <p class="text-gray-500">Choisis la bonne forme féminine parmi les propositions.</p>
+                        </div>
+                    </div>
+                    <div class="text-green-500 font-bold">Jouer ▶</div>
+                </button>
+
+                <!-- Niveau 2 -->
+                <button id="btn-level-2" onclick="startLevel(2)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-orange-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🔗</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 2 : Le Relie-mots</h3>
+                            <p class="text-gray-500">Associe chaque mot masculin à son féminin.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+
+                <!-- Niveau 3 -->
+                <button id="btn-level-3" onclick="startLevel(3)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-red-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">✍️</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 3 : L'Écrivain</h3>
+                            <p class="text-gray-500">Écris toi-même le mot au féminin avec la bonne orthographe.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+            </div>
+
+            <!-- Zone de Jeu Commune -->
+            <div id="game-area" class="hidden bg-white p-6 sm:p-10 rounded-3xl shadow-lg border-2 border-purple-100 max-w-3xl mx-auto">
+                
+                <!-- En-tête du jeu -->
+                <div class="flex justify-between items-center mb-8 border-b pb-4">
+                    <button onclick="backToLevels()" class="text-purple-500 hover:text-purple-700 font-bold flex items-center gap-2">
+                        <span>⬅️</span> Retour
+                    </button>
+                    <span id="game-title" class="text-xl font-bold text-gray-700">Niveau</span>
+                    <span id="score-display" class="bg-purple-100 text-purple-700 px-4 py-1 rounded-full font-bold">Score: 0/0</span>
+                </div>
+
+                <!-- Interface Niveau 1 (QCM) -->
+                <div id="ui-level-1" class="hidden text-center space-y-8">
+                    <h3 class="text-2xl font-bold text-gray-800">Quel est le féminin de :</h3>
+                    <div id="l1-question" class="text-4xl font-extrabold text-purple-600 bg-purple-50 py-4 rounded-2xl shadow-inner inline-block px-8">
+                        un ami
+                    </div>
+                    <div id="l1-options" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+                        <!-- Options injectées en JS -->
+                    </div>
+                </div>
+
+                <!-- Interface Niveau 2 (Matching) -->
+                <div id="ui-level-2" class="hidden">
+                    <h3 class="text-xl font-bold text-center text-gray-800 mb-6">Trouve les paires ! Touche un mot masculin puis son féminin.</h3>
+                    <div class="grid grid-cols-2 gap-8 relative">
+                        <!-- Colonne Masculin -->
+                        <div id="l2-masc-col" class="space-y-4 flex flex-col">
+                            <!-- Injectés en JS -->
+                        </div>
+                        <!-- Colonne Féminin -->
+                        <div id="l2-fem-col" class="space-y-4 flex flex-col">
+                            <!-- Injectés en JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interface Niveau 3 (Écriture) -->
+                <div id="ui-level-3" class="hidden text-center space-y-8">
+                    <h3 class="text-2xl font-bold text-gray-800">Écris le mot au féminin :</h3>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8">
+                        <div id="l3-question" class="text-3xl font-extrabold text-blue-600 bg-blue-50 py-4 px-6 rounded-2xl border-2 border-blue-200 shadow-sm">
+                            un tigre
+                        </div>
+                        <span class="text-4xl text-gray-400">➔</span>
+                        <div class="flex items-center gap-2 text-3xl font-extrabold text-pink-600 bg-pink-50 py-2 px-4 rounded-2xl border-2 border-pink-200 shadow-sm">
+                            <span>une</span>
+                            <input type="text" id="l3-input" class="w-48 bg-white border-b-4 border-pink-300 focus:outline-none focus:border-pink-500 text-center px-2 py-2 rounded-lg" placeholder="..." autocomplete="off">
+                        </div>
+                    </div>
+                    <button id="l3-validate-btn" onclick="checkLevel3()" class="mt-6 px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-full font-bold shadow-md text-lg transition-transform transform hover:scale-105">
+                        Valider ✔️
+                    </button>
+                </div>
+
+                <!-- Feedback Zone -->
+                <div id="feedback-zone" class="hidden mt-8 p-4 rounded-xl text-center font-bold text-lg animate-pulse">
+                </div>
+
+                <!-- Bouton Suivant (pour N1 et N3) -->
+                <div class="text-center mt-8">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-8 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-bold shadow-lg transition-transform transform hover:scale-105">
+                        Continuer ➡️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ecran de fin de niveau -->
+            <div id="end-screen" class="hidden bg-white p-10 rounded-3xl shadow-lg border-2 border-purple-100 max-w-2xl mx-auto text-center space-y-6">
+                <div id="end-icon" class="text-6xl mb-4">🏆</div>
+                <h2 id="end-title" class="text-3xl font-extrabold text-gray-800">Mission accomplie !</h2>
+                <p id="end-score" class="text-xl text-gray-600"></p>
+                <div id="end-message" class="text-lg font-bold text-purple-600 bg-purple-50 p-4 rounded-xl"></div>
+                
+                <div class="flex justify-center gap-4 mt-8">
+                    <button onclick="backToLevels()" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full font-bold transition-colors">
+                        Menu des niveaux
+                    </button>
+                    <button id="btn-next-level" onclick="startLevel(currentLevelPlaying + 1)" class="hidden px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-bold shadow-md transition-transform transform hover:scale-105">
+                        Niveau Suivant 🔓
+                    </button>
+                    <button id="btn-retry" onclick="startLevel(currentLevelPlaying)" class="hidden px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-bold shadow-md">
+                        Réessayer 🔄
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        /* =========================================
+           DONNÉES DU JEU (Inspiré de la leçon Orth 3)
+           ========================================= */
+        const wordsData = [
+            { m: "un ami", f: "amie", rule: "+e" },
+            { m: "un cousin", f: "cousine", rule: "+e" },
+            { m: "un fermier", f: "fermière", rule: "er->ere" },
+            { m: "un boulanger", f: "boulangère", rule: "er->ere" },
+            { m: "un balayeur", f: "balayeuse", rule: "eur->euse" },
+            { m: "un vendeur", f: "vendeuse", rule: "eur->euse" },
+            { m: "un directeur", f: "directrice", rule: "teur->trice" },
+            { m: "un facteur", f: "factrice", rule: "teur->trice" },
+            { m: "un homme", f: "femme", rule: "autre" },
+            { m: "un garçon", f: "fille", rule: "autre" },
+            { m: "un oncle", f: "tante", rule: "autre" },
+            { m: "un élève", f: "élève", rule: "meme" },
+            { m: "un artiste", f: "artiste", rule: "meme" },
+            { m: "un sportif", f: "sportive", rule: "if->ive" },
+            { m: "un tigre", f: "tigresse", rule: "e->esse" },
+            { m: "un prince", f: "princesse", rule: "e->esse" },
+            { m: "un chien", f: "chienne", rule: "ien->ienne" },
+            { m: "un magicien", f: "magicienne", rule: "ien->ienne" }
+        ];
+
+        /* =========================================
+           VARIABLES D'ÉTAT
+           ========================================= */
+        let unlockedLevels = 1;
+        let currentLevelPlaying = 0;
+        let score = 0;
+        let maxQuestions = 5;
+        let currentQuestionIndex = 0;
+        let sessionData = []; // Les questions de la partie en cours
+
+        // Pour le niveau 2 (Matching)
+        let selectedMascNode = null;
+        let selectedFemNode = null;
+        let matchesFound = 0;
+
+        /* =========================================
+           NAVIGATION
+           ========================================= */
+        function showTab(tabId) {
+            document.getElementById('lecon').classList.add('hidden');
+            document.getElementById('entrainement').classList.add('hidden');
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.getElementById('btn-lecon').className = tabId === 'lecon' 
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-purple-600 text-white transform hover:-translate-y-1" 
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-purple-600 border-2 border-purple-200 hover:bg-purple-50 transform hover:-translate-y-1";
+            
+            document.getElementById('btn-entrainement').className = tabId === 'entrainement' 
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-purple-600 text-white transform hover:-translate-y-1" 
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-purple-600 border-2 border-purple-200 hover:bg-purple-50 transform hover:-translate-y-1";
+            
+            if(tabId === 'entrainement') backToLevels();
+        }
+
+        function backToLevels() {
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('levels-menu').classList.remove('hidden');
+            updateLocks();
+        }
+
+        function updateLocks() {
+            const btn2 = document.getElementById('btn-level-2');
+            const btn3 = document.getElementById('btn-level-3');
+            
+            if (unlockedLevels >= 2) {
+                btn2.classList.remove('locked');
+                btn2.querySelector('.text-2xl').innerText = '🔓';
+            }
+            if (unlockedLevels >= 3) {
+                btn3.classList.remove('locked');
+                btn3.querySelector('.text-2xl').innerText = '🔓';
+            }
+        }
+
+        /* =========================================
+           MOTEUR DE JEU
+           ========================================= */
+        // Fonction utilitaire pour mélanger un tableau
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startLevel(level) {
+            if (level > unlockedLevels) return; // Sécurité
+
+            currentLevelPlaying = level;
+            score = 0;
+            currentQuestionIndex = 0;
+            
+            // Préparer les données
+            let dataPool = [...wordsData];
+            shuffleArray(dataPool);
+            
+            if (level === 1 || level === 3) {
+                maxQuestions = 5;
+                sessionData = dataPool.slice(0, maxQuestions);
+            } else if (level === 2) {
+                // Pour le matching, on prend 4 paires à afficher d'un coup
+                maxQuestions = 4;
+                sessionData = dataPool.slice(0, maxQuestions);
+            }
+
+            // Gestion de l'interface
+            document.getElementById('levels-menu').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('game-area').classList.remove('hidden');
+            
+            // Cacher toutes les UI spécifiques
+            document.getElementById('ui-level-1').classList.add('hidden');
+            document.getElementById('ui-level-2').classList.add('hidden');
+            document.getElementById('ui-level-3').classList.add('hidden');
+            
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const titles = ["", "Niveau 1 : Le Détective", "Niveau 2 : Le Relie-mots", "Niveau 3 : L'Écrivain"];
+            document.getElementById('game-title').innerText = titles[level];
+            updateScoreDisplay();
+
+            // Lancer le bon niveau
+            if (level === 1) renderLevel1();
+            if (level === 2) renderLevel2();
+            if (level === 3) renderLevel3();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-display').innerText = `Score: ${score}/${maxQuestions}`;
+        }
+
+        /* --- NIVEAU 1 : QCM --- */
+        function renderLevel1() {
+            document.getElementById('ui-level-1').classList.remove('hidden');
+            const data = sessionData[currentQuestionIndex];
+            
+            document.getElementById('l1-question').innerText = data.m;
+            
+            // Générer des fausses réponses (distracteurs)
+            let distractors = wordsData.filter(w => w.f !== data.f).map(w => w.f);
+            shuffleArray(distractors);
+            let options = [data.f, distractors[0], distractors[1]];
+            
+            // Petite astuce pour générer des faux mots pertinents parfois
+            if(data.rule === "er->ere") options[1] = data.f.replace("ère", "euse");
+            if(data.rule === "+e") options[2] = data.f.replace("e", "esse");
+
+            shuffleArray(options);
+
+            const container = document.getElementById('l1-options');
+            container.innerHTML = '';
+            
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerText = "une " + opt;
+                btn.className = "p-4 border-2 border-purple-200 rounded-xl text-xl font-bold hover:bg-purple-50 transition-colors shadow-sm bg-white";
+                btn.onclick = () => handleAnswerL1(opt, data.f, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function handleAnswerL1(selected, correct, btnNode) {
+            // Désactiver les clics
+            const buttons = document.getElementById('l1-options').querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+
+            const fz = document.getElementById('feedback-zone');
+            fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            if (selected === correct) {
+                score++;
+                btnNode.classList.replace('border-purple-200', 'border-green-500');
+                btnNode.classList.add('bg-green-100', 'text-green-800');
+                fz.classList.add('bg-green-100', 'text-green-800');
+                fz.innerHTML = "✅ Bonne réponse !";
+            } else {
+                btnNode.classList.replace('border-purple-200', 'border-red-500');
+                btnNode.classList.add('bg-red-100', 'text-red-800');
+                fz.classList.add('bg-red-100', 'text-red-800');
+                fz.innerHTML = `❌ La bonne réponse était : <strong>une ${correct}</strong>`;
+                
+                // Mettre en vert la bonne
+                buttons.forEach(b => {
+                    if (b.innerText === "une " + correct) {
+                        b.classList.replace('border-purple-200', 'border-green-500');
+                        b.classList.add('border-4');
+                    }
+                });
+            }
+            updateScoreDisplay();
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        /* --- NIVEAU 2 : MATCHING --- */
+        function renderLevel2() {
+            document.getElementById('ui-level-2').classList.remove('hidden');
+            matchesFound = 0;
+            selectedMascNode = null;
+            selectedFemNode = null;
+
+            let mascList = [...sessionData];
+            let femList = [...sessionData];
+            shuffleArray(mascList);
+            shuffleArray(femList);
+
+            const mascCol = document.getElementById('l2-masc-col');
+            const femCol = document.getElementById('l2-fem-col');
+            mascCol.innerHTML = '';
+            femCol.innerHTML = '';
+
+            mascList.forEach(item => {
+                const btn = document.createElement('button');
+                btn.innerText = item.m;
+                btn.className = "match-btn p-4 bg-blue-50 border-2 border-blue-300 rounded-xl font-bold text-blue-900 text-lg shadow-sm";
+                btn.dataset.target = item.f;
+                btn.onclick = () => selectMasc(btn);
+                mascCol.appendChild(btn);
+            });
+
+            femList.forEach(item => {
+                const btn = document.createElement('button');
+                btn.innerText = "une " + item.f;
+                btn.className = "match-btn p-4 bg-pink-50 border-2 border-pink-300 rounded-xl font-bold text-pink-900 text-lg shadow-sm";
+                btn.dataset.value = item.f;
+                btn.onclick = () => selectFem(btn);
+                femCol.appendChild(btn);
+            });
+        }
+
+        function selectMasc(btnNode) {
+            if (btnNode.classList.contains('matched')) return;
+            // Deselect previous
+            if (selectedMascNode) selectedMascNode.classList.remove('selected', 'ring-blue-500');
+            selectedMascNode = btnNode;
+            selectedMascNode.classList.add('selected', 'ring', 'ring-blue-500');
+            checkMatchL2();
+        }
+
+        function selectFem(btnNode) {
+            if (btnNode.classList.contains('matched')) return;
+            // Deselect previous
+            if (selectedFemNode) selectedFemNode.classList.remove('selected', 'ring-pink-500');
+            selectedFemNode = btnNode;
+            selectedFemNode.classList.add('selected', 'ring', 'ring-pink-500');
+            checkMatchL2();
+        }
+
+        function checkMatchL2() {
+            if (selectedMascNode && selectedFemNode) {
+                const isMatch = selectedMascNode.dataset.target === selectedFemNode.dataset.value;
+                
+                if (isMatch) {
+                    // Succès
+                    selectedMascNode.classList.remove('selected', 'ring-blue-500');
+                    selectedFemNode.classList.remove('selected', 'ring-pink-500');
+                    selectedMascNode.classList.add('matched');
+                    selectedFemNode.classList.add('matched');
+                    matchesFound++;
+                    score++;
+                    updateScoreDisplay();
+                    
+                    selectedMascNode = null;
+                    selectedFemNode = null;
+
+                    if (matchesFound === maxQuestions) {
+                        setTimeout(() => showEndScreen(), 1000);
+                    }
+                } else {
+                    // Erreur
+                    selectedMascNode.classList.add('error');
+                    selectedFemNode.classList.add('error');
+                    
+                    const mTemp = selectedMascNode;
+                    const fTemp = selectedFemNode;
+                    
+                    setTimeout(() => {
+                        mTemp.classList.remove('error', 'selected', 'ring-blue-500', 'ring');
+                        fTemp.classList.remove('error', 'selected', 'ring-pink-500', 'ring');
+                    }, 500);
+
+                    selectedMascNode = null;
+                    selectedFemNode = null;
+                }
+            }
+        }
+
+        /* --- NIVEAU 3 : ÉCRITURE --- */
+        function renderLevel3() {
+            document.getElementById('ui-level-3').classList.remove('hidden');
+            const data = sessionData[currentQuestionIndex];
+            
+            document.getElementById('l3-question').innerText = data.m;
+            const inputField = document.getElementById('l3-input');
+            inputField.value = '';
+            inputField.disabled = false;
+            inputField.focus();
+            
+            // Permettre la validation avec la touche Entrée
+            inputField.onkeypress = function(e) {
+                if (e.key === 'Enter') checkLevel3();
+            };
+            
+            document.getElementById('l3-validate-btn').classList.remove('hidden');
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+        }
+
+        function checkLevel3() {
+            const data = sessionData[currentQuestionIndex];
+            const inputField = document.getElementById('l3-input');
+            const userAnswer = inputField.value.trim().toLowerCase();
+            const correctAnswer = data.f.toLowerCase();
+            
+            if (userAnswer === "") return; // Ne rien faire si vide
+
+            inputField.disabled = true;
+            document.getElementById('l3-validate-btn').classList.add('hidden');
+            
+            const fz = document.getElementById('feedback-zone');
+            fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                inputField.classList.add('bg-green-100', 'text-green-800', 'border-green-500');
+                fz.classList.add('bg-green-100', 'text-green-800');
+                fz.innerHTML = "✨ Excellent ! L'orthographe est parfaite.";
+            } else {
+                inputField.classList.add('bg-red-100', 'text-red-800', 'border-red-500');
+                fz.classList.add('bg-red-100', 'text-red-800');
+                fz.innerHTML = `❌ Attention, il fallait écrire : <strong>${correctAnswer}</strong>`;
+            }
+            
+            updateScoreDisplay();
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        /* --- LOGIQUE GLOBALE --- */
+        function nextQuestion() {
+            currentQuestionIndex++;
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            
+            // Réinitialiser les couleurs de l'input N3
+            const inputField = document.getElementById('l3-input');
+            inputField.className = "w-48 bg-white border-b-4 border-pink-300 focus:outline-none focus:border-pink-500 text-center px-2 py-2 rounded-lg";
+
+            if (currentQuestionIndex < maxQuestions) {
+                if (currentLevelPlaying === 1) renderLevel1();
+                if (currentLevelPlaying === 3) renderLevel3();
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function showEndScreen() {
+            document.getElementById('game-area').classList.add('hidden');
+            const endScreen = document.getElementById('end-screen');
+            endScreen.classList.remove('hidden');
+            
+            const isPerfect = (score === maxQuestions);
+            
+            document.getElementById('end-score').innerHTML = `Tu as un score de <strong>${score} sur ${maxQuestions}</strong>`;
+            
+            const btnNext = document.getElementById('btn-next-level');
+            const btnRetry = document.getElementById('btn-retry');
+            btnNext.classList.add('hidden');
+            btnRetry.classList.add('hidden');
+
+            if (isPerfect) {
+                document.getElementById('end-icon').innerText = "🏆";
+                document.getElementById('end-title').innerText = "Félicitations !";
+                
+                if (currentLevelPlaying < 3) {
+                    document.getElementById('end-message').innerText = `Génial ! Tu as débloqué le niveau ${currentLevelPlaying + 1} !`;
+                    // Déblocage
+                    if (unlockedLevels < currentLevelPlaying + 1) {
+                        unlockedLevels = currentLevelPlaying + 1;
+                    }
+                    btnNext.classList.remove('hidden');
+                } else {
+                    document.getElementById('end-message').innerText = "Incroyable ! Tu es un(e) expert(e) en noms féminins ! 👑";
+                }
+            } else {
+                document.getElementById('end-icon').innerText = "💪";
+                document.getElementById('end-title').innerText = "Bel effort !";
+                document.getElementById('end-message').innerText = "Il faut avoir tout juste (100%) pour débloquer la suite. Essaie encore !";
+                btnRetry.classList.remove('hidden');
+            }
+            
+            // Lancer des confettis si parfait (effet visuel simple)
+            if(isPerfect) triggerConfetti();
+        }
+
+        function triggerConfetti() {
+            // Petit effet visuel CSS improvisé dans le DOM
+            for(let i=0; i<30; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.width = '10px';
+                conf.style.height = '10px';
+                conf.style.backgroundColor = ['#fbbf24', '#f87171', '#34d399', '#60a5fa', '#c084fc'][Math.floor(Math.random()*5)];
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                conf.style.zIndex = '9999';
+                conf.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                document.body.appendChild(conf);
+                
+                setTimeout(() => conf.remove(), 4000);
+            }
+            
+            const style = document.createElement('style');
+            style.innerHTML = `@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }`;
+            document.head.appendChild(style);
+        }
+
+    </script>
+</body>
+</html>
