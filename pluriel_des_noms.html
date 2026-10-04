@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Pluriel des Noms - CE2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            min-height: 100vh;
+        }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .locked {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: scale(0.98);
+        }
+        .btn-option {
+            transition: all 0.2s;
+        }
+        .btn-option:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="text-gray-800 pb-12">
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <header class="text-center mb-8">
+            <span class="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase shadow-sm">Orth 5</span>
+            <h1 class="text-4xl font-extrabold text-indigo-900 mt-4 mb-2">Le pluriel des noms</h1>
+            <p class="text-indigo-700 font-medium text-lg">Apprends à former le pluriel avec un S ou un X !</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-4 mb-10">
+            <button onclick="showTab('lecon')" id="btn-lecon" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-indigo-600 text-white hover:bg-indigo-700 transform hover:-translate-y-1">
+                📖 Leçon et Vidéos
+            </button>
+            <button onclick="showTab('entrainement')" id="btn-entrainement" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-indigo-600 border-2 border-indigo-200 hover:bg-indigo-50 transform hover:-translate-y-1">
+                🎯 S'entraîner
+            </button>
+        </nav>
+
+        <div id="lecon" class="fade-in space-y-8">
+            
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-indigo-400">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-6 flex items-center gap-2">
+                    <span>📺</span> Les leçons en vidéo (Réseau Canopé)
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-700 mb-2">Vidéo 1 : Le pluriel en "S"</h3>
+                        <div class="video-container bg-indigo-50 flex items-center justify-center">
+                            <!-- Intégration officielle Canopé -->
+                            <iframe src="https://lesfondamentaux.reseau-canope.fr/embed/video/le-pluriel-du-nom-12" frameborder="0" allowfullscreen="true" title="Le pluriel du nom 1"></iframe>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-700 mb-2">Vidéo 2 : Le pluriel en "X"</h3>
+                        <div class="video-container bg-indigo-50 flex items-center justify-center">
+                             <!-- Intégration officielle Canopé -->
+                            <iframe src="https://lesfondamentaux.reseau-canope.fr/embed/video/le-pluriel-du-nom-22" frameborder="0" allowfullscreen="true" title="Le pluriel du nom 2"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Règle du S -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-blue-400 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 font-bold text-blue-500">S</div>
+                    <h2 class="text-2xl font-bold text-blue-800 mb-4">Règle générale</h2>
+                    <p class="text-lg text-gray-600 mb-6 font-medium">En général, on ajoute un <strong class="text-blue-600 text-2xl font-bold">s</strong> pour former le pluriel des noms.</p>
+                    
+                    <ul class="space-y-3 bg-blue-50 p-4 rounded-xl border border-blue-100 text-blue-900 font-medium text-lg">
+                        <li class="flex justify-between items-center"><span>un signe</span> <span class="text-blue-400">➔</span> <span>des signe<strong class="text-xl text-blue-600">s</strong></span></li>
+                        <li class="flex justify-between items-center"><span>une tablette</span> <span class="text-blue-400">➔</span> <span>des tablette<strong class="text-xl text-blue-600">s</strong></span></li>
+                        <li class="flex justify-between items-center"><span>un trou</span> <span class="text-blue-400">➔</span> <span>des trou<strong class="text-xl text-blue-600">s</strong></span></li>
+                        <li class="flex justify-between items-center bg-white p-2 rounded-lg shadow-sm border border-blue-200">
+                            <span>un pneu</span> <span class="text-blue-400">➔</span> <span>des pneu<strong class="text-xl text-red-500">s</strong> (Exception !)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Règle du X -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-orange-400 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 font-bold text-orange-500">X</div>
+                    <h2 class="text-2xl font-bold text-orange-800 mb-4">La règle du X</h2>
+                    <p class="text-lg text-gray-600 mb-4 font-medium">On ajoute un <strong class="text-orange-600 text-2xl font-bold">x</strong> pour les noms finissant par <strong>eau, au, eu</strong>.</p>
+                    
+                    <ul class="space-y-3 bg-orange-50 p-4 rounded-xl border border-orange-100 text-orange-900 font-medium text-lg mb-4">
+                        <li class="flex justify-between items-center"><span>un rideau</span> <span class="text-orange-400">➔</span> <span>des rideau<strong class="text-xl text-orange-600">x</strong></span></li>
+                        <li class="flex justify-between items-center"><span>un noyau</span> <span class="text-orange-400">➔</span> <span>des noyau<strong class="text-xl text-orange-600">x</strong></span></li>
+                        <li class="flex justify-between items-center"><span>un feu</span> <span class="text-orange-400">➔</span> <span>des feu<strong class="text-xl text-orange-600">x</strong></span></li>
+                    </ul>
+
+                    <div class="bg-red-50 p-4 rounded-xl border border-red-200">
+                        <p class="font-bold text-red-800 mb-2">🚨 Les 7 mots en -ou qui prennent un X :</p>
+                        <p class="text-red-700 italic font-medium">bijoux, cailloux, choux, genoux, hiboux, joujoux, poux.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="entrainement" class="hidden fade-in">
+            
+            <div id="levels-menu" class="space-y-6 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-center text-indigo-900 mb-6">Choisis ta mission :</h2>
+                
+                <button onclick="startLevel(1)" class="w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-blue-400 hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🔎</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 1 : Le bon pluriel</h3>
+                            <p class="text-gray-500">Choisis la bonne étiquette pour faire le pluriel.</p>
+                        </div>
+                    </div>
+                    <div class="text-blue-500 font-bold">Jouer ▶</div>
+                </button>
+
+                <button id="btn-level-2" onclick="startLevel(2)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-orange-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">⚖️</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 2 : S ou X ?</h3>
+                            <p class="text-gray-500">Choisis la lettre manquante (S ou X) à la fin du mot.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+
+                <button id="btn-level-3" onclick="startLevel(3)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-red-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">✍️</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 3 : L'Écrivain</h3>
+                            <p class="text-gray-500">Écris toi-même le mot avec la bonne marque du pluriel.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+            </div>
+
+            <div id="game-area" class="hidden bg-white p-6 sm:p-10 rounded-3xl shadow-lg border-2 border-indigo-100 max-w-3xl mx-auto relative overflow-hidden">
+                
+                <div class="flex justify-between items-center mb-8 border-b pb-4">
+                    <button onclick="backToLevels()" class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-2">
+                        <span>⬅️</span> Retour
+                    </button>
+                    <span id="game-title" class="text-xl font-bold text-gray-700">Niveau</span>
+                    <span id="score-display" class="bg-indigo-100 text-indigo-800 px-4 py-1 rounded-full font-bold">Score: 0/0</span>
+                </div>
+
+                <div id="question-container" class="text-center space-y-8">
+                    <!-- Contenu injecté via JS (Boutons L1 & L2) -->
+                </div>
+
+                <div id="ui-level-3" class="hidden text-center space-y-8">
+                    <h3 class="text-2xl font-bold text-gray-800">Écris le mot au pluriel :</h3>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8">
+                        <div id="l3-question" class="text-3xl font-extrabold text-indigo-600 bg-indigo-50 py-4 px-6 rounded-2xl border-2 border-indigo-200 shadow-sm">
+                            un mot
+                        </div>
+                        <span class="text-4xl text-gray-400">➔</span>
+                        <div class="flex items-center gap-2 text-3xl font-extrabold text-blue-600 bg-blue-50 py-2 px-4 rounded-2xl border-2 border-blue-200 shadow-sm">
+                            <span>des</span>
+                            <input type="text" id="l3-input" class="w-48 bg-white border-b-4 border-blue-300 focus:outline-none focus:border-blue-500 text-center px-2 py-2 rounded-lg" placeholder="..." autocomplete="off">
+                        </div>
+                    </div>
+                    <button id="l3-validate-btn" onclick="checkLevel3()" class="mt-6 px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold shadow-md text-lg transition-transform transform hover:scale-105">
+                        Valider ✔️
+                    </button>
+                </div>
+
+                <div id="feedback-zone" class="hidden mt-8 p-4 rounded-xl text-center font-bold text-lg animate-pulse">
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-8 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-bold shadow-lg transition-transform transform hover:scale-105">
+                        Continuer ➡️
+                    </button>
+                </div>
+            </div>
+
+            <div id="end-screen" class="hidden bg-white p-10 rounded-3xl shadow-lg border-2 border-indigo-100 max-w-2xl mx-auto text-center space-y-6">
+                <div id="end-icon" class="text-6xl mb-4">⭐</div>
+                <h2 id="end-title" class="text-3xl font-extrabold text-gray-800">Terminé !</h2>
+                <p id="end-score" class="text-xl text-gray-600"></p>
+                <div id="end-message" class="text-lg font-bold text-indigo-700 bg-indigo-50 p-4 rounded-xl"></div>
+                
+                <div class="flex justify-center gap-4 mt-8">
+                    <button onclick="backToLevels()" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full font-bold transition-colors">
+                        Menu des niveaux
+                    </button>
+                    <button id="btn-next-level" onclick="startLevel(currentLevelPlaying + 1)" class="hidden px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-bold shadow-md transition-transform transform hover:scale-105">
+                        Niveau Suivant 🔓
+                    </button>
+                    <button id="btn-retry" onclick="startLevel(currentLevelPlaying)" class="hidden px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-bold shadow-md">
+                        Réessayer 🔄
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const wordsData = [
+            // Règle du S
+            { sing: "un signe", plur: "signes", letter: "s" },
+            { sing: "une tablette", plur: "tablettes", letter: "s" },
+            { sing: "un dessin", plur: "dessins", letter: "s" },
+            { sing: "un document", plur: "documents", letter: "s" },
+            { sing: "un trou", plur: "trous", letter: "s" }, // Piège (ou)
+            { sing: "un pneu", plur: "pneus", letter: "s" }, // Exception (eu)
+            { sing: "un clou", plur: "clous", letter: "s" }, // Piège (ou)
+            // Règle du X
+            { sing: "un rideau", plur: "rideaux", letter: "x" },
+            { sing: "un rouleau", plur: "rouleaux", letter: "x" },
+            { sing: "un noyau", plur: "noyaux", letter: "x" },
+            { sing: "un feu", plur: "feux", letter: "x" },
+            { sing: "un cheveu", plur: "cheveux", letter: "x" },
+            // Les 7 exceptions (ou)
+            { sing: "un bijou", plur: "bijoux", letter: "x" },
+            { sing: "un caillou", plur: "cailloux", letter: "x" },
+            { sing: "un chou", plur: "choux", letter: "x" },
+            { sing: "un genou", plur: "genoux", letter: "x" },
+            { sing: "un hibou", plur: "hiboux", letter: "x" },
+            { sing: "un joujou", plur: "joujoux", letter: "x" },
+            { sing: "un pou", plur: "poux", letter: "x" }
+        ];
+
+        let unlockedLevels = 1;
+        let currentLevelPlaying = 0;
+        let score = 0;
+        let maxQuestions = 5;
+        let currentQuestionIndex = 0;
+        let sessionData = [];
+
+        function showTab(tabId) {
+            document.getElementById('lecon').classList.add('hidden');
+            document.getElementById('entrainement').classList.add('hidden');
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.getElementById('btn-lecon').className = tabId === 'lecon' 
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-indigo-600 text-white transform hover:-translate-y-1" 
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-indigo-600 border-2 border-indigo-200 hover:bg-indigo-50 transform hover:-translate-y-1";
+            
+            document.getElementById('btn-entrainement').className = tabId === 'entrainement' 
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-indigo-600 text-white transform hover:-translate-y-1" 
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-indigo-600 border-2 border-indigo-200 hover:bg-indigo-50 transform hover:-translate-y-1";
+            
+            if(tabId === 'entrainement') backToLevels();
+        }
+
+        function backToLevels() {
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('levels-menu').classList.remove('hidden');
+            updateLocks();
+        }
+
+        function updateLocks() {
+            const btn2 = document.getElementById('btn-level-2');
+            const btn3 = document.getElementById('btn-level-3');
+            
+            if (unlockedLevels >= 2) {
+                btn2.classList.remove('locked');
+                btn2.querySelector('.text-2xl').innerText = '🔓';
+            }
+            if (unlockedLevels >= 3) {
+                btn3.classList.remove('locked');
+                btn3.querySelector('.text-2xl').innerText = '🔓';
+            }
+        }
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startLevel(level) {
+            if (level > unlockedLevels) return;
+
+            currentLevelPlaying = level;
+            score = 0;
+            currentQuestionIndex = 0;
+            
+            let dataPool = [...wordsData];
+            shuffleArray(dataPool);
+            sessionData = dataPool.slice(0, maxQuestions);
+
+            document.getElementById('levels-menu').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('game-area').classList.remove('hidden');
+            document.getElementById('ui-level-3').classList.add('hidden');
+            document.getElementById('question-container').classList.add('hidden');
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const titles = ["", "Niveau 1 : Le bon pluriel", "Niveau 2 : S ou X ?", "Niveau 3 : L'Écrivain"];
+            document.getElementById('game-title').innerText = titles[level];
+            updateScoreDisplay();
+
+            if (level === 1 || level === 2) {
+                document.getElementById('question-container').classList.remove('hidden');
+                renderQuestionMulti();
+            } else if (level === 3) {
+                document.getElementById('ui-level-3').classList.remove('hidden');
+                renderQuestionInput();
+            }
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-display').innerText = `Score: ${score}/${maxQuestions}`;
+        }
+
+        function renderQuestionMulti() {
+            const data = sessionData[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+            container.innerHTML = ''; 
+
+            const qTitle = document.createElement('h3');
+            qTitle.className = "text-2xl font-bold text-gray-800 mb-8";
+            
+            if (currentLevelPlaying === 1) {
+                qTitle.innerHTML = `Quel est le pluriel de : <br><span class="text-4xl text-indigo-600 inline-block mt-4">${data.sing}</span> ?`;
+            } else {
+                qTitle.innerHTML = `Complète le pluriel de : <br><span class="text-xl text-gray-500 block mb-2">${data.sing}</span><span class="text-4xl text-indigo-600 inline-block">des ${data.plur.slice(0, -1)}</span><span class="text-4xl text-orange-500 font-extrabold border-b-4 border-dashed border-orange-400">...</span>`;
+            }
+            container.appendChild(qTitle);
+
+            const optsContainer = document.createElement('div');
+            optsContainer.className = "flex justify-center gap-6 mt-8";
+            
+            let options = [];
+            if (currentLevelPlaying === 1) {
+                const wrongPlural = data.letter === 's' ? data.plur.slice(0, -1) + 'x' : data.plur.slice(0, -1) + 's';
+                options = [{ text: "des " + data.plur, isCorrect: true }, { text: "des " + wrongPlural, isCorrect: false }];
+            } else {
+                options = [{ text: "+ S", val: 's', isCorrect: data.letter === 's' }, { text: "+ X", val: 'x', isCorrect: data.letter === 'x' }];
+            }
+            
+            shuffleArray(options); 
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerHTML = opt.text;
+                btn.className = "btn-option px-8 py-4 bg-white border-2 border-indigo-200 rounded-2xl text-2xl font-bold text-gray-700 shadow-sm min-w-[150px]";
+                btn.onclick = () => handleAnswer(opt.isCorrect, btn, currentLevelPlaying === 2 ? opt.val : data.plur);
+                optsContainer.appendChild(btn);
+            });
+
+            container.appendChild(optsContainer);
+        }
+
+        function handleAnswer(isCorrect, btnNode, correctValue) {
+            const buttons = document.getElementById('question-container').querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+
+            const fz = document.getElementById('feedback-zone');
+            fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            if (isCorrect) {
+                score++;
+                btnNode.classList.replace('border-indigo-200', 'border-green-500');
+                btnNode.classList.add('bg-green-100', 'text-green-800', 'ring-4', 'ring-green-200');
+                fz.classList.add('bg-green-100', 'text-green-800');
+                fz.innerHTML = "✅ Super ! Bonne réponse.";
+            } else {
+                btnNode.classList.replace('border-indigo-200', 'border-red-500');
+                btnNode.classList.add('bg-red-100', 'text-red-800');
+                fz.classList.add('bg-red-100', 'text-red-800');
+                fz.innerHTML = `❌ Aïe ! Il fallait choisir la lettre <strong>${sessionData[currentQuestionIndex].letter.toUpperCase()}</strong>.`;
+                
+                buttons.forEach(b => {
+                    if ((currentLevelPlaying === 1 && b.innerHTML.includes(sessionData[currentQuestionIndex].plur)) || 
+                        (currentLevelPlaying === 2 && b.innerHTML.toLowerCase().includes(sessionData[currentQuestionIndex].letter))) {
+                        b.classList.replace('border-indigo-200', 'border-green-500');
+                        b.classList.add('border-4');
+                    }
+                });
+            }
+            updateScoreDisplay();
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function renderQuestionInput() {
+            const data = sessionData[currentQuestionIndex];
+            document.getElementById('l3-question').innerText = data.sing;
+            
+            const inputField = document.getElementById('l3-input');
+            inputField.value = '';
+            inputField.disabled = false;
+            inputField.focus();
+            
+            inputField.onkeypress = function(e) {
+                if (e.key === 'Enter') checkLevel3();
+            };
+            
+            document.getElementById('l3-validate-btn').classList.remove('hidden');
+        }
+
+        function checkLevel3() {
+            const data = sessionData[currentQuestionIndex];
+            const inputField = document.getElementById('l3-input');
+            const userAnswer = inputField.value.trim().toLowerCase();
+            const correctAnswer = data.plur.toLowerCase();
+            
+            if (userAnswer === "") return;
+
+            inputField.disabled = true;
+            document.getElementById('l3-validate-btn').classList.add('hidden');
+            
+            const fz = document.getElementById('feedback-zone');
+            fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                inputField.classList.add('bg-green-100', 'text-green-800', 'border-green-500');
+                fz.classList.add('bg-green-100', 'text-green-800');
+                fz.innerHTML = "✨ Excellent ! L'orthographe est parfaite.";
+            } else {
+                inputField.classList.add('bg-red-100', 'text-red-800', 'border-red-500');
+                fz.classList.add('bg-red-100', 'text-red-800');
+                fz.innerHTML = `❌ Attention, il fallait écrire : <strong>${correctAnswer}</strong>`;
+            }
+            
+            updateScoreDisplay();
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            
+            const inputField = document.getElementById('l3-input');
+            inputField.className = "w-48 bg-white border-b-4 border-blue-300 focus:outline-none focus:border-blue-500 text-center px-2 py-2 rounded-lg";
+
+            if (currentQuestionIndex < maxQuestions) {
+                if (currentLevelPlaying === 1 || currentLevelPlaying === 2) renderQuestionMulti();
+                if (currentLevelPlaying === 3) renderQuestionInput();
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function showEndScreen() {
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('ui-level-3').classList.add('hidden');
+            
+            const endScreen = document.getElementById('end-screen');
+            endScreen.classList.remove('hidden');
+            
+            const isPerfect = (score === maxQuestions);
+            
+            document.getElementById('end-score').innerHTML = `Tu as un score de <strong>${score} sur ${maxQuestions}</strong>`;
+            
+            const btnNext = document.getElementById('btn-next-level');
+            const btnRetry = document.getElementById('btn-retry');
+            btnNext.classList.add('hidden');
+            btnRetry.classList.add('hidden');
+
+            if (isPerfect) {
+                document.getElementById('end-icon').innerText = "🏆";
+                document.getElementById('end-title').innerText = "Félicitations !";
+                
+                if (currentLevelPlaying < 3) {
+                    document.getElementById('end-message').innerText = `Génial ! Tu as débloqué le niveau ${currentLevelPlaying + 1} !`;
+                    if (unlockedLevels < currentLevelPlaying + 1) {
+                        unlockedLevels = currentLevelPlaying + 1;
+                    }
+                    btnNext.classList.remove('hidden');
+                } else {
+                    document.getElementById('end-message').innerText = "Incroyable ! Tu ne fais plus aucune faute de pluriel ! 🥇";
+                }
+            } else {
+                document.getElementById('end-icon').innerText = "💪";
+                document.getElementById('end-title').innerText = "Presque !";
+                document.getElementById('end-message').innerText = "Il faut avoir 5 sur 5 pour débloquer la suite. Essaie encore !";
+                btnRetry.classList.remove('hidden');
+            }
+            
+            if(isPerfect) triggerConfetti();
+        }
+
+        function triggerConfetti() {
+            for(let i=0; i<40; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.width = '12px';
+                conf.style.height = '12px';
+                conf.style.backgroundColor = ['#fbbf24', '#f87171', '#34d399', '#60a5fa', '#c084fc'][Math.floor(Math.random()*5)];
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                conf.style.zIndex = '9999';
+                conf.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+            if(!document.getElementById('confetti-style')) {
+                const style = document.createElement('style');
+                style.id = 'confetti-style';
+                style.innerHTML = `@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }`;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>
