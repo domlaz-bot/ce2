@@ -52,7 +52,7 @@
         <header class="text-center mb-8">
             <span class="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase shadow-sm">Orth 5</span>
             <h1 class="text-4xl font-extrabold text-indigo-900 mt-4 mb-2">Le pluriel des noms</h1>
-            <p class="text-indigo-700 font-medium text-lg">Apprends à former le pluriel avec un S ou un X !</p>
+            <p class="text-indigo-700 font-medium text-lg">Apprends toutes les règles pour former le pluriel !</p>
         </header>
 
         <nav class="flex flex-wrap justify-center gap-4 mb-10">
@@ -68,43 +68,67 @@
             
             <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-indigo-400">
                 <h2 class="text-2xl font-bold text-indigo-800 mb-6 flex items-center gap-2">
-                    <span>📺</span> Les leçons en vidéo (Réseau Canopé)
+                    <span>📺</span> Les leçons en vidéo
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <h3 class="text-lg font-bold text-gray-700 mb-2">Vidéo 1 : Le pluriel en "S"</h3>
                         <div class="video-container bg-indigo-50 flex items-center justify-center">
-                            <!-- Intégration officielle Canopé -->
                             <iframe src="https://lesfondamentaux.reseau-canope.fr/embed/video/le-pluriel-du-nom-12" frameborder="0" allowfullscreen="true" title="Le pluriel du nom 1"></iframe>
                         </div>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-700 mb-2">Vidéo 2 : Le pluriel en "X"</h3>
+                        <h3 class="text-lg font-bold text-gray-700 mb-2">Vidéo 2 : Le pluriel en "X" et autres règles</h3>
                         <div class="video-container bg-indigo-50 flex items-center justify-center">
-                             <!-- Intégration officielle Canopé -->
                             <iframe src="https://lesfondamentaux.reseau-canope.fr/embed/video/le-pluriel-du-nom-22" frameborder="0" allowfullscreen="true" title="Le pluriel du nom 2"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Grille des règles : S et Invariabilité -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Règle du S -->
                 <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-blue-400 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 text-8xl opacity-10 font-bold text-blue-500">S</div>
-                    <h2 class="text-2xl font-bold text-blue-800 mb-4">Règle générale</h2>
-                    <p class="text-lg text-gray-600 mb-6 font-medium">En général, on ajoute un <strong class="text-blue-600 text-2xl font-bold">s</strong> pour former le pluriel des noms.</p>
+                    <h2 class="text-2xl font-bold text-blue-800 mb-4">La règle générale</h2>
+                    <p class="text-lg text-gray-600 mb-6 font-medium">En général, on ajoute un <strong class="text-blue-600 text-2xl font-bold">s</strong>.</p>
                     
                     <ul class="space-y-3 bg-blue-50 p-4 rounded-xl border border-blue-100 text-blue-900 font-medium text-lg">
                         <li class="flex justify-between items-center"><span>un signe</span> <span class="text-blue-400">➔</span> <span>des signe<strong class="text-xl text-blue-600">s</strong></span></li>
                         <li class="flex justify-between items-center"><span>une tablette</span> <span class="text-blue-400">➔</span> <span>des tablette<strong class="text-xl text-blue-600">s</strong></span></li>
                         <li class="flex justify-between items-center"><span>un trou</span> <span class="text-blue-400">➔</span> <span>des trou<strong class="text-xl text-blue-600">s</strong></span></li>
-                        <li class="flex justify-between items-center bg-white p-2 rounded-lg shadow-sm border border-blue-200">
-                            <span>un pneu</span> <span class="text-blue-400">➔</span> <span>des pneu<strong class="text-xl text-red-500">s</strong> (Exception !)</span>
+                        <li class="flex justify-between items-center bg-white p-2 rounded-lg shadow-sm border border-blue-200 mt-2">
+                            <span>un pneu</span> <span class="text-blue-400">➔</span> <span>des pneu<strong class="text-xl text-red-500">s</strong> (Exception eu)</span>
                         </li>
                     </ul>
                 </div>
 
+                <!-- Les Invariables -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-gray-400 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 font-bold text-gray-500">∅</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Aucun changement !</h2>
+                    <p class="text-lg text-gray-600 mb-4 font-medium">Il n'y a aucun changement pour les noms finissant déjà par <strong class="text-gray-800 text-xl font-bold">-s, -x ou -z</strong>.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200 text-gray-900 font-medium text-md">
+                        <ul class="space-y-2 border-r border-gray-200 pr-2">
+                            <li class="flex justify-between items-center"><span>un pays</span> <span class="text-gray-400">➔</span> <span>des pays</span></li>
+                            <li class="flex justify-between items-center"><span>une souris</span> <span class="text-gray-400">➔</span> <span>des souris</span></li>
+                            <li class="flex justify-between items-center"><span>un prix</span> <span class="text-gray-400">➔</span> <span>des prix</span></li>
+                            <li class="flex justify-between items-center"><span>une voix</span> <span class="text-gray-400">➔</span> <span>des voix</span></li>
+                        </ul>
+                        <ul class="space-y-2 pl-2">
+                            <li class="flex justify-between items-center"><span>un nez</span> <span class="text-gray-400">➔</span> <span>des nez</span></li>
+                            <li class="flex justify-between items-center"><span>un gaz</span> <span class="text-gray-400">➔</span> <span>des gaz</span></li>
+                            <li class="flex justify-between items-center"><span>un ananas</span> <span class="text-gray-400">➔</span> <span>des ananas</span></li>
+                            <li class="flex justify-between items-center"><span>un ours</span> <span class="text-gray-400">➔</span> <span>des ours</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grille des règles : X et AUX -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Règle du X -->
                 <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-orange-400 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 text-8xl opacity-10 font-bold text-orange-500">X</div>
@@ -115,11 +139,37 @@
                         <li class="flex justify-between items-center"><span>un rideau</span> <span class="text-orange-400">➔</span> <span>des rideau<strong class="text-xl text-orange-600">x</strong></span></li>
                         <li class="flex justify-between items-center"><span>un noyau</span> <span class="text-orange-400">➔</span> <span>des noyau<strong class="text-xl text-orange-600">x</strong></span></li>
                         <li class="flex justify-between items-center"><span>un feu</span> <span class="text-orange-400">➔</span> <span>des feu<strong class="text-xl text-orange-600">x</strong></span></li>
+                        <li class="flex justify-between items-center bg-white p-2 rounded-lg shadow-sm border border-orange-200 mt-2">
+                            <span>une eau</span> <span class="text-orange-400">➔</span> <span>des eau<strong class="text-xl text-orange-600">x</strong></span>
+                        </li>
                     </ul>
 
-                    <div class="bg-red-50 p-4 rounded-xl border border-red-200">
-                        <p class="font-bold text-red-800 mb-2">🚨 Les 7 mots en -ou qui prennent un X :</p>
+                    <div class="bg-red-50 p-4 rounded-xl border border-red-200 text-sm">
+                        <p class="font-bold text-red-800 mb-1">🚨 Les 7 mots en -ou qui prennent un X :</p>
                         <p class="text-red-700 italic font-medium">bijoux, cailloux, choux, genoux, hiboux, joujoux, poux.</p>
+                    </div>
+                </div>
+
+                <!-- Les mots en AL / AIL -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-teal-400 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 font-bold text-teal-500">AUX</div>
+                    <h2 class="text-2xl font-bold text-teal-800 mb-4">al / ail ➔ aux</h2>
+                    <p class="text-lg text-gray-600 mb-4 font-medium">On transforme <strong>al</strong> ou <strong>ail</strong> en <strong class="text-teal-600 text-2xl font-bold">aux</strong>.</p>
+                    
+                    <ul class="space-y-3 bg-teal-50 p-4 rounded-xl border border-teal-100 text-teal-900 font-medium text-lg mb-4">
+                        <li class="flex justify-between items-center"><span>un canal</span> <span class="text-teal-400">➔</span> <span>des can<strong class="text-xl text-teal-600">aux</strong></span></li>
+                        <li class="flex justify-between items-center"><span>un cheval</span> <span class="text-teal-400">➔</span> <span>des chev<strong class="text-xl text-teal-600">aux</strong></span></li>
+                        <li class="flex justify-between items-center"><span>un travail</span> <span class="text-teal-400">➔</span> <span>des trav<strong class="text-xl text-teal-600">aux</strong></span></li>
+                        <li class="flex justify-between items-center"><span>un corail</span> <span class="text-teal-400">➔</span> <span>des cor<strong class="text-xl text-teal-600">aux</strong></span></li>
+                    </ul>
+
+                    <div class="bg-red-50 p-3 rounded-xl border border-red-200 text-sm mb-3">
+                        <p class="font-bold text-red-800 mb-1">🚨 Exceptions qui prennent un S :</p>
+                        <p class="text-red-700 italic font-medium">bal, carnaval, festival, régal, détail, chandail, portail, rail...</p>
+                    </div>
+                    
+                    <div class="bg-purple-100 p-3 rounded-xl border border-purple-300 text-center text-purple-900 font-bold">
+                        Un mot spécial : un œil ➔ des yeux
                     </div>
                 </div>
             </div>
@@ -157,7 +207,7 @@
                         <div class="text-4xl">✍️</div>
                         <div class="text-left">
                             <h3 class="text-xl font-bold text-gray-800">Niveau 3 : L'Écrivain</h3>
-                            <p class="text-gray-500">Écris toi-même le mot avec la bonne marque du pluriel.</p>
+                            <p class="text-gray-500">Écris toi-même le mot au pluriel (attention aux exceptions !).</p>
                         </div>
                     </div>
                     <div class="text-gray-400 font-bold text-2xl">🔒</div>
@@ -229,34 +279,61 @@
 
     <script>
         const wordsData = [
+            // --- FICHE 1 ---
             // Règle du S
-            { sing: "un signe", plur: "signes", letter: "s" },
-            { sing: "une tablette", plur: "tablettes", letter: "s" },
-            { sing: "un dessin", plur: "dessins", letter: "s" },
-            { sing: "un document", plur: "documents", letter: "s" },
-            { sing: "un trou", plur: "trous", letter: "s" }, // Piège (ou)
-            { sing: "un pneu", plur: "pneus", letter: "s" }, // Exception (eu)
-            { sing: "un clou", plur: "clous", letter: "s" }, // Piège (ou)
+            { sing: "un signe", plur: "signes", type: "s", letter: "s" },
+            { sing: "une tablette", plur: "tablettes", type: "s", letter: "s" },
+            { sing: "un dessin", plur: "dessins", type: "s", letter: "s" },
+            { sing: "un document", plur: "documents", type: "s", letter: "s" },
+            { sing: "un trou", plur: "trous", type: "s", letter: "s" }, // Piège (ou)
+            { sing: "un pneu", plur: "pneus", type: "s", letter: "s" }, // Exception (eu)
             // Règle du X
-            { sing: "un rideau", plur: "rideaux", letter: "x" },
-            { sing: "un rouleau", plur: "rouleaux", letter: "x" },
-            { sing: "un noyau", plur: "noyaux", letter: "x" },
-            { sing: "un feu", plur: "feux", letter: "x" },
-            { sing: "un cheveu", plur: "cheveux", letter: "x" },
+            { sing: "un rideau", plur: "rideaux", type: "x", letter: "x" },
+            { sing: "un rouleau", plur: "rouleaux", type: "x", letter: "x" },
+            { sing: "un noyau", plur: "noyaux", type: "x", letter: "x" },
+            { sing: "un feu", plur: "feux", type: "x", letter: "x" },
+            { sing: "un cheveu", plur: "cheveux", type: "x", letter: "x" },
             // Les 7 exceptions (ou)
-            { sing: "un bijou", plur: "bijoux", letter: "x" },
-            { sing: "un caillou", plur: "cailloux", letter: "x" },
-            { sing: "un chou", plur: "choux", letter: "x" },
-            { sing: "un genou", plur: "genoux", letter: "x" },
-            { sing: "un hibou", plur: "hiboux", letter: "x" },
-            { sing: "un joujou", plur: "joujoux", letter: "x" },
-            { sing: "un pou", plur: "poux", letter: "x" }
+            { sing: "un bijou", plur: "bijoux", type: "x", letter: "x" },
+            { sing: "un caillou", plur: "cailloux", type: "x", letter: "x" },
+            { sing: "un chou", plur: "choux", type: "x", letter: "x" },
+            { sing: "un genou", plur: "genoux", type: "x", letter: "x" },
+            { sing: "un hibou", plur: "hiboux", type: "x", letter: "x" },
+            { sing: "un joujou", plur: "joujoux", type: "x", letter: "x" },
+            { sing: "un pou", plur: "poux", type: "x", letter: "x" },
+            
+            // --- FICHE 2 ---
+            // Invariables (s, x, z)
+            { sing: "un pays", plur: "pays", type: "invar", letter: "" },
+            { sing: "une souris", plur: "souris", type: "invar", letter: "" },
+            { sing: "un prix", plur: "prix", type: "invar", letter: "" },
+            { sing: "une voix", plur: "voix", type: "invar", letter: "" },
+            { sing: "un nez", plur: "nez", type: "invar", letter: "" },
+            { sing: "un gaz", plur: "gaz", type: "invar", letter: "" },
+            { sing: "un ananas", plur: "ananas", type: "invar", letter: "" },
+            { sing: "un compas", plur: "compas", type: "invar", letter: "" },
+            { sing: "un bus", plur: "bus", type: "invar", letter: "" },
+            { sing: "une fois", plur: "fois", type: "invar", letter: "" },
+            { sing: "un ours", plur: "ours", type: "invar", letter: "" },
+            { sing: "un radis", plur: "radis", type: "invar", letter: "" },
+            // -al / -ail -> -aux
+            { sing: "un canal", plur: "canaux", type: "aux", letter: "" },
+            { sing: "un cheval", plur: "chevaux", type: "aux", letter: "" },
+            { sing: "un travail", plur: "travaux", type: "aux", letter: "" },
+            { sing: "un corail", plur: "coraux", type: "aux", letter: "" },
+            // Exceptions -al / -ail -> -s
+            { sing: "un bal", plur: "bals", type: "s", letter: "s" },
+            { sing: "un carnaval", plur: "carnavals", type: "s", letter: "s" },
+            { sing: "un festival", plur: "festivals", type: "s", letter: "s" },
+            { sing: "un portail", plur: "portails", type: "s", letter: "s" },
+            // Exception totale
+            { sing: "un œil", plur: "yeux", type: "special", letter: "" }
         ];
 
         let unlockedLevels = 1;
         let currentLevelPlaying = 0;
         let score = 0;
-        let maxQuestions = 5;
+        let maxQuestions = 6; // Un peu plus long vu le nombre de mots
         let currentQuestionIndex = 0;
         let sessionData = [];
 
@@ -309,6 +386,12 @@
             currentQuestionIndex = 0;
             
             let dataPool = [...wordsData];
+            
+            // Pour le niveau 2 (S ou X), on filtre uniquement les mots où il faut ajouter un s ou un x à la fin
+            if (level === 2) {
+                dataPool = dataPool.filter(w => w.type === 's' || w.type === 'x');
+            }
+
             shuffleArray(dataPool);
             sessionData = dataPool.slice(0, maxQuestions);
 
@@ -347,33 +430,74 @@
             
             if (currentLevelPlaying === 1) {
                 qTitle.innerHTML = `Quel est le pluriel de : <br><span class="text-4xl text-indigo-600 inline-block mt-4">${data.sing}</span> ?`;
-            } else {
+                container.appendChild(qTitle);
+
+                const optsContainer = document.createElement('div');
+                optsContainer.className = "flex justify-center gap-6 mt-8 flex-wrap";
+                
+                // Génération des options (1 correcte, 1 ou 2 fausses)
+                let options = [{ text: "des " + data.plur, isCorrect: true }];
+                
+                if (data.type === 's' || data.type === 'x' || data.type === 'invar') {
+                    // Pour les mots normaux ou invariables, proposer une version modifiée (avec s, x, ou enlevée)
+                    let wrong1 = "des " + data.sing.split(' ')[1] + "s";
+                    let wrong2 = "des " + data.sing.split(' ')[1] + "x";
+                    
+                    if (data.type === 'invar') {
+                         options.push({ text: wrong1, isCorrect: false });
+                         if(data.sing.endsWith('s')) options.push({ text: "des " + data.sing.split(' ')[1].slice(0,-1) + "x", isCorrect: false});
+                    } else if (data.type === 's') {
+                        options.push({ text: wrong2, isCorrect: false });
+                    } else if (data.type === 'x') {
+                        options.push({ text: wrong1, isCorrect: false });
+                    }
+                } else if (data.type === 'aux') {
+                    // Pour cheval, travail...
+                    let base = data.sing.split(' ')[1];
+                    options.push({ text: "des " + base + "s", isCorrect: false }); // des chevals
+                } else if (data.type === 'special') {
+                    options.push({ text: "des œils", isCorrect: false });
+                }
+
+                // S'assurer qu'on n'a pas deux fois la même option (ex: si le mot de base a déjà un s)
+                const uniqueOptionsMap = new Map();
+                options.forEach(opt => uniqueOptionsMap.set(opt.text, opt));
+                let uniqueOptions = Array.from(uniqueOptionsMap.values());
+
+                shuffleArray(uniqueOptions); 
+
+                uniqueOptions.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.innerHTML = opt.text;
+                    btn.className = "btn-option px-6 py-4 bg-white border-2 border-indigo-200 rounded-2xl text-2xl font-bold text-gray-700 shadow-sm min-w-[150px]";
+                    btn.onclick = () => handleAnswer(opt.isCorrect, btn, "des " + data.plur);
+                    optsContainer.appendChild(btn);
+                });
+                container.appendChild(optsContainer);
+
+            } else if (currentLevelPlaying === 2) {
+                // Niveau 2 : Ajouter S ou X à la fin du mot
                 qTitle.innerHTML = `Complète le pluriel de : <br><span class="text-xl text-gray-500 block mb-2">${data.sing}</span><span class="text-4xl text-indigo-600 inline-block">des ${data.plur.slice(0, -1)}</span><span class="text-4xl text-orange-500 font-extrabold border-b-4 border-dashed border-orange-400">...</span>`;
+                container.appendChild(qTitle);
+
+                const optsContainer = document.createElement('div');
+                optsContainer.className = "flex justify-center gap-6 mt-8";
+
+                const options = [
+                    { text: "+ S", val: 's', isCorrect: data.letter === 's' }, 
+                    { text: "+ X", val: 'x', isCorrect: data.letter === 'x' }
+                ];
+                shuffleArray(options); 
+
+                options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.innerHTML = opt.text;
+                    btn.className = "btn-option px-8 py-4 bg-white border-2 border-indigo-200 rounded-2xl text-2xl font-bold text-gray-700 shadow-sm min-w-[150px]";
+                    btn.onclick = () => handleAnswer(opt.isCorrect, btn, opt.val);
+                    optsContainer.appendChild(btn);
+                });
+                container.appendChild(optsContainer);
             }
-            container.appendChild(qTitle);
-
-            const optsContainer = document.createElement('div');
-            optsContainer.className = "flex justify-center gap-6 mt-8";
-            
-            let options = [];
-            if (currentLevelPlaying === 1) {
-                const wrongPlural = data.letter === 's' ? data.plur.slice(0, -1) + 'x' : data.plur.slice(0, -1) + 's';
-                options = [{ text: "des " + data.plur, isCorrect: true }, { text: "des " + wrongPlural, isCorrect: false }];
-            } else {
-                options = [{ text: "+ S", val: 's', isCorrect: data.letter === 's' }, { text: "+ X", val: 'x', isCorrect: data.letter === 'x' }];
-            }
-            
-            shuffleArray(options); 
-
-            options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.innerHTML = opt.text;
-                btn.className = "btn-option px-8 py-4 bg-white border-2 border-indigo-200 rounded-2xl text-2xl font-bold text-gray-700 shadow-sm min-w-[150px]";
-                btn.onclick = () => handleAnswer(opt.isCorrect, btn, currentLevelPlaying === 2 ? opt.val : data.plur);
-                optsContainer.appendChild(btn);
-            });
-
-            container.appendChild(optsContainer);
         }
 
         function handleAnswer(isCorrect, btnNode, correctValue) {
@@ -393,13 +517,19 @@
                 btnNode.classList.replace('border-indigo-200', 'border-red-500');
                 btnNode.classList.add('bg-red-100', 'text-red-800');
                 fz.classList.add('bg-red-100', 'text-red-800');
-                fz.innerHTML = `❌ Aïe ! Il fallait choisir la lettre <strong>${sessionData[currentQuestionIndex].letter.toUpperCase()}</strong>.`;
                 
+                if (currentLevelPlaying === 2) {
+                     fz.innerHTML = `❌ Aïe ! Il fallait choisir la lettre <strong>${sessionData[currentQuestionIndex].letter.toUpperCase()}</strong>.`;
+                } else {
+                     fz.innerHTML = `❌ Aïe ! La bonne réponse était <strong>${correctValue}</strong>.`;
+                }
+                
+                // Mettre en évidence la bonne réponse
                 buttons.forEach(b => {
                     if ((currentLevelPlaying === 1 && b.innerHTML.includes(sessionData[currentQuestionIndex].plur)) || 
                         (currentLevelPlaying === 2 && b.innerHTML.toLowerCase().includes(sessionData[currentQuestionIndex].letter))) {
                         b.classList.replace('border-indigo-200', 'border-green-500');
-                        b.classList.add('border-4');
+                        b.classList.add('border-4', 'bg-green-50');
                     }
                 });
             }
@@ -500,7 +630,7 @@
             } else {
                 document.getElementById('end-icon').innerText = "💪";
                 document.getElementById('end-title').innerText = "Presque !";
-                document.getElementById('end-message').innerText = "Il faut avoir 5 sur 5 pour débloquer la suite. Essaie encore !";
+                document.getElementById('end-message').innerText = `Il faut avoir ${maxQuestions} sur ${maxQuestions} pour débloquer la suite. Essaie encore !`;
                 btnRetry.classList.remove('hidden');
             }
             
