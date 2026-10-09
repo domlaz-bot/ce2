@@ -204,7 +204,18 @@
             { q: "Le verbe dans <span class='italic text-blue-600'>La voiture roule</span> indique :", a: "Une action", options: ["Une action", "Un état"] },
             { q: "Le verbe dans <span class='italic text-blue-600'>La voiture est en panne</span> indique :", a: "Un état", options: ["Une action", "Un état"] },
             { q: "Quel est <b>l'infinitif</b> de : <span class='italic text-blue-600'>il mange</span> ?", a: "manger", options: ["mangeons", "manger", "mangera"] },
-            { q: "Pour trouver le verbe, on peut changer le temps ou...", a: "mettre à la forme négative", options: ["mettre au pluriel", "mettre à la forme négative", "crier très fort"] }
+            { q: "Pour trouver le verbe, on peut changer le temps ou...", a: "mettre à la forme négative", options: ["mettre au pluriel", "mettre à la forme négative", "crier très fort"] },
+            // NOUVELLES QUESTIONS NIVEAU 1
+            { q: "Trouve le <b>verbe</b> dans cette phrase :<br><br><span class='text-2xl text-gray-600 italic'>Le chat dort.</span>", a: "dort", options: ["Le", "chat", "dort"] },
+            { q: "Dans le dictionnaire, le verbe est écrit...", a: "à l'infinitif", options: ["à l'infinitif", "conjugué", "au féminin"] },
+            { q: "Trouve <b>l'infinitif</b> du verbe dans cette phrase :<br><br><span class='text-2xl text-gray-600 italic'>Nous jouons au ballon.</span>", a: "jouer", options: ["jouer", "jouons", "joué"] },
+            { q: "Le verbe dans <span class='italic text-blue-600'>Le ciel semble nuageux</span> indique :", a: "Un état", options: ["Une action", "Un état"] },
+            { q: "Quelle astuce permet de trouver le verbe conjugué ?", a: "Ajouter 'ne... pas'", options: ["Ajouter 'beaucoup'", "Ajouter 'ne... pas'", "Ajouter 's' à la fin"] },
+            { q: "Trouve le <b>verbe conjugué</b> dans cette phrase :<br><br><span class='text-2xl text-gray-600 italic'>Le vent souffle fort.</span>", a: "souffle", options: ["vent", "souffle", "fort"] },
+            { q: "Le verbe dans <span class='italic text-blue-600'>Le bébé pleure</span> indique :", a: "Une action", options: ["Une action", "Un état"] },
+            { q: "Quel est <b>l'infinitif</b> de : <span class='italic text-blue-600'>vous regardez</span> ?", a: "regarder", options: ["regardons", "regarder", "regardez"] },
+            { q: "En changeant le temps avec 'Hier', quel mot change dans la phrase ?<br><span class='italic'>Aujourd'hui, je lis. ➔ Hier, je...</span>", a: "Le verbe", options: ["Le sujet", "Le verbe", "Le déterminant"] },
+            { q: "Trouve le <b>verbe</b> dans cette phrase :<br><br><span class='text-2xl text-gray-600 italic'>Elle dessine une maison.</span>", a: "dessine", options: ["Elle", "dessine", "maison"] }
         ];
 
         const level2Data = [
@@ -212,7 +223,18 @@
             { q: "Dans <span class='italic text-blue-600'>Ma mère préfère le train</span>, quel est le <b>verbe</b> ?", a: "préfère", options: ["Ma mère", "préfère", "le train"] },
             { q: "Quels sont les deux groupes <b>indispensables</b> dans une phrase ?", a: "Le sujet et le verbe", options: ["Le sujet et le verbe", "Le verbe et les détails", "Le sujet et les détails"] },
             { q: "Dans <span class='italic text-blue-600'>Ce matin, je lis</span>, quel groupe peut-on <b>déplacer ou supprimer</b> ?", a: "Ce matin", options: ["Ce matin", "je", "lis"] },
-            { q: "Peut-on supprimer <b>\"le train\"</b> dans : <span class='italic text-blue-600'>Ma mère prend le train.</span> ?", a: "Non", options: ["Oui", "Non"] }
+            { q: "Peut-on supprimer <b>\"le train\"</b> dans : <span class='italic text-blue-600'>Ma mère prend le train.</span> ?", a: "Non", options: ["Oui", "Non"] },
+            // NOUVELLES QUESTIONS NIVEAU 2
+            { q: "Dans <span class='italic text-blue-600'>Le grand chien aboie</span>, quel est le <b>groupe sujet</b> ?", a: "Le grand chien", options: ["Le grand", "chien", "Le grand chien", "aboie"] },
+            { q: "Dans <span class='italic text-blue-600'>Ce soir, nous regardons un film</span>, quel groupe peut-on <b>déplacer</b> ?", a: "Ce soir", options: ["nous", "regardons", "Ce soir"] },
+            { q: "Vrai ou Faux : On peut toujours supprimer le groupe sujet sans changer le sens.", a: "Faux", options: ["Vrai", "Faux"] },
+            { q: "Dans <span class='italic text-blue-600'>Le garçon boit son jus</span>, quel est le <b>verbe</b> ?", a: "boit", options: ["Le garçon", "boit", "son jus"] },
+            { q: "Peut-on déplacer <b>\"Le chat\"</b> à la fin de la phrase : <span class='italic text-blue-600'>Le chat dort sur le canapé.</span> ?", a: "Non", options: ["Oui", "Non"] },
+            { q: "Quel groupe donne un détail (quand, où...) dans : <span class='italic text-blue-600'>Il pleut depuis ce matin.</span> ?", a: "depuis ce matin", options: ["Il", "pleut", "depuis ce matin"] },
+            { q: "Dans <span class='italic text-blue-600'>Les élèves écoutent le maître</span>, quel groupe <b>ne peut pas</b> être supprimé ?", a: "le maître", options: ["Les", "le maître"] }, // Simplifié pour éviter confusion
+            { q: "Le groupe qui répond à la question 'Qui est-ce qui ?' est le...", a: "Groupe sujet", options: ["Verbe", "Groupe sujet", "Détail"] },
+            { q: "Dans <span class='italic text-blue-600'>Le facteur distribue le courrier dans la rue</span>, combien y a-t-il de groupes de mots ?", a: "3", options: ["2", "3", "4"] }, // Sujet / Verbe+Objet / Complément déplaçable
+            { q: "Dans <span class='italic text-blue-600'>Ma petite sœur chante</span>, quel mot est le verbe ?", a: "chante", options: ["petite", "sœur", "chante"] }
         ];
 
         const level3Data = [
@@ -220,7 +242,18 @@
             { q: "Quel groupe <b>peut-on déplacer</b> dans cette phrase ?<br><br><span class='text-2xl text-gray-600 italic'>Demain, nous irons au parc.</span>", a: "Demain", options: ["Demain", "nous irons", "au parc"] },
             { q: "Dans la phrase <span class='italic text-blue-600'>La fille semble malade</span>, le verbe indique...", a: "Un état", options: ["Une action", "Un état"] },
             { q: "Pour trouver le verbe dans <span class='italic text-blue-600'>L'oiseau chante</span>, je dis :", a: "L'oiseau ne chante pas.", options: ["L'oiseau ne chante pas.", "Ne l'oiseau chante pas.", "L'oiseau chante pas ne."] },
-            { q: "Quel est le <b>groupe sujet</b> dans cette phrase ?<br><br><span class='text-2xl text-gray-600 italic'>Dans le jardin, le chien aboie.</span>", a: "le chien", options: ["Dans le jardin", "le chien", "aboie"] }
+            { q: "Quel est le <b>groupe sujet</b> dans cette phrase ?<br><br><span class='text-2xl text-gray-600 italic'>Dans le jardin, le chien aboie.</span>", a: "le chien", options: ["Dans le jardin", "le chien", "aboie"] },
+            // NOUVELLES QUESTIONS NIVEAU 3
+            { q: "Transforme en utilisant 'ne... pas' pour trouver le verbe : <span class='italic'>Lucas trouve la solution.</span>", a: "Lucas ne trouve pas...", options: ["Ne Lucas trouve pas...", "Lucas ne trouve pas...", "Lucas trouve ne pas..."] },
+            { q: "Trouve <b>l'infinitif</b> du verbe dans cette phrase :<br><br><span class='text-2xl text-gray-600 italic'>Le bateau navigue sur la mer.</span>", a: "naviguer", options: ["navigue", "naviguer", "naviguera"] },
+            { q: "Quel groupe <b>ne peut pas</b> être déplacé dans : <br><br><span class='text-2xl text-gray-600 italic'>Hier, Jérémy a perdu ses clés.</span>", a: "ses clés", options: ["Hier", "Jérémy", "ses clés"] },
+            { q: "Le verbe dans <span class='italic text-blue-600'>L'arbre grandit vite</span> indique :", a: "Une action", options: ["Une action", "Un état"] },
+            { q: "Quel est le <b>groupe sujet</b> dans : <br><br><span class='text-2xl text-gray-600 italic'>Le loup affamé cherche une proie.</span>", a: "Le loup affamé", options: ["Le loup", "Le loup affamé", "cherche"] },
+            { q: "Vrai ou Faux : Dans 'La pomme est rouge', le verbe exprime une action.", a: "Faux", options: ["Vrai", "Faux"] },
+            { q: "Trouve <b>l'infinitif</b> du verbe de cette phrase :<br><br><span class='text-2xl text-gray-600 italic'>Tu finis ton assiette.</span>", a: "finir", options: ["finis", "finir", "fini"] },
+            { q: "Remplace 'Demain' par 'Hier' : <br><span class='italic'>Demain, elle partira. ➔ Hier, elle...</span>", a: "est partie", options: ["part", "est partie", "partira"] },
+            { q: "Dans <span class='italic text-blue-600'>Maman prépare un gâteau dans la cuisine</span>, quel groupe peut-on <b>supprimer</b> ?", a: "dans la cuisine", options: ["Maman", "un gâteau", "dans la cuisine"] },
+            { q: "Trouve le <b>verbe conjugué</b> :<br><br><span class='text-2xl text-gray-600 italic'>Pour gagner, il faut courir vite.</span>", a: "faut", options: ["gagner", "faut", "courir"] }
         ];
 
         // --- ETAT DU JEU ---
