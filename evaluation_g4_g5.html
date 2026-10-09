@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions G4-G5 : Verbe et Groupes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            min-height: 100vh;
+        }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .locked {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: scale(0.98);
+        }
+        .btn-option {
+            transition: all 0.2s;
+        }
+        .btn-option:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .gs-box { border: 3px solid #3b82f6; border-radius: 4px; padding: 2px 6px; color: #1d4ed8; font-weight: bold; }
+        .v-box { border: 3px solid #ef4444; border-radius: 4px; padding: 2px 6px; color: #b91c1c; font-weight: bold; }
+        .gp-box { border: 3px solid #22c55e; border-radius: 4px; padding: 2px 6px; color: #15803d; font-weight: bold; }
+    </style>
+</head>
+<body class="text-gray-800 pb-12">
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <header class="text-center mb-8">
+            <span class="bg-cyan-100 text-cyan-700 px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase shadow-sm">Objectif Évaluation !</span>
+            <h1 class="text-4xl font-extrabold text-cyan-900 mt-4 mb-2">Le Verbe & Les Groupes</h1>
+            <p class="text-cyan-700 font-medium text-lg">Prépare ton évaluation sur les leçons G4 et G5</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-4 mb-10">
+            <button onclick="showTab('lecon')" id="btn-lecon" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-cyan-600 text-white hover:bg-cyan-700 transform hover:-translate-y-1">
+                📖 Fiches de révision
+            </button>
+            <button onclick="showTab('entrainement')" id="btn-entrainement" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-cyan-600 border-2 border-cyan-200 hover:bg-cyan-50 transform hover:-translate-y-1">
+                🎯 S'entraîner au test
+            </button>
+        </nav>
+
+        <div id="lecon" class="fade-in space-y-8">
+            
+            <!-- G4: Le Verbe -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-red-500">
+                <h2 class="text-2xl font-bold text-red-700 mb-4 flex items-center gap-2">
+                    <span>🎬</span> G4 : Le Verbe
+                </h2>
+                <div class="space-y-4 text-lg">
+                    <p>Le verbe est le mot le plus important de la phrase.</p>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                        <li>Il indique une <strong>action</strong> (<em class="text-gray-500">La voiture <span class="text-red-500 font-bold">roule</span>.</em>) ou un <strong>état</strong> (<em class="text-gray-500">La voiture <span class="text-red-500 font-bold">est</span> en panne.</em>).</li>
+                        <li>Il peut être <strong>conjugué</strong> ou à <strong>l'infinitif</strong> (comme dans le dictionnaire).<br>
+                        Astuce : on utilise <em>"est en train de..."</em> pour trouver l'infinitif : <em>La voiture roule ➔ La voiture est en train de <strong class="text-red-600">rouler</strong></em>.</li>
+                    </ul>
+                    
+                    <div class="bg-red-50 p-4 rounded-xl border border-red-100 mt-4">
+                        <h3 class="font-bold text-red-800 mb-2">Les 2 astuces pour trouver le verbe conjugué :</h3>
+                        <ol class="list-decimal pl-6 space-y-1 text-red-900 font-medium">
+                            <li>Changer le temps (Hier, Demain...) ➔ <em>La voiture <strong>roulait</strong>.</em></li>
+                            <li>Mettre à la forme négative (ne ... pas) ➔ <em>La voiture <strong>ne</strong> <span class="underline">roule</span> <strong>pas</strong>.</em></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- G5: Les groupes -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-blue-500">
+                <h2 class="text-2xl font-bold text-blue-700 mb-4 flex items-center gap-2">
+                    <span>🧱</span> G5 : Les groupes dans la phrase
+                </h2>
+                <div class="space-y-4 text-lg">
+                    <p>Dans une phrase, il y a plusieurs groupes de mots.</p>
+                    
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 text-center space-y-4">
+                        <p class="font-bold text-gray-700">Le Groupe Sujet et le Verbe sont indispensables !</p>
+                        <div class="flex justify-center items-center gap-2 text-xl">
+                            <span class="gs-box">Mon père</span> <span class="v-box">voyage.</span>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <p class="font-bold text-gray-700 mb-2">On ajoute souvent d'autres groupes :</p>
+                            <div class="flex flex-wrap justify-center items-center gap-2 text-xl">
+                                <span class="gs-box">Ma mère</span> <span class="v-box">préfère</span> <span class="gp-box border-yellow-500 text-yellow-700">le train.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mt-4">
+                        <h3 class="font-bold text-blue-800 mb-2">Déplacer ou supprimer :</h3>
+                        <p class="mb-2 text-blue-900">Certains groupes donnent un <strong>détail</strong>. On peut les <strong>déplacer</strong> ou les <strong>supprimer</strong> :</p>
+                        <div class="flex flex-wrap justify-center items-center gap-2 text-lg mb-2">
+                            <span class="gp-box">Ce matin,</span> <span class="gs-box">ma mère</span> <span class="v-box">prend</span> <span class="gp-box border-yellow-500 text-yellow-700">le train.</span>
+                        </div>
+                        <div class="flex flex-wrap justify-center items-center gap-2 text-lg">
+                            <span class="gs-box">Ma mère</span> <span class="v-box">prend</span> <span class="gp-box border-yellow-500 text-yellow-700">le train</span> <span class="gp-box">ce matin.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="entrainement" class="hidden fade-in">
+            
+            <div id="levels-menu" class="space-y-6 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-center text-cyan-900 mb-6">Choisis ta mission :</h2>
+                
+                <button onclick="startLevel(1)" class="w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-red-400 hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🕵️</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 1 : Le détective du Verbe</h3>
+                            <p class="text-gray-500">Concentre-toi sur la leçon G4 (Trouver le verbe, l'infinitif...)</p>
+                        </div>
+                    </div>
+                    <div class="text-red-500 font-bold">Jouer ▶</div>
+                </button>
+
+                <button id="btn-level-2" onclick="startLevel(2)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-blue-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🧱</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 2 : Le maître des Groupes</h3>
+                            <p class="text-gray-500">Concentre-toi sur la leçon G5 (Sujet, Verbe, Déplacer...)</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+
+                <button id="btn-level-3" onclick="startLevel(3)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-purple-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🎓</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 3 : Le Grand Test</h3>
+                            <p class="text-gray-500">Le test final qui mélange toutes les règles !</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+            </div>
+
+            <div id="game-area" class="hidden bg-white p-6 sm:p-10 rounded-3xl shadow-lg border-2 border-cyan-100 max-w-3xl mx-auto relative overflow-hidden">
+                
+                <div class="flex justify-between items-center mb-8 border-b pb-4">
+                    <button onclick="backToLevels()" class="text-cyan-600 hover:text-cyan-800 font-bold flex items-center gap-2">
+                        <span>⬅️</span> Retour
+                    </button>
+                    <span id="game-title" class="text-xl font-bold text-gray-700">Niveau</span>
+                    <span id="score-display" class="bg-cyan-100 text-cyan-800 px-4 py-1 rounded-full font-bold">Score: 0/0</span>
+                </div>
+
+                <div id="question-container" class="text-center space-y-8">
+                    <!-- Contenu injecté via JS -->
+                </div>
+
+                <div id="feedback-zone" class="hidden mt-8 p-4 rounded-xl text-center font-bold text-lg animate-pulse">
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-8 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-bold shadow-lg transition-transform transform hover:scale-105">
+                        Continuer ➡️
+                    </button>
+                </div>
+            </div>
+
+            <div id="end-screen" class="hidden bg-white p-10 rounded-3xl shadow-lg border-2 border-cyan-100 max-w-2xl mx-auto text-center space-y-6">
+                <div id="end-icon" class="text-6xl mb-4">⭐</div>
+                <h2 id="end-title" class="text-3xl font-extrabold text-gray-800">Terminé !</h2>
+                <p id="end-score" class="text-xl text-gray-600"></p>
+                <div id="end-message" class="text-lg font-bold text-cyan-700 bg-cyan-50 p-4 rounded-xl"></div>
+                
+                <div class="flex justify-center gap-4 mt-8">
+                    <button onclick="backToLevels()" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full font-bold transition-colors">
+                        Menu des niveaux
+                    </button>
+                    <button id="btn-next-level" onclick="startLevel(currentLevelPlaying + 1)" class="hidden px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-bold shadow-md transition-transform transform hover:scale-105">
+                        Niveau Suivant 🔓
+                    </button>
+                    <button id="btn-retry" onclick="startLevel(currentLevelPlaying)" class="hidden px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-bold shadow-md">
+                        Réessayer 🔄
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- BANQUE DE QUESTIONS ---
+        const level1Data = [
+            { q: "Trouve le <b>verbe</b> dans cette phrase :<br><br><span class='text-2xl text-gray-600 italic'>Le garçon saute.</span>", a: "saute", options: ["Le", "garçon", "saute"] },
+            { q: "Le verbe dans <span class='italic text-blue-600'>La voiture roule</span> indique :", a: "Une action", options: ["Une action", "Un état"] },
+            { q: "Le verbe dans <span class='italic text-blue-600'>La voiture est en panne</span> indique :", a: "Un état", options: ["Une action", "Un état"] },
+            { q: "Quel est <b>l'infinitif</b> de : <span class='italic text-blue-600'>il mange</span> ?", a: "manger", options: ["mangeons", "manger", "mangera"] },
+            { q: "Pour trouver le verbe, on peut changer le temps ou...", a: "mettre à la forme négative", options: ["mettre au pluriel", "mettre à la forme négative", "crier très fort"] }
+        ];
+
+        const level2Data = [
+            { q: "Dans <span class='italic text-blue-600'>Mon père voyage</span>, quel est le <b>groupe sujet</b> ?", a: "Mon père", options: ["Mon", "père", "Mon père", "voyage"] },
+            { q: "Dans <span class='italic text-blue-600'>Ma mère préfère le train</span>, quel est le <b>verbe</b> ?", a: "préfère", options: ["Ma mère", "préfère", "le train"] },
+            { q: "Quels sont les deux groupes <b>indispensables</b> dans une phrase ?", a: "Le sujet et le verbe", options: ["Le sujet et le verbe", "Le verbe et les détails", "Le sujet et les détails"] },
+            { q: "Dans <span class='italic text-blue-600'>Ce matin, je lis</span>, quel groupe peut-on <b>déplacer ou supprimer</b> ?", a: "Ce matin", options: ["Ce matin", "je", "lis"] },
+            { q: "Peut-on supprimer <b>\"le train\"</b> dans : <span class='italic text-blue-600'>Ma mère prend le train.</span> ?", a: "Non", options: ["Oui", "Non"] }
+        ];
+
+        const level3Data = [
+            { q: "Trouve <b>l'infinitif</b> du verbe de cette phrase :<br><br><span class='text-2xl text-gray-600 italic'>Les oiseaux volent haut.</span>", a: "voler", options: ["vole", "voler", "volant", "voulons"] },
+            { q: "Quel groupe <b>peut-on déplacer</b> dans cette phrase ?<br><br><span class='text-2xl text-gray-600 italic'>Demain, nous irons au parc.</span>", a: "Demain", options: ["Demain", "nous irons", "au parc"] },
+            { q: "Dans la phrase <span class='italic text-blue-600'>La fille semble malade</span>, le verbe indique...", a: "Un état", options: ["Une action", "Un état"] },
+            { q: "Pour trouver le verbe dans <span class='italic text-blue-600'>L'oiseau chante</span>, je dis :", a: "L'oiseau ne chante pas.", options: ["L'oiseau ne chante pas.", "Ne l'oiseau chante pas.", "L'oiseau chante pas ne."] },
+            { q: "Quel est le <b>groupe sujet</b> dans cette phrase ?<br><br><span class='text-2xl text-gray-600 italic'>Dans le jardin, le chien aboie.</span>", a: "le chien", options: ["Dans le jardin", "le chien", "aboie"] }
+        ];
+
+        // --- ETAT DU JEU ---
+        let unlockedLevels = 1;
+        let currentLevelPlaying = 0;
+        let score = 0;
+        let maxQuestions = 5;
+        let currentQuestionIndex = 0;
+        let sessionData = [];
+
+        // --- NAVIGATION ---
+        function showTab(tabId) {
+            document.getElementById('lecon').classList.add('hidden');
+            document.getElementById('entrainement').classList.add('hidden');
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.getElementById('btn-lecon').className = tabId === 'lecon' 
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-cyan-600 text-white transform hover:-translate-y-1" 
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-cyan-600 border-2 border-cyan-200 hover:bg-cyan-50 transform hover:-translate-y-1";
+            
+            document.getElementById('btn-entrainement').className = tabId === 'entrainement' 
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-cyan-600 text-white transform hover:-translate-y-1" 
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-cyan-600 border-2 border-cyan-200 hover:bg-cyan-50 transform hover:-translate-y-1";
+            
+            if(tabId === 'entrainement') backToLevels();
+        }
+
+        function backToLevels() {
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('levels-menu').classList.remove('hidden');
+            updateLocks();
+        }
+
+        function updateLocks() {
+            const btn2 = document.getElementById('btn-level-2');
+            const btn3 = document.getElementById('btn-level-3');
+            
+            if (unlockedLevels >= 2) {
+                btn2.classList.remove('locked');
+                btn2.querySelector('.text-2xl').innerText = '🔓';
+            }
+            if (unlockedLevels >= 3) {
+                btn3.classList.remove('locked');
+                btn3.querySelector('.text-2xl').innerText = '🔓';
+            }
+        }
+
+        // --- MOTEUR DE JEU ---
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startLevel(level) {
+            if (level > unlockedLevels) return;
+
+            currentLevelPlaying = level;
+            score = 0;
+            currentQuestionIndex = 0;
+            
+            let dataPool = [];
+            if (level === 1) dataPool = [...level1Data];
+            if (level === 2) dataPool = [...level2Data];
+            if (level === 3) dataPool = [...level3Data];
+            
+            shuffleArray(dataPool);
+            sessionData = dataPool.slice(0, maxQuestions);
+
+            document.getElementById('levels-menu').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('game-area').classList.remove('hidden');
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const titles = ["", "Niveau 1 : Le Détective", "Niveau 2 : Le Maître des Groupes", "Niveau 3 : Le Grand Test"];
+            document.getElementById('game-title').innerText = titles[level];
+            updateScoreDisplay();
+
+            renderQuestion();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-display').innerText = `Score: ${score}/${maxQuestions}`;
+        }
+
+        function renderQuestion() {
+            const data = sessionData[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+            container.innerHTML = ''; // Clear
+
+            const qTitle = document.createElement('h3');
+            qTitle.className = "text-xl md:text-2xl font-bold text-gray-800 mb-8";
+            qTitle.innerHTML = data.q;
+            container.appendChild(qTitle);
+
+            const optsContainer = document.createElement('div');
+            // Adapt grid to number of options
+            let gridCols = "grid-cols-1";
+            if (data.options.length === 2) gridCols = "grid-cols-1 sm:grid-cols-2";
+            else if (data.options.length === 3 || data.options.length === 4) gridCols = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+            
+            optsContainer.className = `grid ${gridCols} gap-4`;
+            
+            let shuffledOptions = [...data.options];
+            // Ne pas mélanger Oui/Non ou Vrai/Faux
+            if(!["Oui", "Non", "Vrai", "Faux", "Une action", "Un état"].includes(shuffledOptions[0])) {
+                shuffleArray(shuffledOptions); 
+            }
+
+            shuffledOptions.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerHTML = opt;
+                btn.className = "btn-option p-4 bg-white border-2 border-cyan-200 rounded-xl text-xl font-bold text-cyan-900 shadow-sm";
+                btn.onclick = () => handleAnswer(opt, data.a, btn);
+                optsContainer.appendChild(btn);
+            });
+
+            container.appendChild(optsContainer);
+        }
+
+        function handleAnswer(selected, correct, btnNode) {
+            const buttons = document.getElementById('question-container').querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+
+            const fz = document.getElementById('feedback-zone');
+            fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            if (selected === correct) {
+                score++;
+                btnNode.classList.replace('border-cyan-200', 'border-green-500');
+                btnNode.classList.add('bg-green-100', 'text-green-800');
+                fz.classList.add('bg-green-100', 'text-green-800');
+                fz.innerHTML = "✅ Super ! Bonne réponse.";
+            } else {
+                btnNode.classList.replace('border-cyan-200', 'border-red-500');
+                btnNode.classList.add('bg-red-100', 'text-red-800');
+                fz.classList.add('bg-red-100', 'text-red-800');
+                fz.innerHTML = `❌ Aïe ! La bonne réponse était : <strong>${correct}</strong>`;
+                
+                buttons.forEach(b => {
+                    if (b.innerHTML === correct) {
+                        b.classList.replace('border-cyan-200', 'border-green-500');
+                        b.classList.add('border-4');
+                    }
+                });
+            }
+            updateScoreDisplay();
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            
+            if (currentQuestionIndex < maxQuestions) {
+                renderQuestion();
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function showEndScreen() {
+            document.getElementById('game-area').classList.add('hidden');
+            const endScreen = document.getElementById('end-screen');
+            endScreen.classList.remove('hidden');
+            
+            const isPerfect = (score === maxQuestions);
+            
+            document.getElementById('end-score').innerHTML = `Tu as un score de <strong>${score} sur ${maxQuestions}</strong>`;
+            
+            const btnNext = document.getElementById('btn-next-level');
+            const btnRetry = document.getElementById('btn-retry');
+            btnNext.classList.add('hidden');
+            btnRetry.classList.add('hidden');
+
+            if (isPerfect) {
+                document.getElementById('end-icon').innerText = "🏆";
+                document.getElementById('end-title').innerText = "Félicitations !";
+                
+                if (currentLevelPlaying < 3) {
+                    document.getElementById('end-message').innerText = `Génial ! Tu es prêt(e) pour le niveau ${currentLevelPlaying + 1} !`;
+                    if (unlockedLevels < currentLevelPlaying + 1) {
+                        unlockedLevels = currentLevelPlaying + 1;
+                    }
+                    btnNext.classList.remove('hidden');
+                } else {
+                    document.getElementById('end-message').innerText = "Incroyable ! Tu es paré(e) pour ton évaluation ! 🥇";
+                }
+            } else {
+                document.getElementById('end-icon').innerText = "💪";
+                document.getElementById('end-title').innerText = "Presque !";
+                document.getElementById('end-message').innerText = "Il faut avoir tout bon pour valider le niveau. Essaie encore !";
+                btnRetry.classList.remove('hidden');
+            }
+            
+            if(isPerfect) triggerConfetti();
+        }
+
+        function triggerConfetti() {
+            for(let i=0; i<40; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.width = '12px';
+                conf.style.height = '12px';
+                conf.style.backgroundColor = ['#fbbf24', '#f87171', '#34d399', '#60a5fa', '#c084fc', '#22d3ee'][Math.floor(Math.random()*6)];
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                conf.style.zIndex = '9999';
+                conf.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+            if(!document.getElementById('confetti-style')) {
+                const style = document.createElement('style');
+                style.id = 'confetti-style';
+                style.innerHTML = `@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }`;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>
