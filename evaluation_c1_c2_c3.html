@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluation Maths C1-C2-C3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            min-height: 100vh;
+        }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .locked {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: scale(0.98);
+        }
+        .btn-option { transition: all 0.2s; }
+        .btn-option:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Math grid styling */
+        .math-grid {
+            display: grid;
+            grid-template-columns: 20px 40px 40px;
+            gap: 2px;
+            font-family: monospace;
+            font-size: 2rem;
+            line-height: 1;
+            text-align: center;
+        }
+        .math-cell { padding: 4px; border: 1px solid transparent; }
+        .math-border-bottom { border-bottom: 2px solid #374151; }
+        .math-retenue { font-size: 1.2rem; color: #ef4444; }
+        .math-barre { position: relative; }
+        .math-barre::after {
+            content: ''; position: absolute; top: 50%; left: 10%; right: 10%;
+            border-bottom: 2px solid #ef4444; transform: rotate(-30deg);
+        }
+    </style>
+</head>
+<body class="text-gray-800 pb-12">
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <header class="text-center mb-8">
+            <span class="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase shadow-sm animate-pulse">Objectif Évaluation !</span>
+            <h1 class="text-4xl font-extrabold text-indigo-900 mt-4 mb-2 flex justify-center items-center gap-3">
+                <span>🐭</span> Maths C1 - C2 - C3 <span>🔢</span>
+            </h1>
+            <p class="text-indigo-700 font-medium text-lg">Opérations posées et calcul réfléchi</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-4 mb-10">
+            <button onclick="showTab('lecon')" id="btn-lecon" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-indigo-600 text-white hover:bg-indigo-700 transform hover:-translate-y-1">
+                📖 Fiches de révision
+            </button>
+            <button onclick="showTab('entrainement')" id="btn-entrainement" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-indigo-600 border-2 border-indigo-200 hover:bg-indigo-50 transform hover:-translate-y-1">
+                🎯 S'entraîner au test
+            </button>
+        </nav>
+
+        <div id="lecon" class="fade-in space-y-8">
+            
+            <!-- C1: Stratégies -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-yellow-400">
+                <h2 class="text-2xl font-bold text-yellow-600 mb-4">C1 : Les stratégies de calcul</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-100">
+                        <h3 class="font-bold text-gray-800 mb-2">L'appui sur 10</h3>
+                        <p class="text-gray-600 mb-2">On cherche ce qui fait 10 :</p>
+                        <p class="text-xl font-bold text-center"><span class="border-2 border-gray-400 rounded-full px-2">3</span> + 4 + <span class="border-2 border-gray-400 rounded-full px-2">7</span> = <span class="border-2 border-gray-400 rounded-full px-1">10</span> + 4 = 14</p>
+                        <p class="text-gray-600 mt-4 mb-2">L'astuce du complément :</p>
+                        <p class="text-lg font-bold text-center">9 + 7 = <span class="border-2 border-gray-400 rounded-full px-2">9 + 10</span> - 3 = 16</p>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                        <h3 class="font-bold text-gray-800 mb-2">Les presque doubles</h3>
+                        <p class="text-gray-600 mb-2">On cherche les doubles cachés :</p>
+                        <p class="text-lg font-bold text-center mb-2">7 + 8 = <span class="border-2 border-gray-400 rounded-full px-2">7 + 7</span> + 1 = 15</p>
+                        <p class="text-sm text-gray-500 text-center">(Car 8 c'est 7 + 1)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- C2: Addition -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-blue-500 flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-blue-700 mb-4">C2 : L'addition avec retenue</h2>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700 font-medium">
+                        <li>Je commence TOUJOURS par la colonne des <strong>unités</strong>.</li>
+                        <li>Si le résultat dépasse 9, j'ajoute la dizaine dans la colonne des dizaines : <strong class="text-red-500">c'est la retenue</strong>.</li>
+                    </ul>
+                    <div class="bg-blue-50 p-4 rounded-xl mt-4 text-sm text-blue-900 border border-blue-200">
+                        <strong>Pour vérifier mon résultat :</strong><br>
+                        1. Ordre de grandeur : 60 + 30 = 90<br>
+                        2. Calcul inverse : 92 - 27
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-inner">
+                    <div class="math-grid font-bold text-gray-700">
+                        <div class="math-cell"></div><div class="math-cell math-retenue border border-red-300 rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-1">1</div><div class="math-cell"></div>
+                        <div class="math-cell"></div><div class="math-cell">6</div><div class="math-cell">5</div>
+                        <div class="math-cell math-border-bottom">+</div><div class="math-cell math-border-bottom">2</div><div class="math-cell math-border-bottom">7</div>
+                        <div class="math-cell"></div><div class="math-cell text-blue-600">9</div><div class="math-cell text-blue-600">2</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- C3: Soustraction -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-4 border-red-500 flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-red-700 mb-4">C3 : La soustraction avec retenue</h2>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700 font-medium">
+                        <li>Je commence par les unités. 2 moins 8, c'est impossible !</li>
+                        <li>Il faut <strong>prendre une dizaine</strong> au nombre d'à côté.</li>
+                        <li>Le 5 devient 4, et le 2 devient 12. Je calcule : 12 - 8 = 4.</li>
+                    </ul>
+                    <div class="bg-red-50 p-4 rounded-xl mt-4 text-sm text-red-900 border border-red-200">
+                        <strong>Pour vérifier mon résultat :</strong><br>
+                        1. Ordre de grandeur : 60 - 30 = 30<br>
+                        2. Calcul inverse : 34 + 28
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-inner relative">
+                    <div class="math-grid font-bold text-gray-700">
+                        <div class="math-cell"></div><div class="math-cell math-retenue">4</div><div class="math-cell math-retenue">10</div>
+                        <div class="math-cell"></div><div class="math-cell math-barre">5</div><div class="math-cell">2</div>
+                        <div class="math-cell math-border-bottom">-</div><div class="math-cell math-border-bottom">2</div><div class="math-cell math-border-bottom">8</div>
+                        <div class="math-cell"></div><div class="math-cell text-red-600">2</div><div class="math-cell text-red-600">4</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="entrainement" class="hidden fade-in">
+            
+            <div id="levels-menu" class="space-y-6 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-center text-indigo-900 mb-6">Choisis ta mission :</h2>
+                
+                <button onclick="startLevel(1)" class="w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-yellow-400 hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🧠</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 1 : Stratégies C1</h3>
+                            <p class="text-gray-500">Calcul mental, appui sur 10 et presque doubles.</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-600 font-bold">Jouer ▶</div>
+                </button>
+
+                <button id="btn-level-2" onclick="startLevel(2)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-blue-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">➕</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 2 : L'addition C2</h3>
+                            <p class="text-gray-500">Les règles de l'addition posée et la retenue.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+
+                <button id="btn-level-3" onclick="startLevel(3)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-red-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">➖</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 3 : La soustraction C3</h3>
+                            <p class="text-gray-500">Les règles de la soustraction posée et la dizaine.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+            </div>
+
+            <div id="game-area" class="hidden bg-white p-6 sm:p-10 rounded-3xl shadow-lg border-2 border-indigo-100 max-w-3xl mx-auto relative overflow-hidden">
+                
+                <div class="flex justify-between items-center mb-8 border-b pb-4">
+                    <button onclick="backToLevels()" class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-2">
+                        <span>⬅️</span> Retour
+                    </button>
+                    <span id="game-title" class="text-xl font-bold text-gray-700">Niveau</span>
+                    <span id="score-display" class="bg-indigo-100 text-indigo-800 px-4 py-1 rounded-full font-bold">Score: 0/0</span>
+                </div>
+
+                <div id="question-container" class="text-center space-y-8">
+                    <!-- Contenu injecté via JS -->
+                </div>
+
+                <div id="feedback-zone" class="hidden mt-8 p-4 rounded-xl text-center font-bold text-lg animate-pulse">
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-8 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-bold shadow-lg transition-transform transform hover:scale-105">
+                        Continuer ➡️
+                    </button>
+                </div>
+            </div>
+
+            <div id="end-screen" class="hidden bg-white p-10 rounded-3xl shadow-lg border-2 border-indigo-100 max-w-2xl mx-auto text-center space-y-6">
+                <div id="end-icon" class="text-6xl mb-4">⭐</div>
+                <h2 id="end-title" class="text-3xl font-extrabold text-gray-800">Terminé !</h2>
+                <p id="end-score" class="text-xl text-gray-600"></p>
+                <div id="end-message" class="text-lg font-bold text-indigo-700 bg-indigo-50 p-4 rounded-xl"></div>
+                
+                <div class="flex justify-center gap-4 mt-8">
+                    <button onclick="backToLevels()" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full font-bold transition-colors">
+                        Menu des niveaux
+                    </button>
+                    <button id="btn-next-level" onclick="startLevel(currentLevelPlaying + 1)" class="hidden px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-bold shadow-md transition-transform transform hover:scale-105">
+                        Niveau Suivant 🔓
+                    </button>
+                    <button id="btn-retry" onclick="startLevel(currentLevelPlaying)" class="hidden px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-bold shadow-md">
+                        Réessayer 🔄
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- BANQUE DE QUESTIONS ---
+        const level1Data = [
+            { q: "Pour calculer facilement <span class='text-blue-600'>2 + 5 + 8</span>, quels nombres mets-tu ensemble d'abord ?", a: "2 et 8", options: ["2 et 5", "5 et 8", "2 et 8"] },
+            { q: "Avec l'astuce de la souris, comment calculer <span class='text-blue-600'>9 + 7</span> ?", a: "9 + 10 - 3", options: ["9 + 10 + 3", "9 + 10 - 3", "9 + 7 - 1"] },
+            { q: "En utilisant le <b>presque double</b>, comment calculer <span class='text-blue-600'>6 + 7</span> ?", a: "6 + 6 + 1", options: ["6 + 6 - 1", "7 + 7 + 1", "6 + 6 + 1"] },
+            { q: "En utilisant le <b>presque double</b>, <span class='text-blue-600'>8 + 9</span> c'est...", a: "8 + 8 + 1", options: ["9 + 9 + 1", "8 + 8 + 1", "8 + 9 + 10"] },
+            { q: "Calcule vite avec la méthode de ton choix : <br><span class='text-2xl text-blue-600'>4 + 7 + 6</span>", a: "17", options: ["16", "17", "18"] }
+        ];
+
+        const level2Data = [
+            { q: "Dans une addition posée, par quelle colonne dois-tu <b>TOUJOURS</b> commencer ?", a: "Les unités", options: ["Les centaines", "Les dizaines", "Les unités"] },
+            { q: "Je pose 65 + 27. Aux unités, 5 + 7 = 12. Que fais-tu du 1 ?", a: "Je le mets en retenue", options: ["Je le mets en retenue", "Je l'oublie", "Je le mets aux centaines"] },
+            { q: "Quel est <b>l'ordre de grandeur</b> de <span class='text-blue-600'>48 + 31</span> ?", a: "50 + 30 = 80", options: ["40 + 30 = 70", "50 + 30 = 80", "50 + 40 = 90"] },
+            { q: "Comment <b>vérifier</b> le résultat de l'addition <span class='text-blue-600'>65 + 27 = 92</span> ?", a: "Je calcule 92 - 27", options: ["Je calcule 92 - 27", "Je calcule 92 + 27", "Je calcule 65 - 27"] },
+            { q: "Vrai ou Faux : Si on trouve une retenue, on a le droit de l'oublier si on veut aller vite.", a: "Faux", options: ["Vrai", "Faux"] }
+        ];
+
+        const level3Data = [
+            { q: "Je pose 52 - 28. Aux unités, je dois faire 2 moins 8. Que se passe-t-il ?", a: "C'est impossible, je prends une dizaine", options: ["Ça fait 6", "Je fais 8 - 2 = 6", "C'est impossible, je prends une dizaine"] },
+            { q: "Si je prends une dizaine au <b>5</b> de 52, que devient ce 5 ?", a: "Il devient 4", options: ["Il devient 6", "Il devient 4", "Il devient 0"] },
+            { q: "Et que devient le <b>2</b> des unités quand il reçoit la dizaine ?", a: "Il devient 12", options: ["Il devient 10", "Il devient 3", "Il devient 12"] },
+            { q: "Quel est <b>l'ordre de grandeur</b> de <span class='text-blue-600'>62 - 29</span> ?", a: "60 - 30 = 30", options: ["60 - 20 = 40", "60 - 30 = 30", "70 - 30 = 40"] },
+            { q: "Comment <b>vérifier</b> le résultat de la soustraction <span class='text-blue-600'>52 - 28 = 24</span> ?", a: "Je calcule 24 + 28", options: ["Je calcule 52 + 28", "Je calcule 28 - 24", "Je calcule 24 + 28"] }
+        ];
+
+        // --- ETAT DU JEU ---
+        let unlockedLevels = 1;
+        let currentLevelPlaying = 0;
+        let score = 0;
+        let maxQuestions = 5;
+        let currentQuestionIndex = 0;
+        let sessionData = [];
+
+        // --- NAVIGATION ---
+        function showTab(tabId) {
+            document.getElementById('lecon').classList.add('hidden');
+            document.getElementById('entrainement').classList.add('hidden');
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.getElementById('btn-lecon').className = tabId === 'lecon' 
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-indigo-600 text-white transform hover:-translate-y-1" 
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-indigo-600 border-2 border-indigo-200 hover:bg-indigo-50 transform hover:-translate-y-1";
+            
+            document.getElementById('btn-entrainement').className = tabId === 'entrainement' 
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-indigo-600 text-white transform hover:-translate-y-1" 
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-indigo-600 border-2 border-indigo-200 hover:bg-indigo-50 transform hover:-translate-y-1";
+            
+            if(tabId === 'entrainement') backToLevels();
+        }
+
+        function backToLevels() {
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('levels-menu').classList.remove('hidden');
+            updateLocks();
+        }
+
+        function updateLocks() {
+            const btn2 = document.getElementById('btn-level-2');
+            const btn3 = document.getElementById('btn-level-3');
+            
+            if (unlockedLevels >= 2) {
+                btn2.classList.remove('locked');
+                btn2.querySelector('.text-2xl').innerText = '🔓';
+            }
+            if (unlockedLevels >= 3) {
+                btn3.classList.remove('locked');
+                btn3.querySelector('.text-2xl').innerText = '🔓';
+            }
+        }
+
+        // --- MOTEUR DE JEU ---
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startLevel(level) {
+            if (level > unlockedLevels) return;
+
+            currentLevelPlaying = level;
+            score = 0;
+            currentQuestionIndex = 0;
+            
+            let dataPool = [];
+            if (level === 1) dataPool = [...level1Data];
+            if (level === 2) dataPool = [...level2Data];
+            if (level === 3) dataPool = [...level3Data];
+            
+            shuffleArray(dataPool);
+            sessionData = dataPool.slice(0, maxQuestions);
+
+            document.getElementById('levels-menu').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('game-area').classList.remove('hidden');
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const titles = ["", "Niveau 1 : Stratégies", "Niveau 2 : L'addition", "Niveau 3 : La soustraction"];
+            document.getElementById('game-title').innerText = titles[level];
+            updateScoreDisplay();
+
+            renderQuestion();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-display').innerText = `Score: ${score}/${maxQuestions}`;
+        }
+
+        function renderQuestion() {
+            const data = sessionData[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+            container.innerHTML = ''; // Clear
+
+            const qTitle = document.createElement('h3');
+            qTitle.className = "text-xl md:text-2xl font-bold text-gray-800 mb-8";
+            qTitle.innerHTML = data.q;
+            container.appendChild(qTitle);
+
+            const optsContainer = document.createElement('div');
+            // Adapt grid to number of options
+            let gridCols = "grid-cols-1";
+            if (data.options.length === 2) gridCols = "grid-cols-1 sm:grid-cols-2";
+            else if (data.options.length === 3) gridCols = "grid-cols-1 sm:grid-cols-3";
+            
+            optsContainer.className = `grid ${gridCols} gap-4`;
+            
+            let shuffledOptions = [...data.options];
+            if(!["Oui", "Non", "Vrai", "Faux"].includes(shuffledOptions[0])) {
+                shuffleArray(shuffledOptions); 
+            }
+
+            shuffledOptions.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerHTML = opt;
+                btn.className = "btn-option p-4 bg-white border-2 border-indigo-200 rounded-xl text-lg font-bold text-indigo-900 shadow-sm";
+                btn.onclick = () => handleAnswer(opt, data.a, btn);
+                optsContainer.appendChild(btn);
+            });
+
+            container.appendChild(optsContainer);
+        }
+
+        function handleAnswer(selected, correct, btnNode) {
+            const buttons = document.getElementById('question-container').querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+
+            const fz = document.getElementById('feedback-zone');
+            fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            if (selected === correct) {
+                score++;
+                btnNode.classList.replace('border-indigo-200', 'border-green-500');
+                btnNode.classList.add('bg-green-100', 'text-green-800');
+                fz.classList.add('bg-green-100', 'text-green-800');
+                fz.innerHTML = "✅ Super ! Bonne réponse.";
+            } else {
+                btnNode.classList.replace('border-indigo-200', 'border-red-500');
+                btnNode.classList.add('bg-red-100', 'text-red-800');
+                fz.classList.add('bg-red-100', 'text-red-800');
+                fz.innerHTML = `❌ Aïe ! La bonne réponse était : <strong>${correct}</strong>`;
+                
+                buttons.forEach(b => {
+                    if (b.innerHTML === correct) {
+                        b.classList.replace('border-indigo-200', 'border-green-500');
+                        b.classList.add('border-4');
+                    }
+                });
+            }
+            updateScoreDisplay();
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            
+            if (currentQuestionIndex < maxQuestions) {
+                renderQuestion();
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function showEndScreen() {
+            document.getElementById('game-area').classList.add('hidden');
+            const endScreen = document.getElementById('end-screen');
+            endScreen.classList.remove('hidden');
+            
+            const isPerfect = (score === maxQuestions);
+            
+            document.getElementById('end-score').innerHTML = `Tu as un score de <strong>${score} sur ${maxQuestions}</strong>`;
+            
+            const btnNext = document.getElementById('btn-next-level');
+            const btnRetry = document.getElementById('btn-retry');
+            btnNext.classList.add('hidden');
+            btnRetry.classList.add('hidden');
+
+            if (isPerfect) {
+                document.getElementById('end-icon').innerText = "🏆";
+                document.getElementById('end-title').innerText = "Félicitations !";
+                
+                if (currentLevelPlaying < 3) {
+                    document.getElementById('end-message').innerText = `Génial ! Tu es prêt(e) pour le niveau ${currentLevelPlaying + 1} !`;
+                    if (unlockedLevels < currentLevelPlaying + 1) {
+                        unlockedLevels = currentLevelPlaying + 1;
+                    }
+                    btnNext.classList.remove('hidden');
+                } else {
+                    document.getElementById('end-message').innerText = "Incroyable ! Tu vas réussir ton évaluation haut la main ! 🥇";
+                }
+            } else {
+                document.getElementById('end-icon').innerText = "💪";
+                document.getElementById('end-title').innerText = "Presque !";
+                document.getElementById('end-message').innerText = "Il faut avoir tout bon pour valider le niveau. Essaie encore !";
+                btnRetry.classList.remove('hidden');
+            }
+            
+            if(isPerfect) triggerConfetti();
+        }
+
+        function triggerConfetti() {
+            for(let i=0; i<40; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.width = '12px';
+                conf.style.height = '12px';
+                conf.style.backgroundColor = ['#fbbf24', '#f87171', '#34d399', '#60a5fa', '#c084fc', '#818cf8'][Math.floor(Math.random()*6)];
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                conf.style.zIndex = '9999';
+                conf.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+            if(!document.getElementById('confetti-style')) {
+                const style = document.createElement('style');
+                style.id = 'confetti-style';
+                style.innerHTML = `@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }`;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>
