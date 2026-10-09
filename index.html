@@ -38,12 +38,30 @@
 
         <div class="flex flex-wrap justify-center gap-3 mb-10">
             <button onclick="filterApps('toutes')" id="btn-toutes" class="category-badge active px-6 py-2 rounded-full font-bold bg-white text-gray-600 hover:bg-gray-50 shadow-sm border border-gray-100">🌈 Toutes</button>
-            <button onclick="filterApps('francais')" id="btn-francais" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-pink-600 hover:bg-pink-50 shadow-sm border border-pink-100">📚 Français</button>
+            <button onclick="filterApps('francais')" id="btn-francais" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-pink-600 hover:bg-pink-50 shadow-sm border border-pink-100">📚 Français & Poésie</button>
             <button onclick="filterApps('maths')" id="btn-maths" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-green-600 hover:bg-green-50 shadow-sm border border-green-100">🔢 Maths</button>
             <button onclick="filterApps('qlm')" id="btn-qlm" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-orange-600 hover:bg-orange-50 shadow-sm border border-orange-100">🌍 Découverte</button>
         </div>
 
         <div id="apps-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- APPLICATION : Évaluation Maths C1 C2 C3 (NOUVEAU) -->
+            <a href="evaluation_c1_c2_c3.html" class="app-card block app-item maths relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-indigo-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-indigo-100 text-indigo-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold text-red-500 animate-pulse">ÉVALUATION</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">📊</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Calcul et Opérations</h2>
+                <p class="text-gray-500 mb-4 font-medium">Prépare ton test sur les leçons C1, C2 et C3 pour être au top !</p>
+                <div class="flex items-center text-indigo-500 font-bold group-hover:text-indigo-600">Lancer la mission <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- APPLICATION 4 : Évaluation G4 G5 -->
+            <a href="evaluation_g4_g5.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-cyan-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-cyan-100 text-cyan-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold text-red-500 animate-pulse">ÉVALUATION</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">💯</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Le Verbe & Les Groupes</h2>
+                <p class="text-gray-500 mb-4 font-medium">Prépare ton test sur les leçons G4 et G5 pour avoir tout bon !</p>
+                <div class="flex items-center text-cyan-500 font-bold group-hover:text-cyan-600">Lancer la mission <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
 
             <!-- APPLICATION 1 : Grammaire -->
             <a href="grammaire.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-pink-400 group overflow-hidden">
@@ -72,16 +90,16 @@
                 <div class="flex items-center text-indigo-500 font-bold group-hover:text-indigo-600">Lancer l'entraînement <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
             </a>
 
-            <!-- APPLICATION 4 : Évaluation G4 G5 (NOUVEAU) -->
-            <a href="evaluation_g4_g5.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-cyan-400 group overflow-hidden">
-                <div class="absolute top-0 right-0 bg-cyan-100 text-cyan-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold text-red-500 animate-pulse">ÉVALUATION</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">💯</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Le Verbe & Les Groupes</h2>
-                <p class="text-gray-500 mb-4 font-medium">Prépare ton test sur les leçons G4 et G5 pour avoir tout bon !</p>
-                <div class="flex items-center text-cyan-500 font-bold group-hover:text-cyan-600">Lancer la mission <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            <!-- APPLICATION 5 : Poésie -->
+            <a href="poesie.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-fuchsia-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-fuchsia-100 text-fuchsia-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Poésie</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🧙‍♀️</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Les 2 Sorcières</h2>
+                <p class="text-gray-500 mb-4 font-medium">Apprends et mémorise ta poésie d'Halloween grâce à 3 mini-jeux !</p>
+                <div class="flex items-center text-fuchsia-500 font-bold group-hover:text-fuchsia-600">Apprendre <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
             </a>
 
-            <!-- APPLICATION 5 : Maths (Doubles et Moitiés) -->
+            <!-- APPLICATION 6 : Maths (Doubles et Moitiés) -->
             <a href="doubles_moities.html" class="app-card block app-item maths relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-emerald-400 group overflow-hidden">
                 <div class="absolute top-0 right-0 bg-emerald-100 text-emerald-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Maths</div>
                 <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">⚖️</div>
@@ -90,7 +108,7 @@
                 <div class="flex items-center text-emerald-500 font-bold group-hover:text-emerald-600">Lancer l'entraînement <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
             </a>
 
-            <!-- APPLICATION 6 : Maths (Appui sur les doubles) -->
+            <!-- APPLICATION 7 : Maths (Appui sur les doubles) -->
             <a href="calcul_appui_doubles.html" class="app-card block app-item maths relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-teal-400 group overflow-hidden">
                 <div class="absolute top-0 right-0 bg-teal-100 text-teal-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Maths</div>
                 <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🐭</div>
