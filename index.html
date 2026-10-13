@@ -41,9 +41,19 @@
             <button onclick="filterApps('francais')" id="btn-francais" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-pink-600 hover:bg-pink-50 shadow-sm border border-pink-100">📚 Français & Poésie</button>
             <button onclick="filterApps('maths')" id="btn-maths" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-green-600 hover:bg-green-50 shadow-sm border border-green-100">🔢 Maths</button>
             <button onclick="filterApps('qlm')" id="btn-qlm" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-orange-600 hover:bg-orange-50 shadow-sm border border-orange-100">🌍 Découverte</button>
+            <button onclick="filterApps('enseignant')" id="btn-enseignant" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-slate-600 hover:bg-slate-50 shadow-sm border border-slate-100">👩‍🏫 Espace Enseignant</button>
         </div>
 
         <div id="apps-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- OUTIL ENSEIGNANT : Générateur de fiches Maths -->
+            <a href="generateur_fiches_maths.html" class="app-card block app-item enseignant relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-slate-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-slate-100 text-slate-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Outil Adulte</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🖨️</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Générateur de Fiches</h2>
+                <p class="text-gray-500 mb-4 font-medium">Imprime de nouvelles fiches d'exercices (C1, C2, C3) avec corrections à l'infini.</p>
+                <div class="flex items-center text-slate-500 font-bold group-hover:text-slate-600">Générer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
 
             <!-- APPLICATION : Évaluation Maths C1 C2 C3 (NOUVEAU) -->
             <a href="evaluation_c1_c2_c3.html" class="app-card block app-item maths relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-indigo-400 group overflow-hidden">
@@ -138,14 +148,16 @@
                 if(btn.id === 'btn-francais') btn.classList.add('text-pink-600');
                 if(btn.id === 'btn-maths') btn.classList.add('text-green-600');
                 if(btn.id === 'btn-qlm') btn.classList.add('text-orange-600');
+                if(btn.id === 'btn-enseignant') btn.classList.add('text-slate-600');
             });
 
             const activeBtn = document.getElementById('btn-' + category);
-            activeBtn.classList.remove('bg-white', 'text-gray-600', 'text-pink-600', 'text-green-600', 'text-orange-600');
+            activeBtn.classList.remove('bg-white', 'text-gray-600', 'text-pink-600', 'text-green-600', 'text-orange-600', 'text-slate-600');
             if(category === 'toutes') activeBtn.style.backgroundColor = '#3b82f6';
             if(category === 'francais') activeBtn.style.backgroundColor = '#ec4899';
             if(category === 'maths') activeBtn.style.backgroundColor = '#22c55e';
             if(category === 'qlm') activeBtn.style.backgroundColor = '#f97316';
+            if(category === 'enseignant') activeBtn.style.backgroundColor = '#475569';
             activeBtn.style.color = 'white';
             activeBtn.classList.add('active'); 
 
