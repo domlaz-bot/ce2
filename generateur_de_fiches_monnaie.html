@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Fiches Monnaie CE2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Patrick+Hand&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        
+        .font-hand { font-family: 'Patrick Hand', cursive; }
+        .font-ticket { font-family: 'VT323', monospace; }
+
+        /* Styles spécifiques pour l'impression A4 */
+        @page { size: A4; margin: 0; }
+        @media print {
+            body { background-color: white; }
+            .no-print { display: none !important; }
+            .page-a4 {
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0;
+                padding: 15mm 15mm;
+                box-shadow: none;
+                border: none;
+                page-break-after: always;
+            }
+            .page-a4:last-child {
+                page-break-after: auto;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        /* Apparence de la page à l'écran */
+        .page-a4 {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 2rem auto;
+            padding: 15mm 15mm;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Grille pour poser les opérations à virgule */
+        .op-table {
+            border-collapse: collapse;
+            font-family: monospace;
+            font-size: 1.5rem;
+            margin: 0 auto;
+        }
+        .op-table td {
+            width: 2.2rem;
+            height: 2.2rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .op-table td.comma-col {
+            width: 1rem;
+            font-weight: bold;
+            color: #475569;
+            background-color: #f1f5f9;
+        }
+        .row-retenue td { border: 1px dashed #cbd5e1; color: transparent; }
+        .cell-answer { border: 1px solid #94a3b8; background-color: #f8fafc; }
+        .op-line { border-top: 3px solid #334155; }
+        
+        /* Design du ticket de caisse */
+        .receipt {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .receipt::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background-image: radial-gradient(circle at 6px 0, transparent 6px, white 7px);
+            background-size: 12px 10px;
+            background-repeat: repeat-x;
+        }
+
+        /* Billets de banque en CSS */
+        .bill {
+            width: 100px;
+            height: 55px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        .bill::before {
+            content: "€";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            opacity: 0.2;
+        }
+        .bill-10 { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .bill-20 { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .bill-50 { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .bill-100 { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .bill-200 { background: linear-gradient(135deg, #eab308, #ca8a04); }
+        .bill-500 { background: linear-gradient(135deg, #a855f7, #9333ea); }
+        
+        /* Pièces en CSS */
+        .coin {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .coin-1 { background: radial-gradient(circle, #fde047 50%, #d1d5db 51%); border: 2px solid #9ca3af; color: #374151; }
+        .coin-2 { background: radial-gradient(circle, #d1d5db 50%, #fde047 51%); border: 2px solid #ca8a04; color: #374151; }
+    </style>
+</head>
+<body class="pb-12">
+
+    <div class="no-print bg-slate-700 text-white p-6 shadow-md sticky top-0 z-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div>
+            <h1 class="text-2xl font-extrabold flex items-center gap-2">
+                <span>💶</span> Générateur de fiches - La Monnaie
+            </h1>
+            <p class="text-slate-300 text-sm">Prépare l'évaluation de lundi avec de nouveaux calculs !</p>
+        </div>
+        <div class="flex gap-4">
+            <button onclick="generateMonnaie()" class="px-6 py-2 bg-white text-slate-800 hover:bg-slate-100 rounded-full font-bold shadow transition-transform transform hover:scale-105 flex items-center gap-2">
+                <span>🔄</span> Nouvelle Fiche
+            </button>
+            <button onclick="window.print()" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-full font-bold shadow transition-transform transform hover:scale-105 flex items-center gap-2">
+                <span>🖨️</span> Imprimer
+            </button>
+        </div>
+    </div>
+
+    <div id="worksheet">
+        
+        <!-- ================= PAGE 1 ================= -->
+        <div class="page-a4">
+            <!-- En-tête de la fiche -->
+            <header class="flex justify-between items-end border-b-2 border-slate-300 pb-4 mb-6">
+                <div class="space-y-4 w-1/2">
+                    <div class="text-lg text-gray-600 font-bold">Prénom : <span class="inline-block w-48 border-b-2 border-dashed border-gray-400"></span></div>
+                    <div class="text-lg text-gray-600 font-bold">Date : <span class="inline-block w-48 border-b-2 border-dashed border-gray-400"></span></div>
+                </div>
+                <div class="text-right">
+                    <h2 class="text-3xl font-extrabold text-slate-800">Problèmes et Monnaie</h2>
+                    <p class="text-slate-500 font-bold">Additions à virgule</p>
+                </div>
+                <div class="text-5xl ml-4">🛒</div>
+            </header>
+
+            <!-- Exercice 1 : Additions à virgule -->
+            <section class="mb-10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-lg text-lg">Exercice 1</span>
+                    <h3 class="text-xl font-bold text-gray-800">Calcule le total de chaque ticket de caisse.</h3>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-4">Attention à bien aligner les euros avec les euros, les centimes avec les centimes, et la virgule avec la virgule !</p>
+                
+                <div id="ex1-container" class="grid grid-cols-2 gap-8">
+                    <!-- Généré par JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE 2 ================= -->
+        <div class="page-a4">
+            <!-- En-tête réduit pour la page 2 -->
+            <header class="flex justify-between items-end border-b-2 border-slate-300 pb-4 mb-6">
+                <div class="space-y-4 w-1/2">
+                    <div class="text-lg text-gray-600 font-bold">Prénom : <span class="inline-block w-48 border-b-2 border-dashed border-gray-400"></span></div>
+                </div>
+                <div class="text-right">
+                    <h2 class="text-2xl font-extrabold text-slate-800">Problèmes et Monnaie (Suite)</h2>
+                    <p class="text-slate-500 font-bold">Rendre la monnaie</p>
+                </div>
+            </header>
+
+            <!-- Exercice 2 : Rendre la monnaie -->
+            <section>
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-orange-100 text-orange-800 font-bold px-3 py-1 rounded-lg text-lg">Exercice 2</span>
+                    <h3 class="text-xl font-bold text-gray-800">Rends la monnaie aux clients (sans centimes).</h3>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-4">Tu peux poser ta soustraction ou dessiner les pièces et billets que tu rends dans le cadre.</p>
+                
+                <div id="ex2-container" class="space-y-6">
+                    <!-- Généré par JS -->
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+        const storeItems = [
+            { name: "Vélo", min: 150, max: 280 },
+            { name: "Console", min: 200, max: 350 },
+            { name: "Tablette", min: 120, max: 250 },
+            { name: "Casque", min: 40, max: 90 },
+            { name: "Jeux Vidéo", min: 30, max: 60 },
+            { name: "Trottinette", min: 80, max: 150 },
+            { name: "Chaussures", min: 50, max: 95 },
+            { name: "Manteau", min: 70, max: 130 }
+        ];
+
+        function getRandomPrice(min, max) {
+            const euros = Math.floor(Math.random() * (max - min + 1)) + min;
+            // On veut des centimes faciles ou réalistes (00, 50, 99, 20, etc)
+            const centimesOptions = ["00", "50", "20", "80", "90", "45", "15", "75"];
+            const centimes = centimesOptions[Math.floor(Math.random() * centimesOptions.length)];
+            return `${euros},${centimes}`;
+        }
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        // --- EXERCICE 1 : TICKETS ET ADDITIONS ---
+        function renderAdditionGrid(rows) {
+            // rows = nombre de montants à additionner
+            let html = `
+            <table class="op-table">
+                <tr class="row-retenue">
+                    <td></td><td></td><td></td><td></td><td class="comma-col"></td><td></td><td></td>
+                </tr>`;
+            
+            for(let i=0; i<rows; i++) {
+                let op = i === rows - 1 ? '+' : '';
+                html += `
+                <tr>
+                    <td>${op}</td><td></td><td></td><td></td><td class="comma-col">,</td><td></td><td></td>
+                </tr>`;
+            }
+            
+            html += `
+                <tr>
+                    <td class="op-line"></td>
+                    <td class="op-line cell-answer"></td>
+                    <td class="op-line cell-answer"></td>
+                    <td class="op-line cell-answer"></td>
+                    <td class="op-line comma-col cell-answer">,</td>
+                    <td class="op-line cell-answer"></td>
+                    <td class="op-line cell-answer"></td>
+                </tr>
+            </table>`;
+            return html;
+        }
+
+        function generateEx1() {
+            let container = document.getElementById('ex1-container');
+            let html = "";
+            
+            // 2 Tickets de caisse : Un avec 2 articles, un avec 3 articles
+            const configs = [2, 3];
+            
+            configs.forEach(numItems => {
+                let items = shuffleArray([...storeItems]).slice(0, numItems);
+                
+                let ticketHtml = `
+                <div class="flex flex-col items-center gap-4">
+                    <div class="receipt w-48 bg-white text-center font-ticket p-4">
+                        <div class="text-xl font-bold border-b border-dashed border-gray-400 pb-2 mb-2">SUPERMARCHÉ</div>
+                        <div class="text-left space-y-2 text-lg">`;
+                        
+                items.forEach(item => {
+                    let price = getRandomPrice(item.min, item.max);
+                    ticketHtml += `<div class="flex justify-between"><span>${item.name}</span> <span>${price}€</span></div>`;
+                });
+                
+                ticketHtml += `
+                        </div>
+                        <div class="border-t border-dashed border-gray-400 mt-2 pt-2 text-left font-bold text-xl flex justify-between">
+                            <span>TOTAL</span> <span>??? €</span>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        ${renderAdditionGrid(numItems)}
+                    </div>
+                </div>`;
+                
+                html += ticketHtml;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // --- EXERCICE 2 : RENDRE LA MONNAIE ---
+        function renderMoney(moneyArray) {
+            let html = '<div class="flex flex-wrap justify-center gap-2">';
+            moneyArray.forEach(m => {
+                if (m.type === 'bill') {
+                    html += `<div class="bill bill-${m.val}"><span>${m.val}</span><span>€</span></div>`;
+                } else if (m.type === 'coin') {
+                    html += `<div class="coin coin-${m.val}"><span>${m.val}€</span></div>`;
+                }
+            });
+            html += '</div>';
+            return html;
+        }
+
+        function generateEx2() {
+            let container = document.getElementById('ex2-container');
+            let html = "";
+            
+            // Cas sans centimes avec des montants plus importants
+            const allScenarios = [
+                { priceMin: 35, priceMax: 85, given: [{type: 'bill', val: 100}] },
+                { priceMin: 110, priceMax: 180, given: [{type: 'bill', val: 200}] },
+                { priceMin: 210, priceMax: 280, given: [{type: 'bill', val: 100}, {type: 'bill', val: 100}, {type: 'bill', val: 100}] },
+                { priceMin: 310, priceMax: 450, given: [{type: 'bill', val: 500}] },
+                { priceMin: 15, priceMax: 45, given: [{type: 'bill', val: 50}] },
+                { priceMin: 60, priceMax: 95, given: [{type: 'bill', val: 50}, {type: 'bill', val: 50}] }
+            ];
+
+            const scenarios = shuffleArray(allScenarios).slice(0, 3);
+
+            scenarios.forEach((scen, index) => {
+                let price = Math.floor(Math.random() * (scen.priceMax - scen.priceMin + 1)) + scen.priceMin;
+                
+                html += `
+                <div class="bg-white border-2 border-slate-200 rounded-xl p-4 flex gap-6">
+                    <!-- Infos de l'achat -->
+                    <div class="w-1/3 flex flex-col gap-4 border-r-2 border-slate-100 pr-6">
+                        <div class="bg-gray-50 p-3 rounded text-center border border-gray-200">
+                            <span class="text-gray-500 text-sm block uppercase font-bold tracking-wider">Total des courses</span>
+                            <span class="text-3xl font-extrabold text-slate-800">${price} €</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-500 text-sm block uppercase font-bold tracking-wider mb-2 text-center">Monnaie donnée</span>
+                            ${renderMoney(scen.given)}
+                        </div>
+                    </div>
+                    
+                    <!-- Espace de réponse -->
+                    <div class="w-2/3 flex flex-col">
+                        <div class="text-slate-600 font-bold mb-2">Je rends : ............................ €</div>
+                        <div class="flex-1 border-2 border-dashed border-slate-300 rounded-lg bg-slate-50 relative">
+                            <div class="absolute inset-0 flex items-center justify-center text-slate-300 text-sm font-hand">
+                                Pose ton calcul ou dessine les pièces/billets ici
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function generateMonnaie() {
+            generateEx1();
+            generateEx2();
+        }
+
+        window.onload = generateMonnaie;
+    </script>
+</body>
+</html>
