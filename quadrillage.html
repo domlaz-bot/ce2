@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadrillage : Tous en Scène</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); /* Nuit étoilée / Scène */
+            min-height: 100vh;
+            color: white;
+        }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .locked {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: scale(0.98);
+        }
+        .btn-option { transition: all 0.2s; }
+        .btn-option:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Styles du Quadrillage */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 30px repeat(4, 1fr);
+            grid-template-rows: 30px repeat(4, 1fr);
+            gap: 2px;
+            background-color: #fbbf24; /* Bordures dorées */
+            border: 4px solid #fbbf24;
+            border-radius: 8px;
+            width: fit-content;
+            margin: 0 auto;
+        }
+        .grid-header {
+            background-color: #fef3c7;
+            color: #b45309;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .grid-cell {
+            background-color: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        @media (min-width: 640px) {
+            .grid-container {
+                grid-template-columns: 40px repeat(4, 1fr);
+                grid-template-rows: 40px repeat(4, 1fr);
+            }
+            .grid-cell {
+                width: 80px;
+                height: 80px;
+                font-size: 3.5rem;
+            }
+        }
+        .grid-cell:hover {
+            background-color: #fef08a;
+        }
+        .grid-cell.highlight {
+            background-color: #fde047;
+            box-shadow: inset 0 0 0 4px #eab308;
+        }
+
+        /* Personnage et orientation */
+        .character {
+            position: absolute;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .dir-0 { transform: rotate(0deg); }   /* Nord */
+        .dir-1 { transform: rotate(90deg); }  /* Est */
+        .dir-2 { transform: rotate(180deg); } /* Sud */
+        .dir-3 { transform: rotate(270deg); } /* Ouest */
+
+        /* Boutons de programmation */
+        .cmd-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.1s;
+        }
+        .cmd-btn:active { transform: scale(0.95); }
+    </style>
+</head>
+<body class="pb-12">
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <header class="text-center mb-8">
+            <span class="bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase shadow-sm">Géométrie G1</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mt-4 mb-2 flex justify-center items-center gap-3">
+                <span>🐨</span> Tous en Scène ! <span>🎤</span>
+            </h1>
+            <p class="text-indigo-200 font-medium text-lg">Se repérer et se déplacer sur le quadrillage</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-4 mb-10">
+            <button onclick="showTab('lecon')" id="btn-lecon" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-yellow-400 text-yellow-900 hover:bg-yellow-300 transform hover:-translate-y-1">
+                📖 Leçon de Buster
+            </button>
+            <button onclick="showTab('entrainement')" id="btn-entrainement" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-indigo-800 text-indigo-100 border-2 border-indigo-500 hover:bg-indigo-700 transform hover:-translate-y-1">
+                🎯 Les Auditions
+            </button>
+        </nav>
+
+        <!-- LECON -->
+        <div id="lecon" class="fade-in space-y-8">
+            
+            <div class="bg-white text-gray-800 p-6 md:p-8 rounded-3xl shadow-xl border-t-8 border-yellow-400 relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 text-9xl opacity-10">🐨</div>
+                <h2 class="text-3xl font-bold text-indigo-900 mb-6 flex items-center gap-3">
+                    <span class="bg-indigo-100 p-2 rounded-xl">📍</span> Se repérer
+                </h2>
+                
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="grid-container" style="pointer-events: none;">
+                        <div class="grid-header"></div>
+                        <div class="grid-header">1</div><div class="grid-header">2</div><div class="grid-header">3</div><div class="grid-header">4</div>
+                        
+                        <div class="grid-header">A</div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                        <div class="grid-header">B</div><div class="grid-cell"></div><div class="grid-cell">🌟</div><div class="grid-cell"></div><div class="grid-cell"></div>
+                        <div class="grid-header">C</div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                        <div class="grid-header">D</div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    </div>
+                    
+                    <div class="flex-1 bg-yellow-50 p-6 rounded-2xl border-2 border-yellow-200">
+                        <p class="text-lg font-bold text-gray-700 mb-4">Pour coder la case, tu dois :</p>
+                        <ol class="list-decimal pl-6 space-y-3 text-lg font-medium text-gray-600">
+                            <li>Suivre la ligne avec ton doigt (la lettre).</li>
+                            <li>Suivre la colonne avec ton doigt (le chiffre).</li>
+                            <li>Lire la lettre et le chiffre obtenus.</li>
+                        </ol>
+                        <div class="mt-6 text-center">
+                            <span class="text-3xl font-extrabold text-indigo-600 bg-white px-6 py-3 rounded-xl border border-indigo-200 shadow-sm inline-block">🌟 ( B ; 2 )</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white text-gray-800 p-6 md:p-8 rounded-3xl shadow-xl border-t-8 border-pink-500 relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 text-9xl opacity-10">🐷</div>
+                <h2 class="text-3xl font-bold text-pink-700 mb-6 flex items-center gap-3">
+                    <span class="bg-pink-100 p-2 rounded-xl">💃</span> Se déplacer
+                </h2>
+                
+                <p class="text-lg font-bold text-gray-700 mb-6">Il faut se mettre à la place du personnage pour s'orienter. Quand on pivote, on tourne sur place d'un quart de tour.</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                    <div class="bg-blue-50 p-6 rounded-2xl border-2 border-blue-200 flex flex-col items-center">
+                        <div class="text-5xl font-extrabold text-blue-500 mb-2">⬆️</div>
+                        <span class="font-bold text-xl text-blue-900">Avancer</span>
+                        <span class="text-gray-500 text-sm mt-1">Avancer d'une case</span>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-6 rounded-2xl border-2 border-orange-200 flex flex-col items-center">
+                        <div class="text-5xl font-extrabold text-orange-500 mb-2">↻</div>
+                        <span class="font-bold text-xl text-orange-900">Pivoter Droite</span>
+                        <span class="text-gray-500 text-sm mt-1">Tourner sur place</span>
+                    </div>
+                    
+                    <div class="bg-green-50 p-6 rounded-2xl border-2 border-green-200 flex flex-col items-center">
+                        <div class="text-5xl font-extrabold text-green-500 mb-2">↺</div>
+                        <span class="font-bold text-xl text-green-900">Pivoter Gauche</span>
+                        <span class="text-gray-500 text-sm mt-1">Tourner sur place</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENTRAINEMENT -->
+        <div id="entrainement" class="hidden fade-in">
+            
+            <div id="levels-menu" class="space-y-6 max-w-2xl mx-auto">
+                <button onclick="startLevel(1)" class="w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-xl hover:-translate-y-1 transition-transform group">
+                    <div class="flex items-center gap-4">
+                        <div class="text-5xl bg-yellow-100 p-3 rounded-2xl group-hover:scale-110 transition-transform">📍</div>
+                        <div class="text-left">
+                            <h3 class="text-2xl font-bold text-gray-800">Niveau 1 : Trouver la star</h3>
+                            <p class="text-gray-500 font-medium">Clique sur la bonne case à partir de ses coordonnées.</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 font-bold text-xl">Jouer ▶</div>
+                </button>
+
+                <button id="btn-level-2" onclick="startLevel(2)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-xl hover:-translate-y-1 transition-transform group relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-5xl bg-pink-100 p-3 rounded-2xl group-hover:scale-110 transition-transform">💃</div>
+                        <div class="text-left">
+                            <h3 class="text-2xl font-bold text-gray-800">Niveau 2 : Suivre la chorégraphie</h3>
+                            <p class="text-gray-500 font-medium">Lis le code de déplacement et trouve l'arrivée.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-3xl">🔒</div>
+                </button>
+
+                <button id="btn-level-3" onclick="startLevel(3)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-xl hover:-translate-y-1 transition-transform group relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-5xl bg-indigo-100 p-3 rounded-2xl group-hover:scale-110 transition-transform">📝</div>
+                        <div class="text-left">
+                            <h3 class="text-2xl font-bold text-gray-800">Niveau 3 : Créer le spectacle</h3>
+                            <p class="text-gray-500 font-medium">Programme toi-même le chemin vers la scène !</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-3xl">🔒</div>
+                </button>
+            </div>
+
+            <div id="game-area" class="hidden bg-white text-gray-800 p-6 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden max-w-4xl mx-auto">
+                
+                <div class="flex justify-between items-center mb-8 border-b-2 border-gray-100 pb-4">
+                    <button onclick="backToLevels()" class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-lg">
+                        <span>⬅️</span> Quitter la scène
+                    </button>
+                    <span id="game-title" class="text-2xl font-extrabold text-indigo-900">Niveau</span>
+                    <span id="score-display" class="bg-yellow-400 text-yellow-900 px-4 py-2 rounded-full font-bold shadow-sm">Score: 0/0</span>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    
+                    <!-- Colonne de Gauche : Consignes / Code -->
+                    <div class="flex-1 w-full space-y-6">
+                        <div id="instruction-panel" class="bg-indigo-50 p-6 rounded-2xl border-2 border-indigo-200 shadow-inner min-h-[150px] flex flex-col justify-center">
+                            <h3 id="question-text" class="text-xl md:text-2xl font-bold text-indigo-900 text-center">Consigne</h3>
+                            
+                            <!-- Affichage du code pour N2 -->
+                            <div id="code-display" class="hidden mt-4 flex flex-wrap justify-center gap-2 text-2xl"></div>
+                            
+                            <!-- Zone de programmation pour N3 -->
+                            <div id="program-zone" class="hidden mt-4">
+                                <div id="user-code" class="flex flex-wrap gap-2 min-h-[50px] bg-white p-3 rounded-xl border border-gray-300 mb-4 items-center">
+                                    <span class="text-gray-400 italic text-sm">Séquence de déplacement...</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="addCmd('avancer')" class="cmd-btn bg-blue-500 text-white hover:bg-blue-600 justify-center"><span class="text-2xl">⬆️</span></button>
+                                    <button onclick="addCmd('gauche')" class="cmd-btn bg-green-500 text-white hover:bg-green-600 justify-center"><span class="text-2xl">↺</span></button>
+                                    <button onclick="addCmd('droite')" class="cmd-btn bg-orange-500 text-white hover:bg-orange-600 justify-center"><span class="text-2xl">↻</span></button>
+                                </div>
+                                <div class="flex gap-2 mt-4">
+                                    <button onclick="clearCode()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg font-bold text-gray-700 flex-1">Effacer</button>
+                                    <button id="btn-run-code" onclick="runCode()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold flex-1 shadow-md">▶️ Jouer</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="feedback-zone" class="hidden p-4 rounded-xl text-center font-bold text-lg animate-pulse"></div>
+
+                        <div class="text-center">
+                            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full px-8 py-4 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 rounded-xl font-extrabold shadow-lg transition-transform transform hover:scale-105 text-xl">
+                                Suivant ➡️
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Colonne de Droite : Le Quadrillage (Dynamique) -->
+                    <div class="flex-none mx-auto">
+                        <div id="dynamic-grid" class="grid-container">
+                            <!-- Généré en JS -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="end-screen" class="hidden bg-white text-gray-800 p-10 rounded-3xl shadow-2xl max-w-2xl mx-auto text-center space-y-6">
+                <div id="end-icon" class="text-6xl mb-4">🌟</div>
+                <h2 id="end-title" class="text-4xl font-extrabold text-indigo-900">Spectacle terminé !</h2>
+                <p id="end-score" class="text-2xl font-bold text-gray-600"></p>
+                <div id="end-message" class="text-xl font-bold text-indigo-700 bg-indigo-50 p-4 rounded-xl border border-indigo-200"></div>
+                
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <button onclick="backToLevels()" class="px-8 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full font-bold transition-colors">
+                        Retour aux loges
+                    </button>
+                    <button id="btn-next-level" onclick="startLevel(currentLevelPlaying + 1)" class="hidden px-8 py-3 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 rounded-full font-bold shadow-md transition-transform transform hover:scale-105">
+                        Niveau Suivant 🔓
+                    </button>
+                    <button id="btn-retry" onclick="startLevel(currentLevelPlaying)" class="hidden px-8 py-3 bg-rose-500 hover:bg-rose-600 text-white rounded-full font-bold shadow-md">
+                        Recommencer 🔄
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- CONSTANTES & VARIABLES ---
+        const rows = ['A', 'B', 'C', 'D'];
+        const cols = ['1', '2', '3', '4'];
+        
+        const characters = [
+            { id: 'buster', emoji: '🐨', name: 'Buster Moon' },
+            { id: 'rosita', emoji: '🐷', name: 'Rosita' },
+            { id: 'johnny', emoji: '🦍', name: 'Johnny' },
+            { id: 'ash', emoji: '🦔', name: 'Ash' },
+            { id: 'meena', emoji: '🐘', name: 'Meena' },
+            { id: 'gunter', emoji: '🕺', name: 'Gunter' }
+        ];
+
+        let unlockedLevels = 1;
+        let currentLevelPlaying = 0;
+        let score = 0;
+        let maxQuestions = 5;
+        let currentQuestion = 0;
+        
+        // État de la grille
+        let currentChar = null; // Personnage de la question en cours
+        let uniqueTargetsN1 = []; // Pour éviter les doublons au Niveau 1
+        let targetCell = null; 
+        let startCell = null;
+        let startDir = 0; // 0: N, 1: E, 2: S, 3: W
+        let currentPath = []; // Instructions de la question N2
+        let userProgram = []; // Instructions du joueur N3
+        let isAnimating = false;
+
+        // --- MOTEUR DE GRILLE ---
+        function initGrid() {
+            const grid = document.getElementById('dynamic-grid');
+            grid.innerHTML = '<div class="grid-header"></div>';
+            
+            // Entêtes colonnes
+            cols.forEach(c => grid.innerHTML += `<div class="grid-header">${c}</div>`);
+            
+            // Lignes
+            rows.forEach((r, rIdx) => {
+                grid.innerHTML += `<div class="grid-header">${r}</div>`;
+                cols.forEach((c, cIdx) => {
+                    grid.innerHTML += `<div id="cell-${rIdx}-${cIdx}" class="grid-cell" onclick="handleCellClick(${rIdx}, ${cIdx})"></div>`;
+                });
+            });
+        }
+
+        function clearGrid() {
+            rows.forEach((r, rIdx) => {
+                cols.forEach((c, cIdx) => {
+                    const cell = document.getElementById(`cell-${rIdx}-${cIdx}`);
+                    cell.innerHTML = '';
+                    cell.className = 'grid-cell'; // Reset classes
+                });
+            });
+        }
+
+        function placeEntity(rIdx, cIdx, emoji, direction = null, customClass = '') {
+            const cell = document.getElementById(`cell-${rIdx}-${cIdx}`);
+            if(!cell) return;
+            
+            let content = `<div class="character ${customClass}">${emoji}</div>`;
+            if (direction !== null) {
+                content = `<div class="character dir-${direction} ${customClass}">${emoji}</div>`;
+            }
+            cell.innerHTML += content;
+        }
+
+        function setHighlight(rIdx, cIdx, isError = false) {
+            const cell = document.getElementById(`cell-${rIdx}-${cIdx}`);
+            if(!cell) return;
+            if (isError) {
+                cell.classList.add('bg-red-200');
+                setTimeout(() => cell.classList.remove('bg-red-200'), 500);
+            } else {
+                cell.classList.add('highlight');
+            }
+        }
+
+        // --- NAVIGATION ---
+        function showTab(tabId) {
+            document.getElementById('lecon').classList.add('hidden');
+            document.getElementById('entrainement').classList.add('hidden');
+            document.getElementById(tabId).classList.remove('hidden');
+            if(tabId === 'entrainement') backToLevels();
+        }
+
+        function backToLevels() {
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('levels-menu').classList.remove('hidden');
+            updateLocks();
+        }
+
+        function updateLocks() {
+            const btn2 = document.getElementById('btn-level-2');
+            const btn3 = document.getElementById('btn-level-3');
+            if (unlockedLevels >= 2) { btn2.classList.remove('locked'); btn2.querySelector('.text-3xl').innerText = '🔓'; }
+            if (unlockedLevels >= 3) { btn3.classList.remove('locked'); btn3.querySelector('.text-3xl').innerText = '🔓'; }
+        }
+
+        function getRandomInt(max) { return Math.floor(Math.random() * max); }
+
+        function startLevel(level) {
+            if (level > unlockedLevels) return;
+
+            currentLevelPlaying = level;
+            score = 0;
+            currentQuestion = 0;
+            maxQuestions = 5;
+
+            document.getElementById('levels-menu').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('game-area').classList.remove('hidden');
+            
+            document.getElementById('code-display').classList.add('hidden');
+            document.getElementById('program-zone').classList.add('hidden');
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const titles = ["", "Niveau 1 : Trouver la star", "Niveau 2 : Suivre la chorégraphie", "Niveau 3 : Créer le spectacle"];
+            document.getElementById('game-title').innerText = titles[level];
+            
+            // Préparer des questions uniques pour N1
+            if (level === 1) {
+                uniqueTargetsN1 = [];
+                while(uniqueTargetsN1.length < 5) {
+                    let r = getRandomInt(4); let c = getRandomInt(4);
+                    if (!uniqueTargetsN1.some(t => t.r === r && t.c === c)) uniqueTargetsN1.push({r, c});
+                }
+            }
+
+            initGrid();
+            updateScoreDisplay();
+            generateQuestion();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-display').innerText = `Score: ${score}/${maxQuestions}`;
+        }
+
+        // --- GENERATION DES QUESTIONS ---
+        function generateQuestion() {
+            clearGrid();
+            isAnimating = false;
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            currentChar = characters[getRandomInt(characters.length)];
+
+            if (currentLevelPlaying === 1) {
+                // N1: Clic sur coordonnée (sans doublon)
+                targetCell = uniqueTargetsN1[currentQuestion];
+                
+                document.getElementById('question-text').innerHTML = `Clique sur la case <br><span class="text-4xl text-yellow-500 font-extrabold mt-2 inline-block">( ${rows[targetCell.r]} ; ${cols[targetCell.c]} )</span> <br>pour placer ${currentChar.name} ${currentChar.emoji}`;
+            } 
+            else if (currentLevelPlaying === 2) {
+                // N2: Suivre le code
+                document.getElementById('code-display').classList.remove('hidden');
+                
+                // Position de départ
+                startCell = { r: getRandomInt(4), c: getRandomInt(4) };
+                startDir = getRandomInt(4);
+                placeEntity(startCell.r, startCell.c, currentChar.emoji, startDir, 'char-actor');
+
+                // Générer un chemin valide et intéressant (3 à 6 étapes)
+                let nbSteps = getRandomInt(4) + 3; 
+                currentPath = generateValidPath(startCell.r, startCell.c, startDir, nbSteps);
+                targetCell = calculateDestination(startCell.r, startCell.c, startDir, currentPath);
+
+                document.getElementById('question-text').innerHTML = `Où arrivera ${currentChar.name} avec ce code ? <br><span class="text-lg font-normal">Clique sur la case d'arrivée.</span>`;
+                
+                // Afficher le code
+                let codeHtml = "";
+                currentPath.forEach(cmd => {
+                    if(cmd === 'A') codeHtml += `<span class="bg-blue-500 text-white px-2 py-1 rounded shadow">⬆️</span>`;
+                    if(cmd === 'D') codeHtml += `<span class="bg-orange-500 text-white px-2 py-1 rounded shadow">↻</span>`;
+                    if(cmd === 'G') codeHtml += `<span class="bg-green-500 text-white px-2 py-1 rounded shadow">↺</span>`;
+                });
+                document.getElementById('code-display').innerHTML = codeHtml;
+            }
+            else if (currentLevelPlaying === 3) {
+                // N3: Créer le code
+                document.getElementById('program-zone').classList.remove('hidden');
+                document.getElementById('btn-run-code').disabled = false;
+
+                // Position de départ et arrivée
+                startCell = { r: getRandomInt(4), c: getRandomInt(4) };
+                startDir = getRandomInt(4);
+                
+                // S'assurer que la cible est assez loin (au moins 2 cases de distance)
+                do {
+                    targetCell = { r: getRandomInt(4), c: getRandomInt(4) };
+                } while (Math.abs(targetCell.r - startCell.r) + Math.abs(targetCell.c - startCell.c) < 2);
+
+                clearCode(); // Place le perso après avoir défini startCell et currentChar
+                placeEntity(targetCell.r, targetCell.c, '🎤', null); // Scène
+
+                document.getElementById('question-text').innerHTML = `Programme ${currentChar.name} pour atteindre la scène 🎤 !`;
+            }
+        }
+
+        // --- GESTION DES CLICS SUR LA GRILLE ---
+        function handleCellClick(r, c) {
+            if (isAnimating) return; // Bloquer pendant l'animation
+            
+            if (currentLevelPlaying === 1 || currentLevelPlaying === 2) {
+                // Bloquer si déjà répondu
+                if (!document.getElementById('next-btn').classList.contains('hidden')) return;
+
+                const fz = document.getElementById('feedback-zone');
+                fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+                if (r === targetCell.r && c === targetCell.c) {
+                    // Succès
+                    score++;
+                    setHighlight(r, c);
+                    if (currentLevelPlaying === 1) {
+                        placeEntity(r, c, currentChar.emoji, null);
+                    } else if (currentLevelPlaying === 2) {
+                        placeEntity(r, c, '🎯', null); // Marque l'arrivée trouvée
+                    }
+                    
+                    fz.classList.add('bg-green-100', 'text-green-800');
+                    fz.innerHTML = "✅ Super ! Tu as trouvé la bonne case.";
+                } else {
+                    // Erreur
+                    setHighlight(r, c, true); // Effet d'erreur
+                    setHighlight(targetCell.r, targetCell.c); // Montrer la bonne
+                    
+                    if (currentLevelPlaying === 1) placeEntity(targetCell.r, targetCell.c, currentChar.emoji, null);
+                    if (currentLevelPlaying === 2) placeEntity(targetCell.r, targetCell.c, '🎯', null);
+                    
+                    fz.classList.add('bg-red-100', 'text-red-800');
+                    fz.innerHTML = `❌ Aïe ! La bonne case était ( ${rows[targetCell.r]} ; ${cols[targetCell.c]} ).`;
+                }
+
+                updateScoreDisplay();
+                document.getElementById('next-btn').classList.remove('hidden');
+            }
+        }
+
+        // --- MOTEUR DE CHEMIN & ANIMATION (Niveau 2 & 3) ---
+        
+        function move(r, c, dir) {
+            if (dir === 0 && r > 0) return { r: r-1, c }; // Nord
+            if (dir === 1 && c < 3) return { r, c: c+1 }; // Est
+            if (dir === 2 && r < 3) return { r: r+1, c }; // Sud
+            if (dir === 3 && c > 0) return { r, c: c-1 }; // Ouest
+            return null; // Mur
+        }
+
+        function generateValidPath(startR, startC, startDir, maxSteps) {
+            let path = [];
+            let r = startR, c = startC, dir = startDir;
+            let lastCmd = '';
+
+            while(path.length < maxSteps) {
+                let possibleCmds = ['A', 'D', 'G'];
+                
+                // Eviter de tourner en rond (G puis D, ou trop de rotations de suite)
+                if (lastCmd === 'D') possibleCmds = ['A', 'D'];
+                if (lastCmd === 'G') possibleCmds = ['A', 'G'];
+                
+                // Forcer à avancer si on a tourné à l'étape précédente
+                if (path.length > 0 && path[path.length-1] !== 'A' && possibleCmds.includes('A')) {
+                    possibleCmds = ['A'];
+                }
+
+                let cmd = possibleCmds[getRandomInt(possibleCmds.length)];
+
+                if (cmd === 'A') {
+                    let nextPos = move(r, c, dir);
+                    if (nextPos) {
+                        r = nextPos.r; c = nextPos.c;
+                        path.push('A');
+                        lastCmd = 'A';
+                    } else {
+                        // Mur ! On force une rotation
+                        cmd = (getRandomInt(2) === 0) ? 'D' : 'G';
+                        dir = cmd === 'D' ? (dir + 1) % 4 : (dir + 3) % 4;
+                        path.push(cmd);
+                        lastCmd = cmd;
+                    }
+                } else {
+                    dir = cmd === 'D' ? (dir + 1) % 4 : (dir + 3) % 4;
+                    path.push(cmd);
+                    lastCmd = cmd;
+                }
+            }
+            
+            // S'assurer que le chemin a au moins un déplacement physique (A)
+            if (!path.includes('A')) {
+                return generateValidPath(startR, startC, startDir, maxSteps);
+            }
+            
+            return path;
+        }
+
+        function calculateDestination(startR, startC, startDir, path) {
+            let r = startR, c = startC, dir = startDir;
+            path.forEach(cmd => {
+                if (cmd === 'A') {
+                    let nextPos = move(r, c, dir);
+                    if(nextPos) { r = nextPos.r; c = nextPos.c; }
+                }
+                if (cmd === 'D') dir = (dir + 1) % 4;
+                if (cmd === 'G') dir = (dir + 3) % 4;
+            });
+            return { r, c, dir };
+        }
+
+        // --- PROGRAMMATION (NIVEAU 3) ---
+        function addCmd(type) {
+            if (userProgram.length >= 8) return; // Limite
+            
+            let cmdObj = { id: Date.now() };
+            if (type === 'avancer') { cmdObj.cmd = 'A'; cmdObj.icon = '⬆️'; cmdObj.bg = 'bg-blue-500'; }
+            if (type === 'droite') { cmdObj.cmd = 'D'; cmdObj.icon = '↻'; cmdObj.bg = 'bg-orange-500'; }
+            if (type === 'gauche') { cmdObj.cmd = 'G'; cmdObj.icon = '↺'; cmdObj.bg = 'bg-green-500'; }
+            
+            userProgram.push(cmdObj);
+            renderUserCode();
+        }
+
+        function clearCode() {
+            userProgram = [];
+            renderUserCode();
+            
+            // Remettre le perso à la position initiale s'il avait bougé
+            if(startCell && currentChar) {
+                // Effacer l'ancien
+                const oldNodes = document.querySelectorAll('.char-actor');
+                oldNodes.forEach(n => n.remove());
+                // Replacer le bon personnage
+                placeEntity(startCell.r, startCell.c, currentChar.emoji, startDir, 'char-actor');
+            }
+        }
+
+        function renderUserCode() {
+            const container = document.getElementById('user-code');
+            if (userProgram.length === 0) {
+                container.innerHTML = '<span class="text-gray-400 italic text-sm">Séquence de déplacement...</span>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            userProgram.forEach((item, index) => {
+                const el = document.createElement('span');
+                el.className = `${item.bg} text-white px-2 py-1 rounded shadow cursor-pointer hover:opacity-80`;
+                el.innerHTML = item.icon;
+                el.onclick = () => {
+                    userProgram.splice(index, 1);
+                    renderUserCode();
+                };
+                container.appendChild(el);
+            });
+        }
+
+        function runCode() {
+            if (userProgram.length === 0) return;
+            
+            isAnimating = true;
+            document.getElementById('btn-run-code').disabled = true;
+            
+            let r = startCell.r, c = startCell.c, dir = startDir;
+            let step = 0;
+            
+            const actorNode = document.querySelector('.char-actor');
+            if(!actorNode) return;
+
+            const interval = setInterval(() => {
+                if (step >= userProgram.length) {
+                    clearInterval(interval);
+                    finishRun(r, c);
+                    return;
+                }
+
+                let cmd = userProgram[step].cmd;
+                
+                if (cmd === 'A') {
+                    let nextPos = move(r, c, dir);
+                    if (nextPos) {
+                        // Enlever de l'ancienne case
+                        actorNode.remove();
+                        r = nextPos.r; c = nextPos.c;
+                        // Mettre dans la nouvelle
+                        const cell = document.getElementById(`cell-${r}-${c}`);
+                        cell.appendChild(actorNode);
+                    } else {
+                        // Boom mur !
+                        actorNode.classList.add('bg-red-400', 'rounded-full');
+                        setTimeout(() => actorNode.classList.remove('bg-red-400', 'rounded-full'), 300);
+                    }
+                } else if (cmd === 'D') {
+                    dir = (dir + 1) % 4;
+                    actorNode.className = `character dir-${dir} char-actor`;
+                } else if (cmd === 'G') {
+                    dir = (dir + 3) % 4;
+                    actorNode.className = `character dir-${dir} char-actor`;
+                }
+                
+                step++;
+            }, 600); // Vitesse d'animation
+        }
+
+        function finishRun(finalR, finalC) {
+            isAnimating = false;
+            const fz = document.getElementById('feedback-zone');
+            fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+            document.getElementById('next-btn').classList.remove('hidden');
+
+            if (finalR === targetCell.r && finalC === targetCell.c) {
+                score++;
+                fz.classList.add('bg-green-100', 'text-green-800');
+                fz.innerHTML = "✅ Magnifique ! La star est sur scène !";
+                setHighlight(finalR, finalC);
+            } else {
+                fz.classList.add('bg-red-100', 'text-red-800');
+                fz.innerHTML = "❌ Oh non, il s'est perdu dans les coulisses !";
+                setHighlight(finalR, finalC, true);
+            }
+            updateScoreDisplay();
+        }
+
+        // --- FLUX GLOBAL ---
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < maxQuestions) {
+                generateQuestion();
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function showEndScreen() {
+            document.getElementById('game-area').classList.add('hidden');
+            const endScreen = document.getElementById('end-screen');
+            endScreen.classList.remove('hidden');
+            
+            const isPerfect = (score === maxQuestions);
+            document.getElementById('end-score').innerHTML = `Score : <strong>${score} / ${maxQuestions}</strong>`;
+            
+            const btnNext = document.getElementById('btn-next-level');
+            const btnRetry = document.getElementById('btn-retry');
+            btnNext.classList.add('hidden');
+            btnRetry.classList.add('hidden');
+
+            if (isPerfect) {
+                document.getElementById('end-title').innerText = "Spectacle Réussi !";
+                if (currentLevelPlaying < 3) {
+                    document.getElementById('end-message').innerText = `Bravo ! Tu as débloqué le niveau ${currentLevelPlaying + 1} !`;
+                    if (unlockedLevels < currentLevelPlaying + 1) unlockedLevels = currentLevelPlaying + 1;
+                    btnNext.classList.remove('hidden');
+                } else {
+                    document.getElementById('end-message').innerText = "Incroyable ! Tu es un vrai metteur en scène ! 🏆";
+                }
+                triggerConfetti();
+            } else {
+                document.getElementById('end-title').innerText = "Répétition terminée !";
+                document.getElementById('end-message').innerText = "Il faut un sans-faute pour passer à la suite. On recommence ?";
+                btnRetry.classList.remove('hidden');
+            }
+        }
+
+        function triggerConfetti() {
+            for(let i=0; i<40; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.width = '12px';
+                conf.style.height = '12px';
+                conf.style.backgroundColor = ['#fbbf24', '#f87171', '#34d399', '#60a5fa', '#c084fc'][Math.floor(Math.random()*5)];
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                conf.style.zIndex = '9999';
+                conf.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+            if(!document.getElementById('confetti-style')) {
+                const style = document.createElement('style');
+                style.id = 'confetti-style';
+                style.innerHTML = `@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }`;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>
