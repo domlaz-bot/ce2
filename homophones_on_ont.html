@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les homophones on / ont - CE2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            min-height: 100vh;
+        }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .locked {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: scale(0.98);
+        }
+        .btn-option {
+            transition: all 0.2s;
+        }
+        .btn-option:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-800 pb-12">
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <!-- Lien retour vers le portail -->
+        <div class="mb-4">
+            <a href="index.html" class="inline-flex items-center gap-2 text-amber-700 hover:text-amber-900 font-bold bg-white/80 px-4 py-2 rounded-full shadow-sm transition-colors">
+                <span>🏠</span> Retour au portail
+            </a>
+        </div>
+
+        <!-- En-tête -->
+        <header class="text-center mb-8">
+            <span class="bg-amber-100 text-amber-800 px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase shadow-sm">Orthographe</span>
+            <h1 class="text-4xl font-extrabold text-amber-900 mt-4 mb-2 flex items-center justify-center gap-3">
+                <span>🦉</span> Les homophones on / ont
+            </h1>
+            <p class="text-amber-800 font-medium text-lg">Ne confonds plus jamais « on » et « ont » grâce à l'astuce magique !</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="flex flex-wrap justify-center gap-4 mb-10">
+            <button onclick="showTab('lecon')" id="btn-lecon" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-amber-600 text-white hover:bg-amber-700 transform hover:-translate-y-1">
+                📖 La leçon
+            </button>
+            <button onclick="showTab('entrainement')" id="btn-entrainement" class="px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-amber-700 border-2 border-amber-200 hover:bg-amber-50 transform hover:-translate-y-1">
+                🎯 S'entraîner
+            </button>
+        </nav>
+
+        <!-- ==================== SECTION LEÇON ==================== -->
+        <div id="lecon" class="fade-in space-y-8">
+            
+            <!-- Rappel rapide : c'est quoi un homophone ? -->
+            <div class="bg-white p-6 rounded-3xl shadow-md border-t-4 border-amber-400 text-center">
+                <p class="text-lg sm:text-xl font-bold text-gray-700">
+                    <span class="text-amber-600 text-2xl">on</span> et <span class="text-blue-600 text-2xl">ont</span> se prononcent pareil, mais ils ne veulent pas dire la même chose !
+                </p>
+            </div>
+
+            <!-- Les deux règles côte à côte -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Carte ON -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-8 border-amber-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl font-extrabold text-amber-600 bg-amber-50 px-5 py-2 rounded-2xl border-2 border-amber-200">on</span>
+                            <span class="text-sm font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-3 py-1 rounded-full">Pronom sujet</span>
+                        </div>
+                        <p class="text-lg text-gray-700 mb-4 font-medium">
+                            <strong>on</strong> désigne des personnes. Il est toujours placé devant un verbe.
+                        </p>
+                        <div class="bg-amber-50 border-2 border-amber-200 p-4 rounded-2xl mb-4">
+                            <p class="font-bold text-amber-900 text-lg flex items-center gap-2">
+                                <span>💡</span> L'astuce :
+                            </p>
+                            <p class="text-amber-800 font-bold text-xl mt-1">
+                                On peut le remplacer par <span class="bg-white px-2 py-0.5 rounded-lg border border-amber-300 text-amber-700">il</span> ou <span class="bg-white px-2 py-0.5 rounded-lg border border-amber-300 text-amber-700">elle</span>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 space-y-2 text-lg">
+                        <p>👉 <strong class="text-amber-600 text-xl">On</strong> joue dans la cour.</p>
+                        <p class="text-green-700 font-bold">✔️ <span class="underline">Il</span> joue dans la cour.</p>
+                    </div>
+                </div>
+
+                <!-- Carte ONT -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-t-8 border-blue-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl font-extrabold text-blue-600 bg-blue-50 px-5 py-2 rounded-2xl border-2 border-blue-200">ont</span>
+                            <span class="text-sm font-bold uppercase tracking-wider bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Verbe avoir</span>
+                        </div>
+                        <p class="text-lg text-gray-700 mb-4 font-medium">
+                            <strong>ont</strong> est le verbe <strong>avoir</strong> conjugué au présent avec <em>ils</em> ou <em>elles</em>.
+                        </p>
+                        <div class="bg-blue-50 border-2 border-blue-200 p-4 rounded-2xl mb-4">
+                            <p class="font-bold text-blue-900 text-lg flex items-center gap-2">
+                                <span>💡</span> L'astuce :
+                            </p>
+                            <p class="text-blue-800 font-bold text-xl mt-1">
+                                On peut le remplacer par <span class="bg-white px-2 py-0.5 rounded-lg border border-blue-300 text-blue-700">avaient</span>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 space-y-2 text-lg">
+                        <p>👉 Les chats <strong class="text-blue-600 text-xl">ont</strong> faim.</p>
+                        <p class="text-green-700 font-bold">✔️ Les chats <span class="underline">avaient</span> faim.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mémo de la chouette -->
+            <div class="bg-white p-6 rounded-3xl shadow-md border-l-8 border-green-500 flex flex-col sm:flex-row items-center gap-6">
+                <div class="text-6xl">🦉</div>
+                <div class="space-y-2 text-center sm:text-left">
+                    <h3 class="text-xl font-extrabold text-green-800">Le réflexe du champion avant d'écrire :</h3>
+                    <p class="text-lg text-gray-700">
+                        1. Essaie de dire <strong class="text-amber-600">« il »</strong> dans ta tête ➔ Si la phrase a du sens, écris <strong class="text-amber-600">on</strong>.<br>
+                        2. Essaie de dire <strong class="text-blue-600">« avaient »</strong> dans ta tête ➔ Si la phrase a du sens, écris <strong class="text-blue-600">ont</strong>.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==================== SECTION ENTRAÎNEMENT ==================== -->
+        <div id="entrainement" class="hidden fade-in">
+            
+            <!-- Menu des niveaux -->
+            <div id="levels-menu" class="space-y-6 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-center text-amber-900 mb-6">Choisis ta mission :</h2>
+                
+                <!-- Niveau 1 -->
+                <button onclick="startLevel(1)" class="w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-green-400 hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🔎</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 1 : L'astuce magique</h3>
+                            <p class="text-gray-500">Choisis entre « on » et « ont » avec un bouton d'indice si tu hésites.</p>
+                        </div>
+                    </div>
+                    <div class="text-green-600 font-bold">Jouer ▶</div>
+                </button>
+
+                <!-- Niveau 2 -->
+                <button id="btn-level-2" onclick="startLevel(2)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-amber-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">✍️</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 2 : Sans filet !</h3>
+                            <p class="text-gray-500">Complète des phrases plus longues sans aucun indice.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+
+                <!-- Niveau 3 -->
+                <button id="btn-level-3" onclick="startLevel(3)" class="locked w-full flex items-center justify-between p-6 bg-white rounded-3xl shadow-md border-b-4 border-red-500 hover:-translate-y-1 transition-transform relative">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🏆</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-gray-800">Niveau 3 : Le double défi</h3>
+                            <p class="text-gray-500">Deux trous dans la même phrase ! À toi de ne pas tomber dans le piège.</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 font-bold text-2xl">🔒</div>
+                </button>
+            </div>
+
+            <!-- Zone de jeu -->
+            <div id="game-area" class="hidden bg-white p-6 sm:p-10 rounded-3xl shadow-lg border-2 border-amber-100 max-w-3xl mx-auto relative overflow-hidden">
+                
+                <div class="flex justify-between items-center mb-6 border-b pb-4">
+                    <button onclick="backToLevels()" class="text-amber-700 hover:text-amber-900 font-bold flex items-center gap-2">
+                        <span>⬅️</span> Retour
+                    </button>
+                    <span id="game-title" class="text-lg sm:text-xl font-bold text-gray-700">Niveau</span>
+                    <span id="score-display" class="bg-amber-100 text-amber-800 px-4 py-1 rounded-full font-bold">Score: 0/5</span>
+                </div>
+
+                <!-- Rappel discret de la règle (affiché dans le jeu) -->
+                <div class="flex justify-center mb-6">
+                    <div class="inline-flex flex-wrap justify-center gap-3 bg-amber-50/80 border border-amber-200 px-4 py-2 rounded-2xl text-sm font-bold text-gray-700">
+                        <span>💡 <span class="text-amber-600">on</span> = il / elle</span>
+                        <span class="text-amber-300">|</span>
+                        <span><span class="text-blue-600">ont</span> = avaient</span>
+                    </div>
+                </div>
+
+                <div id="question-container" class="text-center space-y-6">
+                    <!-- Injecté par JS -->
+                </div>
+
+                <!-- Zone d'indice pour le niveau 1 -->
+                <div id="hint-zone" class="hidden mt-6 p-4 bg-yellow-50 border-2 border-yellow-300 rounded-2xl text-center text-yellow-900 font-bold">
+                </div>
+
+                <!-- Zone de feedback -->
+                <div id="feedback-zone" class="hidden mt-8 p-5 rounded-2xl text-center font-bold text-lg">
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-8 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full font-bold shadow-lg transition-transform transform hover:scale-105">
+                        Continuer ➡️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Écran de fin de niveau -->
+            <div id="end-screen" class="hidden bg-white p-10 rounded-3xl shadow-lg border-2 border-amber-100 max-w-2xl mx-auto text-center space-y-6">
+                <div id="end-icon" class="text-6xl mb-4">⭐</div>
+                <h2 id="end-title" class="text-3xl font-extrabold text-gray-800">Terminé !</h2>
+                <p id="end-score" class="text-xl text-gray-600"></p>
+                <div id="end-message" class="text-lg font-bold text-amber-800 bg-amber-50 p-4 rounded-xl"></div>
+                
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <button onclick="backToLevels()" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full font-bold transition-colors">
+                        Menu des niveaux
+                    </button>
+                    <button id="btn-next-level" onclick="startLevel(currentLevelPlaying + 1)" class="hidden px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-bold shadow-md transition-transform transform hover:scale-105">
+                        Niveau Suivant 🔓
+                    </button>
+                    <button id="btn-retry" onclick="startLevel(currentLevelPlaying)" class="hidden px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-bold shadow-md">
+                        Réessayer 🔄
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- BANQUE DE QUESTIONS ---
+        const level1Data = [
+            { sentence: "___ joue dans la cour de récréation.", a: "on", hint: "Essaie : « Il joue dans la cour » ou « Avaient joue dans la cour » ?", explain: "On peut dire « Il joue dans la cour »." },
+            { sentence: "Les chiens ___ très faim ce soir.", a: "ont", hint: "Essaie : « Les chiens il très faim » ou « Les chiens avaient très faim » ?", explain: "On peut dire « Les chiens avaient très faim »." },
+            { sentence: "Mes parents ___ une belle voiture bleue.", a: "ont", hint: "Essaie : « Mes parents il une voiture » ou « Mes parents avaient une voiture » ?", explain: "On peut dire « Mes parents avaient une belle voiture »." },
+            { sentence: "Demain, ___ ira à la piscine.", a: "on", hint: "Essaie : « Demain, il ira » ou « Demain, avaient ira » ?", explain: "On peut dire « Demain, il ira à la piscine »." },
+            { sentence: "Les élèves ___ fini leurs devoirs.", a: "ont", hint: "Essaie : « Les élèves il fini » ou « Les élèves avaient fini » ?", explain: "On peut dire « Les élèves avaient fini »." },
+            { sentence: "___ écoute une belle histoire.", a: "on", hint: "Essaie : « Il écoute une histoire » ou « Avaient écoute une histoire » ?", explain: "On peut dire « Il écoute une belle histoire »." },
+            { sentence: "Elles ___ gagné le match de football !", a: "ont", hint: "Essaie : « Elles il gagné » ou « Elles avaient gagné » ?", explain: "On peut dire « Elles avaient gagné »." },
+            { sentence: "En hiver, ___ met un gros manteau.", a: "on", hint: "Essaie : « En hiver, il met » ou « En hiver, avaient met » ?", explain: "On peut dire « En hiver, il met un gros manteau »." },
+            { sentence: "Les oiseaux ___ construit un nid.", a: "ont", hint: "Essaie : « Les oiseaux il construit » ou « Les oiseaux avaient construit » ?", explain: "On peut dire « Les oiseaux avaient construit un nid »." },
+            { sentence: "___ prépare un gâteau au chocolat.", a: "on", hint: "Essaie : « Il prépare un gâteau » ou « Avaient prépare un gâteau » ?", explain: "On peut dire « Il prépare un gâteau »." },
+            { sentence: "Ils ___ beaucoup de billes dans leur sac.", a: "ont", hint: "Essaie : « Ils il beaucoup de billes » ou « Ils avaient beaucoup de billes » ?", explain: "On peut dire « Ils avaient beaucoup de billes »." },
+            { sentence: "À la cantine, ___ mange des frites.", a: "on", hint: "Essaie : « À la cantine, il mange » ou « À la cantine, avaient mange » ?", explain: "On peut dire « À la cantine, il mange des frites »." }
+        ];
+
+        const level2Data = [
+            { sentence: "Dans cette forêt, ___ voit parfois des biches.", a: "on", explain: "On peut remplacer par « il » : Dans cette forêt, il voit parfois des biches." },
+            { sentence: "Mes grands-parents ___ un grand jardin fleuri.", a: "ont", explain: "On peut remplacer par « avaient » : Mes grands-parents avaient un grand jardin." },
+            { sentence: "Pendant les vacances, ___ dort plus longtemps.", a: "on", explain: "On peut remplacer par « il » : Pendant les vacances, il dort plus longtemps." },
+            { sentence: "Les pompiers ___ éteint l'incendie très vite.", a: "ont", explain: "On peut remplacer par « avaient » : Les pompiers avaient éteint l'incendie." },
+            { sentence: "Est-ce qu'___ peut regarder un film ce soir ?", a: "on", explain: "On peut remplacer par « il » : Est-ce qu'il peut regarder un film ?" },
+            { sentence: "Les arbres ___ perdu toutes leurs feuilles.", a: "ont", explain: "On peut remplacer par « avaient » : Les arbres avaient perdu leurs feuilles." },
+            { sentence: "Sur la plage, ___ construit un château de sable.", a: "on", explain: "On peut remplacer par « il » : Sur la plage, il construit un château." },
+            { sentence: "Lucas et Emma ___ visité le château fort.", a: "ont", explain: "On peut remplacer par « avaient » : Lucas et Emma avaient visité le château." },
+            { sentence: "Quand il pleut, ___ prend son parapluie.", a: "on", explain: "On peut remplacer par « il » : Quand il pleut, il prend son parapluie." },
+            { sentence: "Ces livres ___ des images magnifiques.", a: "ont", explain: "On peut remplacer par « avaient » : Ces livres avaient des images magnifiques." },
+            { sentence: "À quelle heure ___ part en excursion ?", a: "on", explain: "On peut remplacer par « il » : À quelle heure il part en excursion ?" },
+            { sentence: "Les musiciens ___ joué une jolie mélodie.", a: "ont", explain: "On peut remplacer par « avaient » : Les musiciens avaient joué une mélodie." }
+        ];
+
+        const level3Data = [
+            { sentence: "___ raconte que les dragons ___ des ailes immenses.", a: "on / ont", explain: "« Il » raconte (on) que les dragons « avaient » (ont) des ailes." },
+            { sentence: "Les enfants ___ froid, alors ___ allume le chauffage.", a: "ont / on", explain: "Les enfants « avaient » froid (ont), alors « il » allume (on)." },
+            { sentence: "___ a vu que les chats ___ bu tout le lait.", a: "on / ont", explain: "« Il » a vu (on) que les chats « avaient » bu (ont) tout le lait." },
+            { sentence: "Mes amis ___ un nouveau jeu et ___ va l'essayer.", a: "ont / on", explain: "Mes amis « avaient » un jeu (ont) et « il » va l'essayer (on)." },
+            { sentence: "Quand ___ est sage, ___ a droit à une histoire.", a: "on / on", explain: "Quand « il » est sage (on), « il » a droit (on) à une histoire." },
+            { sentence: "Les poules ___ pondu des œufs et elles ___ faim.", a: "ont / ont", explain: "Les poules « avaient » pondu (ont) et elles « avaient » faim (ont)." },
+            { sentence: "___ pense que les pirates ___ caché un trésor.", a: "on / ont", explain: "« Il » pense (on) que les pirates « avaient » caché (ont) un trésor." },
+            { sentence: "Les joueurs ___ bien couru, mais ___ a quand même gagné !", a: "ont / on", explain: "Les joueurs « avaient » couru (ont), mais « il » a gagné (on)." },
+            { sentence: "Si ___ regarde bien, ___ voit les étoiles briller.", a: "on / on", explain: "Si « il » regarde bien (on), « il » voit les étoiles (on)." },
+            { sentence: "Les chiens ___ aboyé car ils ___ vu un écureuil.", a: "ont / ont", explain: "Les chiens « avaient » aboyé (ont) car ils « avaient » vu (ont) un écureuil." }
+        ];
+
+        // --- ÉTAT DU JEU ---
+        let unlockedLevels = 1;
+        let currentLevelPlaying = 0;
+        let score = 0;
+        const maxQuestions = 5;
+        let currentQuestionIndex = 0;
+        let sessionData = [];
+
+        // --- NAVIGATION ---
+        function showTab(tabId) {
+            document.getElementById('lecon').classList.add('hidden');
+            document.getElementById('entrainement').classList.add('hidden');
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.getElementById('btn-lecon').className = tabId === 'lecon'
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-amber-600 text-white transform hover:-translate-y-1"
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-amber-700 border-2 border-amber-200 hover:bg-amber-50 transform hover:-translate-y-1";
+
+            document.getElementById('btn-entrainement').className = tabId === 'entrainement'
+                ? "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-amber-600 text-white transform hover:-translate-y-1"
+                : "px-8 py-3 rounded-full font-bold transition-all shadow-md bg-white text-amber-700 border-2 border-amber-200 hover:bg-amber-50 transform hover:-translate-y-1";
+
+            if (tabId === 'entrainement') backToLevels();
+        }
+
+        function backToLevels() {
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('levels-menu').classList.remove('hidden');
+            updateLocks();
+        }
+
+        function updateLocks() {
+            const btn2 = document.getElementById('btn-level-2');
+            const btn3 = document.getElementById('btn-level-3');
+
+            if (unlockedLevels >= 2) {
+                btn2.classList.remove('locked');
+                btn2.querySelector('.text-2xl').innerText = '🔓';
+            }
+            if (unlockedLevels >= 3) {
+                btn3.classList.remove('locked');
+                btn3.querySelector('.text-2xl').innerText = '🔓';
+            }
+        }
+
+        // --- MOTEUR DE JEU ---
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startLevel(level) {
+            if (level > unlockedLevels) return;
+
+            currentLevelPlaying = level;
+            score = 0;
+            currentQuestionIndex = 0;
+
+            let dataPool = [];
+            if (level === 1) dataPool = [...level1Data];
+            if (level === 2) dataPool = [...level2Data];
+            if (level === 3) dataPool = [...level3Data];
+
+            shuffleArray(dataPool);
+            sessionData = dataPool.slice(0, maxQuestions);
+
+            document.getElementById('levels-menu').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('game-area').classList.remove('hidden');
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('hint-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const titles = ["", "Niveau 1 : L'astuce magique", "Niveau 2 : Sans filet !", "Niveau 3 : Le double défi"];
+            document.getElementById('game-title').innerText = titles[level];
+            updateScoreDisplay();
+
+            renderQuestion();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-display').innerText = `Score: ${score}/${maxQuestions}`;
+        }
+
+        function formatSentenceWithBlanks(sentence) {
+            let count = 0;
+            return sentence.replace(/___/g, () => {
+                count++;
+                const label = currentLevelPlaying === 3 ? `... (${count})` : `...`;
+                return `<span class="inline-block bg-amber-100 text-amber-800 border-b-4 border-amber-400 px-3 py-0.5 rounded-lg mx-1 font-extrabold">${label}</span>`;
+            });
+        }
+
+        function fillSentence(sentence, answer) {
+            if (currentLevelPlaying === 3) {
+                const parts = answer.split(' / ');
+                let idx = 0;
+                return sentence.replace(/___/g, (match, offset) => {
+                    let word = parts[idx++];
+                    if (offset === 0) word = word.charAt(0).toUpperCase() + word.slice(1);
+                    const colorClass = word.toLowerCase() === 'on' ? 'text-amber-700' : 'text-blue-700';
+                    return `<strong class="${colorClass} underline">${word}</strong>`;
+                });
+            } else {
+                return sentence.replace('___', (match, offset) => {
+                    let word = answer;
+                    if (offset === 0) word = word.charAt(0).toUpperCase() + word.slice(1);
+                    const colorClass = answer === 'on' ? 'text-amber-700' : 'text-blue-700';
+                    return `<strong class="${colorClass} underline">${word}</strong>`;
+                });
+            }
+        }
+
+        function renderQuestion() {
+            const data = sessionData[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+            const hintZone = document.getElementById('hint-zone');
+            container.innerHTML = '';
+            hintZone.classList.add('hidden');
+
+            // Numéro de question
+            const qNum = document.createElement('div');
+            qNum.className = "text-sm font-bold text-gray-400 uppercase tracking-wider";
+            qNum.innerText = `Question ${currentQuestionIndex + 1} sur ${maxQuestions}`;
+            container.appendChild(qNum);
+
+            // Phrase à compléter
+            const qCard = document.createElement('div');
+            qCard.className = "text-2xl sm:text-3xl font-bold text-gray-800 bg-gray-50 p-6 rounded-2xl border-2 border-gray-100 leading-relaxed";
+            qCard.innerHTML = formatSentenceWithBlanks(data.sentence);
+            container.appendChild(qCard);
+
+            // Bouton indice uniquement au niveau 1
+            if (currentLevelPlaying === 1 && data.hint) {
+                const hintBtn = document.createElement('button');
+                hintBtn.id = 'btn-show-hint';
+                hintBtn.className = "text-sm font-bold text-amber-700 bg-amber-100 hover:bg-amber-200 px-4 py-2 rounded-full transition-colors";
+                hintBtn.innerHTML = "🦉 Besoin d'un indice ?";
+                hintBtn.onclick = () => {
+                    hintZone.innerHTML = `🦉 ${data.hint}`;
+                    hintZone.classList.remove('hidden');
+                    hintBtn.classList.add('hidden');
+                };
+                container.appendChild(hintBtn);
+            }
+
+            // Boutons de choix
+            const optsContainer = document.createElement('div');
+            let options = [];
+
+            if (currentLevelPlaying === 3) {
+                options = ["on / ont", "ont / on", "on / on", "ont / ont"];
+                optsContainer.className = "grid grid-cols-2 gap-4 max-w-md mx-auto pt-2";
+            } else {
+                options = ["on", "ont"];
+                optsContainer.className = "flex justify-center gap-6 pt-2";
+            }
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.className = "btn-option px-8 py-4 bg-white border-2 border-amber-300 rounded-2xl text-2xl font-extrabold text-gray-800 shadow-sm min-w-[130px] hover:bg-amber-50";
+                btn.onclick = () => handleAnswer(opt, data.a, btn);
+                optsContainer.appendChild(btn);
+            });
+
+            container.appendChild(optsContainer);
+        }
+
+        function handleAnswer(selected, correct, btnNode) {
+            const buttons = document.getElementById('question-container').querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+
+            const hintBtn = document.getElementById('btn-show-hint');
+            if (hintBtn) hintBtn.classList.add('hidden');
+
+            const data = sessionData[currentQuestionIndex];
+            const fz = document.getElementById('feedback-zone');
+            fz.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+            const fullSentence = fillSentence(data.sentence, correct);
+
+            if (selected === correct) {
+                score++;
+                btnNode.classList.replace('border-amber-300', 'border-green-500');
+                btnNode.classList.add('bg-green-100', 'text-green-800', 'ring-4', 'ring-green-200');
+                fz.classList.add('bg-green-100', 'text-green-800');
+                fz.innerHTML = `
+                    <div class="text-xl mb-1">✅ Bravo !</div>
+                    <div class="font-normal text-base text-green-900">${fullSentence}</div>
+                    <div class="font-bold text-sm mt-2 text-green-700">💡 ${data.explain}</div>
+                `;
+            } else {
+                btnNode.classList.replace('border-amber-300', 'border-red-500');
+                btnNode.classList.add('bg-red-100', 'text-red-800');
+                fz.classList.add('bg-red-100', 'text-red-800');
+                fz.innerHTML = `
+                    <div class="text-xl mb-1">❌ Oups ! La bonne réponse était « ${correct} ».</div>
+                    <div class="font-normal text-base text-red-900">${fullSentence}</div>
+                    <div class="font-bold text-sm mt-2 text-red-700">💡 ${data.explain}</div>
+                `;
+
+                buttons.forEach(b => {
+                    if (b.innerText === correct) {
+                        b.classList.replace('border-amber-300', 'border-green-500');
+                        b.classList.add('border-4', 'bg-green-50');
+                    }
+                });
+            }
+
+            updateScoreDisplay();
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            document.getElementById('feedback-zone').classList.add('hidden');
+            document.getElementById('hint-zone').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            if (currentQuestionIndex < maxQuestions) {
+                renderQuestion();
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function showEndScreen() {
+            document.getElementById('game-area').classList.add('hidden');
+            const endScreen = document.getElementById('end-screen');
+            endScreen.classList.remove('hidden');
+
+            const isPerfect = (score === maxQuestions);
+            document.getElementById('end-score').innerHTML = `Tu as un score de <strong>${score} sur ${maxQuestions}</strong>`;
+
+            const btnNext = document.getElementById('btn-next-level');
+            const btnRetry = document.getElementById('btn-retry');
+            btnNext.classList.add('hidden');
+            btnRetry.classList.add('hidden');
+
+            if (isPerfect) {
+                document.getElementById('end-icon').innerText = "🏆";
+                document.getElementById('end-title').innerText = "Félicitations !";
+
+                if (currentLevelPlaying < 3) {
+                    document.getElementById('end-message').innerText = `Génial ! Tu as débloqué le niveau ${currentLevelPlaying + 1} !`;
+                    if (unlockedLevels < currentLevelPlaying + 1) {
+                        unlockedLevels = currentLevelPlaying + 1;
+                    }
+                    btnNext.classList.remove('hidden');
+                } else {
+                    document.getElementById('end-message').innerText = "Incroyable ! Tu maîtrises parfaitement « on » et « ont » ! 🦉🥇";
+                }
+                triggerConfetti();
+            } else {
+                document.getElementById('end-icon').innerText = "💪";
+                document.getElementById('end-title').innerText = "Presque !";
+                document.getElementById('end-message').innerText = "Il faut avoir 5 sur 5 pour débloquer la suite. Essaie encore !";
+                btnRetry.classList.remove('hidden');
+            }
+        }
+
+        function triggerConfetti() {
+            for (let i = 0; i < 40; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
+                conf.style.width = '12px';
+                conf.style.height = '12px';
+                conf.style.backgroundColor = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444', '#a855f7'][Math.floor(Math.random() * 5)];
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                conf.style.zIndex = '9999';
+                conf.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+            if (!document.getElementById('confetti-style')) {
+                const style = document.createElement('style');
+                style.id = 'confetti-style';
+                style.innerHTML = `@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }`;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>
