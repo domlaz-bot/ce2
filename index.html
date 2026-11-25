@@ -9,188 +9,222 @@
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);
-            min-height: 100vh;
+            background-color: #f3f4f6;
         }
-        .app-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .app-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
-        .category-badge { transition: all 0.2s; }
-        .category-badge.active { background-color: #3b82f6; color: white; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); }
+        .app-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .tab-btn.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .tab-btn.active-enseignant {
+            background-color: #1e293b; /* slate-800 */
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
-<body class="text-gray-800 pb-12">
+<body class="pb-12 text-gray-800">
 
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <header class="bg-white/80 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-white/50 flex flex-col sm:flex-row items-center justify-between mb-10">
-            <div class="flex items-center gap-4 mb-4 sm:mb-0">
-                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl shadow-inner">👧🏽</div>
-                <div>
-                    <h1 id="greeting" class="text-3xl font-extrabold text-blue-900">Bonjour !</h1>
-                    <p class="text-blue-600 font-medium">Prête pour tes missions de CE2 aujourd'hui ? 🚀</p>
-                </div>
-            </div>
-            <div class="flex gap-2">
-                <div class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-2xl font-bold flex items-center gap-2 shadow-sm">
-                    ⭐ <span id="star-count">0</span> étoiles
-                </div>
-            </div>
-        </header>
-
-        <div class="flex flex-wrap justify-center gap-3 mb-10">
-            <button onclick="filterApps('toutes')" id="btn-toutes" class="category-badge active px-6 py-2 rounded-full font-bold bg-white text-gray-600 hover:bg-gray-50 shadow-sm border border-gray-100">🌈 Toutes</button>
-            <button onclick="filterApps('francais')" id="btn-francais" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-pink-600 hover:bg-pink-50 shadow-sm border border-pink-100">📚 Français & Poésie</button>
-            <button onclick="filterApps('maths')" id="btn-maths" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-green-600 hover:bg-green-50 shadow-sm border border-green-100">🔢 Maths</button>
-            <button onclick="filterApps('qlm')" id="btn-qlm" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-orange-600 hover:bg-orange-50 shadow-sm border border-orange-100">🌍 Découverte</button>
-            <button onclick="filterApps('enseignant')" id="btn-enseignant" class="category-badge px-6 py-2 rounded-full font-bold bg-white text-slate-600 hover:bg-slate-50 shadow-sm border border-slate-100">👩‍🏫 Espace Enseignant</button>
+    <!-- En-tête -->
+    <header class="bg-indigo-600 text-white py-12 shadow-lg mb-10 rounded-b-[3rem] relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
+            <div class="absolute text-9xl top-[-20px] left-[-20px] transform rotate-12">📚</div>
+            <div class="absolute text-8xl bottom-[-10px] right-[10%] transform -rotate-12">✏️</div>
+            <div class="absolute text-6xl top-[20px] right-[20%] transform rotate-45">✨</div>
         </div>
+        
+        <div class="max-w-6xl mx-auto px-4 text-center relative z-10">
+            <h1 class="text-5xl font-extrabold mb-4 tracking-tight">Mon Espace CE2</h1>
+            <p class="text-xl text-indigo-100 font-medium max-w-2xl mx-auto">Toutes tes applications pour réviser en t'amusant ! Choisis une matière ci-dessous.</p>
+        </div>
+    </header>
 
-        <div id="apps-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Navigation / Filtres -->
+        <nav class="flex flex-wrap justify-center gap-4 mb-12">
+            <button onclick="filterApps('all', this)" class="tab-btn active px-6 py-3 rounded-full font-bold text-gray-600 bg-white border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                🌟 Tout voir
+            </button>
+            <button onclick="filterApps('francais', this)" class="tab-btn px-6 py-3 rounded-full font-bold text-gray-600 bg-white border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                📖 Français
+            </button>
+            <button onclick="filterApps('maths', this)" class="tab-btn px-6 py-3 rounded-full font-bold text-gray-600 bg-white border-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                🔢 Mathématiques
+            </button>
+            <button onclick="filterApps('enseignant', this, true)" class="tab-btn px-6 py-3 rounded-full font-bold text-gray-600 bg-white border-2 border-gray-200 hover:bg-gray-50 transition-colors ml-0 sm:ml-8 border-dashed">
+                👩‍🏫 Espace Enseignant
+            </button>
+        </nav>
 
-            <!-- OUTIL ENSEIGNANT : Générateur de fiches Maths -->
-            <a href="generateur_fiches_maths.html" class="app-card block app-item enseignant relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-slate-400 group overflow-hidden">
-                <div class="absolute top-0 right-0 bg-slate-100 text-slate-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Outil Adulte</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🖨️</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Générateur de Fiches Maths</h2>
-                <p class="text-gray-500 mb-4 font-medium">Imprime de nouvelles fiches d'exercices (C1, C2, C3) avec corrections à l'infini.</p>
-                <div class="flex items-center text-slate-500 font-bold group-hover:text-slate-600">Générer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
-            </a>
-
-            <!-- OUTIL ENSEIGNANT : Générateur de fiches Monnaie (NOUVEAU) -->
-            <a href="generateur_fiches_monnaie.html" class="app-card block app-item enseignant relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-slate-400 group overflow-hidden">
-                <div class="absolute top-0 right-0 bg-slate-100 text-slate-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Outil Adulte</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">💶</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Générateur Fiches Monnaie</h2>
-                <p class="text-gray-500 mb-4 font-medium">Crée des fiches d'exercices sur la monnaie avec tickets de caisse et billets.</p>
-                <div class="flex items-center text-slate-500 font-bold group-hover:text-slate-600">Générer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
-            </a>
-
-            <!-- APPLICATION : Évaluation Maths C1 C2 C3 (NOUVEAU) -->
-            <a href="evaluation_c1_c2_c3.html" class="app-card block app-item maths relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-indigo-400 group overflow-hidden">
-                <div class="absolute top-0 right-0 bg-indigo-100 text-indigo-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold text-red-500 animate-pulse">ÉVALUATION</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">📊</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Calcul et Opérations</h2>
-                <p class="text-gray-500 mb-4 font-medium">Prépare ton test sur les leçons C1, C2 et C3 pour être au top !</p>
-                <div class="flex items-center text-indigo-500 font-bold group-hover:text-indigo-600">Lancer la mission <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
-            </a>
-
-            <!-- APPLICATION 4 : Évaluation G4 G5 -->
-            <a href="evaluation_g4_g5.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-cyan-400 group overflow-hidden">
-                <div class="absolute top-0 right-0 bg-cyan-100 text-cyan-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold text-red-500 animate-pulse">ÉVALUATION</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">💯</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Le Verbe & Les Groupes</h2>
-                <p class="text-gray-500 mb-4 font-medium">Prépare ton test sur les leçons G4 et G5 pour avoir tout bon !</p>
-                <div class="flex items-center text-cyan-500 font-bold group-hover:text-cyan-600">Lancer la mission <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
-            </a>
-
-            <!-- APPLICATION 1 : Grammaire -->
-            <a href="grammaire.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-pink-400 group overflow-hidden">
-                <div class="absolute top-0 right-0 bg-pink-100 text-pink-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Français</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">📝</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Défi Grammaire</h2>
-                <p class="text-gray-500 mb-4 font-medium">Ponctuation, types et formes de phrases. Débloque tous les niveaux !</p>
-                <div class="flex items-center text-pink-500 font-bold group-hover:text-pink-600">Lancer l'entraînement <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
-            </a>
-
-            <!-- APPLICATION 2 : Orthographe - Noms Féminins -->
-            <a href="noms_feminins.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-purple-400 group overflow-hidden">
+        <!-- Grille des applications -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="apps-grid">
+            
+            <!-- ================= FRANCAIS ================= -->
+            
+            <!-- Les Noms Féminins -->
+            <a href="noms_feminins.html" data-category="francais" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-purple-400 group overflow-hidden">
                 <div class="absolute top-0 right-0 bg-purple-100 text-purple-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Français</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">👩‍🎓</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">👸</div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Les Noms Féminins</h2>
                 <p class="text-gray-500 mb-4 font-medium">Apprends à transformer les mots du masculin au féminin. (Orth 3)</p>
-                <div class="flex items-center text-purple-500 font-bold group-hover:text-purple-600">Lancer l'entraînement <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+                <div class="flex items-center text-purple-500 font-bold group-hover:text-purple-600">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
             </a>
 
-            <!-- APPLICATION 3 : Pluriel des Noms -->
-            <a href="pluriel_noms.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-indigo-400 group overflow-hidden">
+            <!-- Le pluriel des noms -->
+            <a href="pluriel_noms.html" data-category="francais" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-indigo-400 group overflow-hidden">
                 <div class="absolute top-0 right-0 bg-indigo-100 text-indigo-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Français</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">✖️</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">👯</div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Le pluriel des noms</h2>
-                <p class="text-gray-500 mb-4 font-medium">Apprends les règles du S, du X et les exceptions avec vidéos. (Orth 5)</p>
-                <div class="flex items-center text-indigo-500 font-bold group-hover:text-indigo-600">Lancer l'entraînement <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+                <p class="text-gray-500 mb-4 font-medium">Apprends toutes les règles pour former le pluriel (s, x, aux). (Orth 5)</p>
+                <div class="flex items-center text-indigo-500 font-bold group-hover:text-indigo-600">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
             </a>
 
-            <!-- APPLICATION 5 : Poésie -->
-            <a href="poesie.html" class="app-card block app-item francais relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-fuchsia-400 group overflow-hidden">
-                <div class="absolute top-0 right-0 bg-fuchsia-100 text-fuchsia-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Poésie</div>
+            <!-- Le son [g] -->
+            <a href="son_g.html" data-category="francais" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-teal-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-teal-100 text-teal-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Français</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🎸</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Le son [g]</h2>
+                <p class="text-gray-500 mb-4 font-medium">Écris sans erreur le son [g] avec g, gu ou c ! (Orth 6)</p>
+                <div class="flex items-center text-teal-500 font-bold group-hover:text-teal-600">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- Le son [j] -->
+            <a href="son_j.html" data-category="francais" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-rose-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-rose-100 text-rose-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Français</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🦒</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Le son [j]</h2>
+                <p class="text-gray-500 mb-4 font-medium">Écris sans erreur le son [j] avec j, g, ge ou gy ! (Orth 7)</p>
+                <div class="flex items-center text-rose-500 font-bold group-hover:text-rose-600">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- Les homophones on / ont -->
+            <a href="homophones_on_ont.html" data-category="francais" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-amber-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-amber-100 text-amber-700 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Français</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🦉</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Homophones on / ont</h2>
+                <p class="text-gray-500 mb-4 font-medium">Utilise l'astuce « il » ou « avaient » pour ne plus les confondre !</p>
+                <div class="flex items-center text-amber-600 font-bold group-hover:text-amber-700">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- Le Verbe & Les Groupes -->
+            <a href="evaluation_g4_g5.html" data-category="francais" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-cyan-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-cyan-100 text-cyan-700 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Français</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🎬</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Verbes & Groupes</h2>
+                <p class="text-gray-500 mb-4 font-medium">Prépare ton évaluation sur la grammaire. (G4, G5)</p>
+                <div class="flex items-center text-cyan-600 font-bold group-hover:text-cyan-700">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- Poésie -->
+            <a href="poesie.html" data-category="francais" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-orange-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-orange-100 text-orange-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Français</div>
                 <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🧙‍♀️</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Les 2 Sorcières</h2>
-                <p class="text-gray-500 mb-4 font-medium">Apprends et mémorise ta poésie d'Halloween grâce à 3 mini-jeux !</p>
-                <div class="flex items-center text-fuchsia-500 font-bold group-hover:text-fuchsia-600">Apprendre <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Les deux sorcières</h2>
+                <p class="text-gray-500 mb-4 font-medium">Entraîne-toi à retenir et réciter ta poésie.</p>
+                <div class="flex items-center text-orange-500 font-bold group-hover:text-orange-600">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
             </a>
 
-            <!-- APPLICATION 6 : Maths (Doubles et Moitiés) -->
-            <a href="doubles_moities.html" class="app-card block app-item maths relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-emerald-400 group overflow-hidden">
+            <!-- ================= MATHEMATIQUES ================= -->
+
+            <!-- Doubles et moitiés -->
+            <a href="doubles_moities.html" data-category="maths" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-emerald-400 group overflow-hidden">
                 <div class="absolute top-0 right-0 bg-emerald-100 text-emerald-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Maths</div>
                 <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">⚖️</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Doubles et Moitiés</h2>
-                <p class="text-gray-500 mb-4 font-medium">Calcule les doubles et les moitiés jusqu'à 100 avec l'astuce de la souris !</p>
-                <div class="flex items-center text-emerald-500 font-bold group-hover:text-emerald-600">Lancer l'entraînement <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Doubles et moitiés</h2>
+                <p class="text-gray-500 mb-4 font-medium">Calcule rapidement jusqu'à 100 ! (C4)</p>
+                <div class="flex items-center text-emerald-500 font-bold group-hover:text-emerald-600">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
             </a>
 
-            <!-- APPLICATION 7 : Maths (Appui sur les doubles) -->
-            <a href="calcul_appui_doubles.html" class="app-card block app-item maths relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-teal-400 group overflow-hidden">
-                <div class="absolute top-0 right-0 bg-teal-100 text-teal-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Maths</div>
-                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🐭</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Calcul rusé</h2>
-                <p class="text-gray-500 mb-4 font-medium">Prends appui sur les doubles que tu connais pour calculer plus vite (Leçon C5).</p>
-                <div class="flex items-center text-teal-500 font-bold group-hover:text-teal-600">Lancer l'entraînement <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            <!-- Appui sur les doubles -->
+            <a href="calcul_appui_doubles.html" data-category="maths" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-green-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-green-100 text-green-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Maths</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🧠</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Appui sur les doubles</h2>
+                <p class="text-gray-500 mb-4 font-medium">Utilise les doubles connus pour calculer plus vite. (C5)</p>
+                <div class="flex items-center text-green-500 font-bold group-hover:text-green-600">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- Évaluation C1 C2 C3 -->
+            <a href="evaluation_c1_c2_c3.html" data-category="maths" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-blue-500 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-blue-100 text-blue-700 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Maths</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">➕</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Évaluation C1-C2-C3</h2>
+                <p class="text-gray-500 mb-4 font-medium">Additions, soustractions posées et calcul réfléchi.</p>
+                <div class="flex items-center text-blue-600 font-bold group-hover:text-blue-700">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- Quadrillage -->
+            <a href="quadrillage.html" data-category="maths" class="app-card block relative bg-white rounded-3xl p-6 shadow-md border-b-4 border-yellow-400 group overflow-hidden">
+                <div class="absolute top-0 right-0 bg-yellow-100 text-yellow-600 px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Maths</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🐨</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Tous en Scène !</h2>
+                <p class="text-gray-500 mb-4 font-medium">Se repérer et se déplacer sur le quadrillage (G1).</p>
+                <div class="flex items-center text-yellow-500 font-bold group-hover:text-yellow-600">Jouer <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- ================= ENSEIGNANT ================= -->
+
+            <!-- Générateur Maths -->
+            <a href="generateur_fiches_maths.html" data-category="enseignant" class="app-card block relative bg-slate-800 rounded-3xl p-6 shadow-md border-b-4 border-slate-900 group overflow-hidden hidden">
+                <div class="absolute top-0 right-0 bg-slate-600 text-white px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Outils</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">🖨️</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Fiches Opérations</h2>
+                <p class="text-slate-300 mb-4 font-medium">Générateur de fiches A4 aléatoires (C1, C2, C3).</p>
+                <div class="flex items-center text-slate-300 font-bold group-hover:text-white">Ouvrir <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
+            </a>
+
+            <!-- Générateur Monnaie -->
+            <a href="generateur_fiches_monnaie.html" data-category="enseignant" class="app-card block relative bg-slate-800 rounded-3xl p-6 shadow-md border-b-4 border-slate-900 group overflow-hidden hidden">
+                <div class="absolute top-0 right-0 bg-slate-600 text-white px-3 py-1 rounded-bl-xl rounded-tr-3xl text-sm font-bold">Outils</div>
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform origin-bottom-left">💶</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Fiches Monnaie</h2>
+                <p class="text-slate-300 mb-4 font-medium">Générateur de problèmes avec euros et centimes.</p>
+                <div class="flex items-center text-slate-300 font-bold group-hover:text-white">Ouvrir <span class="ml-2 group-hover:translate-x-2 transition-transform">➡️</span></div>
             </a>
 
         </div>
     </div>
 
     <script>
-        function setGreeting() {
-            const hour = new Date().getHours();
-            const greetingElement = document.getElementById('greeting');
-            if (hour >= 5 && hour < 12) greetingElement.innerText = "Bonjour ! ☀️";
-            else if (hour >= 12 && hour < 18) greetingElement.innerText = "Bon après-midi ! 🌤️";
-            else greetingElement.innerText = "Bonsoir ! 🌙";
-        }
-
-        function filterApps(category) {
-            const buttons = document.querySelectorAll('.category-badge');
-            buttons.forEach(btn => {
-                btn.classList.remove('active', 'bg-blue-500', 'text-white');
-                btn.classList.add('bg-white'); 
-                if(btn.id === 'btn-toutes') btn.classList.add('text-gray-600');
-                if(btn.id === 'btn-francais') btn.classList.add('text-pink-600');
-                if(btn.id === 'btn-maths') btn.classList.add('text-green-600');
-                if(btn.id === 'btn-qlm') btn.classList.add('text-orange-600');
-                if(btn.id === 'btn-enseignant') btn.classList.add('text-slate-600');
+        function filterApps(category, btnElement, isTeacher = false) {
+            // Mise à jour de l'apparence des boutons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'active-enseignant');
             });
+            
+            if (isTeacher) {
+                btnElement.classList.add('active-enseignant');
+            } else {
+                btnElement.classList.add('active');
+            }
 
-            const activeBtn = document.getElementById('btn-' + category);
-            activeBtn.classList.remove('bg-white', 'text-gray-600', 'text-pink-600', 'text-green-600', 'text-orange-600', 'text-slate-600');
-            if(category === 'toutes') activeBtn.style.backgroundColor = '#3b82f6';
-            if(category === 'francais') activeBtn.style.backgroundColor = '#ec4899';
-            if(category === 'maths') activeBtn.style.backgroundColor = '#22c55e';
-            if(category === 'qlm') activeBtn.style.backgroundColor = '#f97316';
-            if(category === 'enseignant') activeBtn.style.backgroundColor = '#475569';
-            activeBtn.style.color = 'white';
-            activeBtn.classList.add('active'); 
-
-            const items = document.querySelectorAll('.app-item');
-            items.forEach(item => {
-                if (category === 'toutes' || item.classList.contains(category)) {
-                    item.style.display = 'block';
-                    item.style.animation = 'fadeIn 0.4s ease-out forwards';
+            // Filtrage des cartes
+            const cards = document.querySelectorAll('.app-card');
+            cards.forEach(card => {
+                if (category === 'all') {
+                    // Si on montre tout, on cache l'espace enseignant par défaut
+                    if (card.dataset.category === 'enseignant') {
+                        card.classList.add('hidden');
+                    } else {
+                        card.classList.remove('hidden');
+                    }
                 } else {
-                    item.style.display = 'none';
+                    if (card.dataset.category === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
                 }
             });
         }
-
-        window.onload = () => {
-            setGreeting();
-            const btnToutes = document.getElementById('btn-toutes');
-            btnToutes.style.backgroundColor = '#3b82f6';
-            btnToutes.style.color = 'white';
-        };
-
-        const style = document.createElement('style');
-        style.innerHTML = `@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }`;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
